@@ -1,0 +1,1484 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Sign In / Sign Up — Thermal Motion Group</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap");
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+
+      :root {
+        --red: #c02b2d;
+        --red-h: #991b1b;
+        --navy: #222f4b;
+        --pitch: #0f172a;
+        --surface: #f8fafc;
+        --lines: #e2e8f0;
+        --muted: #64748b;
+        --deep: #334155;
+        --HF: "Sofia Sans", sans-serif;
+        --BF: "Raleway", sans-serif;
+      }
+
+      body {
+        background: var(--surface);
+        font-family: var(--BF);
+        color: var(--navy);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .wf {
+        width: 100%;
+        background: #fff;
+        border-left: 1px solid var(--lines);
+        border-right: 1px solid var(--lines);
+        margin: 0 auto;
+      }
+
+      /* ============================
+         EXPO & UTILITY
+      ============================ */
+      .expo-bar {
+        background: var(--red);
+        padding: 10px 20px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 14px;
+        text-align: left;
+      }
+      .expo-bar-t {
+        font-family: var(--HF);
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #fff;
+        line-height: 1.4;
+      }
+      .expo-pill {
+        border: 1px solid rgba(255,255,255,0.4);
+        color: #fff;
+        font-family: var(--HF);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 3px 10px;
+        display: inline-block;
+        white-space: nowrap;
+      }
+      .util {
+        background: var(--surface);
+        border-bottom: 1px solid var(--lines);
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .util-ct { display: flex; gap: 24px; }
+      .ut {
+        font-family: var(--HF);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+      }
+      .util-right { display: flex; align-items: center; gap: 20px; }
+      .si-row { display: flex; gap: 10px; align-items: center; }
+      .si {
+        font-size: 16px;
+        color: var(--muted);
+        transition: color 0.2s;
+        text-decoration: none;
+        display: inline-flex;
+      }
+      .si:hover { color: var(--red); }
+      .ubadge {
+        font-family: var(--HF);
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: var(--red);
+        color: #fff;
+        padding: 4px 12px;
+        display: none;
+      }
+      @media (min-width: 768px) {
+        .expo-bar { flex-direction: row; justify-content: center; text-align: center; }
+        .ubadge { display: block; }
+      }
+      @media (max-width: 767px) {
+        .util-right .si-row { display: none; }
+      }
+
+      /* ============================
+         NAV
+      ============================ */
+      .nav {
+        background: #fff;
+        border-bottom: 1px solid var(--lines);
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+      .logo img { height: 44px; width: auto; display: block; transition: height 0.2s ease; }
+      @media (min-width: 768px) { .logo img { height: 56px; } }
+
+      .navlinks { display: none; gap: 32px; }
+      .nl {
+        font-family: var(--HF);
+        font-size: 14px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--navy);
+        cursor: pointer;
+        transition: color 0.2s;
+        text-decoration: none;
+      }
+      .nl:hover { color: var(--red); }
+      @media (min-width: 768px) { .navlinks { display: flex; } }
+
+      .hamburger {
+        width: 24px; height: 20px;
+        position: relative; cursor: pointer; z-index: 110; display: block;
+      }
+      .hamburger span {
+        display: block; position: absolute; height: 2px; width: 100%;
+        background: var(--navy); transition: all 0.3s ease; left: 0;
+      }
+      .hamburger span:nth-child(1) { top: 0px; }
+      .hamburger span:nth-child(2) { top: 9px; }
+      .hamburger span:nth-child(3) { top: 18px; }
+      .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+      .hamburger.active span:nth-child(2) { opacity: 0; }
+      .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+      @media (min-width: 768px) { .hamburger { display: none; } }
+
+      .mobile-menu {
+        position: absolute; top: calc(100% + 1px); left: 0; width: 100%;
+        background: var(--surface); z-index: 90;
+        display: flex; flex-direction: column; padding: 12px 20px;
+        border-bottom: 1px solid var(--lines);
+        transform: translateY(-20px); opacity: 0; pointer-events: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      }
+      .mobile-menu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+      .mlink {
+        font-family: var(--HF); font-size: 16px; letter-spacing: 0.1em;
+        text-transform: uppercase; color: var(--pitch);
+        padding: 20px 0; border-bottom: 1px solid var(--lines);
+        display: block; text-align: center; transition: color 0.2s;
+        cursor: pointer; text-decoration: none;
+      }
+      .mlink:hover { color: var(--red); }
+      .mlink:last-child { border-bottom: none; }
+      @media (min-width: 768px) { .mobile-menu { display: none; } }
+
+      .nav-dropdown { position: relative; display: flex; align-items: center; }
+      .dropdown-menu {
+        position: absolute; top: 100%; left: 50%;
+        transform: translateX(-50%);
+        background: #fff; border: 1px solid var(--lines);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        padding: 0; display: none; flex-direction: column;
+        min-width: 240px; margin-top: 8px;
+        opacity: 0; transition: opacity 0.2s, transform 0.2s;
+        pointer-events: none; z-index: 1001;
+      }
+      .dropdown-menu::before {
+        content: ''; position: absolute; top: -8px; left: 0; right: 0;
+        height: 8px; background: transparent;
+      }
+      .nav-dropdown:hover .dropdown-menu {
+        display: flex; opacity: 1;
+        transform: translateX(-50%) translateY(0);
+        pointer-events: auto; margin-top: 8px;
+      }
+      .dm-link {
+        padding: 12px 20px; display: block; text-decoration: none;
+        color: var(--navy); font-family: var(--BF); font-size: 14px;
+        transition: background 0.2s;
+      }
+      .dm-link:hover { background: var(--surface); }
+      .dm-sub {
+        display: block; font-family: var(--HF); font-size: 10px;
+        text-transform: uppercase; letter-spacing: 0.15em;
+        color: var(--muted); margin-top: 4px;
+      }
+      .dm-div { height: 1px; background: var(--lines); margin: 4px 0; }
+      .dm-all {
+        padding: 12px 20px; font-family: var(--HF); font-size: 12px;
+        text-transform: uppercase; letter-spacing: 0.1em;
+        color: var(--red); text-decoration: none; display: block;
+      }
+      .nav-actions { display: flex; gap: 20px; align-items: center; }
+      .nav-icon {
+        font-size: 20px; color: var(--navy); cursor: pointer; position: relative;
+      }
+      .nav-icon:hover { color: var(--red); }
+      .nav-icon.active { color: var(--red); }
+      .cart-badge {
+        position: absolute; top: -6px; right: -8px;
+        background: var(--red); color: #fff;
+        font-family: var(--HF); font-size: 9px;
+        width: 16px; height: 16px;
+        display: flex; align-items: center; justify-content: center;
+      }
+
+      /* ============================
+         FOOTER
+      ============================ */
+      .footer {
+        background: var(--pitch);
+        padding: 48px 20px 24px;
+        position: relative;
+      }
+      @media (min-width: 768px) { .footer { padding: 80px 40px 32px; } }
+      .footer-expo {
+        background: var(--red);
+        margin: -48px -20px 40px;
+        padding: 14px 20px;
+        text-align: center;
+        font-family: var(--HF);
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #fff;
+        line-height: 1.4;
+      }
+      @media (min-width: 768px) {
+        .footer-expo { margin: -80px -40px 60px; padding: 16px 40px; font-size: 12px; }
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding-bottom: 48px;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+      }
+      @media (min-width: 768px) {
+        .footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr; gap: 40px; }
+      }
+      .flogo { margin-bottom: 24px; display: flex; align-items: center; }
+      .flogo img { height: 40px; width: auto; opacity: 0.9; }
+      @media (min-width: 768px) { .flogo img { height: 50px; } }
+      .ftagline {
+        font-family: var(--HF); font-size: 12px; letter-spacing: 0.08em;
+        text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 12px;
+      }
+      .fdesc {
+        font-family: var(--BF); font-size: 14px; line-height: 1.6;
+        color: rgba(255,255,255,0.3); max-width: 320px;
+      }
+      .fcl {
+        font-family: var(--HF); font-size: 11px; letter-spacing: 0.2em;
+        text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 24px;
+      }
+      .flink {
+        font-family: var(--HF); font-size: 14px; letter-spacing: 0.05em;
+        text-transform: uppercase; color: rgba(255,255,255,0.5);
+        margin-bottom: 16px; display: block; text-decoration: none; transition: color 0.2s;
+      }
+      .flink:hover { color: #fff; }
+      .flink-d {
+        font-family: var(--HF); font-size: 12px; letter-spacing: 0.05em;
+        text-transform: uppercase; color: rgba(255,255,255,0.2);
+        margin-bottom: 12px; display: block; text-decoration: none; transition: color 0.2s;
+      }
+      .flink-d:hover { color: rgba(255,255,255,0.5); }
+      .fc { font-family: var(--BF); font-size: 14px; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
+      .ficons { display: flex; gap: 16px; margin-top: 24px; }
+      .fi {
+        font-size: 20px; color: rgba(255,255,255,0.4);
+        transition: color 0.2s; text-decoration: none; display: inline-flex;
+      }
+      .fi:hover { color: #fff; }
+      .footer-base {
+        padding: 32px 0 0; display: flex; flex-direction: column;
+        gap: 16px; align-items: flex-start;
+      }
+      @media (min-width: 768px) {
+        .footer-base { flex-direction: row; justify-content: space-between; align-items: center; }
+      }
+      .flegal { font-family: var(--BF); font-size: 13px; color: rgba(255,255,255,0.2); }
+
+      /* ============================
+         KEYFRAMES
+      ============================ */
+      .fade { animation: fd 0.4s cubic-bezier(0.16,1,0.3,1); }
+      @keyframes fd {
+        from { opacity: 0; transform: translateY(8px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ============================
+         AUTH SECTION
+      ============================ */
+      .auth-section {
+        min-height: calc(100vh - 200px);
+        background: var(--surface);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 32px;
+      }
+      .auth-container {
+        width: 100%;
+        max-width: 480px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      /* Tab Switcher */
+      .auth-tabs {
+        display: flex;
+        width: 100%;
+      }
+      .auth-tab {
+        width: 50%;
+        height: 44px;
+        background: #ffffff;
+        border: 1px solid var(--lines);
+        border-bottom: none;
+        font-family: var(--HF);
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        cursor: pointer;
+        border-radius: 0;
+        outline: none;
+        transition: background 0.15s, color 0.15s;
+      }
+      .auth-tab:hover:not(.auth-tab--active) {
+        background: var(--surface);
+        color: var(--navy);
+      }
+      .auth-tab--active {
+        background: var(--red);
+        color: #ffffff;
+        border-color: var(--red);
+      }
+
+      /* Card */
+      .auth-card {
+        background: #ffffff;
+        border: 1px solid var(--lines);
+        border-top: 3px solid var(--red);
+        padding: 36px 32px 32px;
+        border-radius: 0;
+      }
+      @media (max-width: 480px) {
+        .auth-card { padding: 28px 20px 24px; }
+        .auth-section { padding: 40px 16px; }
+      }
+
+      .auth-eyebrow {
+        font-family: var(--HF);
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+      .auth-heading {
+        font-family: var(--HF);
+        font-size: 24px;
+        letter-spacing: -0.01em;
+        color: var(--navy);
+        font-weight: 400;
+        margin-bottom: 6px;
+      }
+      .auth-subline {
+        font-family: var(--BF);
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.6;
+        margin-bottom: 28px;
+      }
+
+      /* Form Fields */
+      .field-wrap { margin-bottom: 18px; position: relative; }
+      .field-label {
+        display: block;
+        margin-bottom: 5px;
+        font-family: var(--HF);
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .field-input {
+        width: 100%;
+        height: 44px;
+        border: 1px solid var(--lines);
+        background: #ffffff;
+        color: var(--navy);
+        font-family: var(--BF);
+        font-size: 14px;
+        padding: 0 12px;
+        border-radius: 0;
+        outline: none;
+        appearance: none;
+      }
+      .field-input:focus { border-color: var(--navy); background: #ffffff; }
+      .field-input.error { border-color: var(--red); background: #FFF5F5; }
+      .field-input:disabled {
+        background: var(--surface); color: var(--muted);
+        border-color: var(--lines); cursor: not-allowed;
+      }
+      .field-input--has-toggle { padding-right: 40px; }
+
+      .field-error {
+        font-family: var(--BF);
+        font-size: 11px;
+        color: var(--red);
+        margin-top: 4px;
+        display: none;
+        align-items: center;
+        gap: 4px;
+      }
+      .field-error.visible { display: flex; }
+
+      /* Password toggle — sits inside the input row */
+      .pw-wrap { position: relative; display: block; }
+      .pw-toggle {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--muted);
+        cursor: pointer;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        line-height: 1;
+        background: none;
+        border: none;
+        padding: 0;
+        outline: none;
+      }
+      .pw-toggle:focus { outline: none; }
+
+      /* Confirm password match icon */
+      .field-match-icon {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 16px;
+        display: none;
+        align-items: center;
+        line-height: 1;
+      }
+      .field-match-icon.visible { display: flex; }
+
+      /* Forgot password */
+      .forgot-link {
+        display: block;
+        text-align: right;
+        margin-top: -10px;
+        margin-bottom: 18px;
+        font-family: var(--HF);
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--red);
+        text-decoration: none;
+      }
+      .forgot-link:hover { text-decoration: underline; }
+
+      /* Buttons */
+      .btn-auth-primary {
+        width: 100%;
+        height: 44px;
+        background: var(--red);
+        color: #ffffff;
+        font-family: var(--HF);
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        border: none;
+        border-radius: 0;
+        cursor: pointer;
+        transition: background 0.15s;
+        margin-top: 8px;
+      }
+      .btn-auth-primary:hover { background: var(--red-h); }
+      .btn-auth-primary:active { box-shadow: inset 2px 2px 0px rgba(0,0,0,0.2); }
+      .btn-auth-primary:disabled {
+        background: var(--lines);
+        color: var(--muted);
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+
+      .btn-auth-secondary {
+        width: 100%;
+        height: 44px;
+        background: transparent;
+        color: var(--navy);
+        border: 1px solid var(--lines);
+        font-family: var(--HF);
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border-radius: 0;
+        cursor: pointer;
+        transition: border-color 0.15s, background 0.15s;
+      }
+      .btn-auth-secondary:hover { border-color: var(--navy); background: var(--surface); }
+      .btn-auth-secondary:active { box-shadow: inset 2px 2px 0px rgba(0,0,0,0.2); }
+
+      /* Divider */
+      .auth-divider {
+        margin: 24px 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .auth-divider-line { flex: 1; height: 1px; background: var(--lines); }
+      .auth-divider-text {
+        font-family: var(--HF);
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+
+      /* Switch prompt */
+      .auth-switch {
+        text-align: center;
+        margin-top: 20px;
+        font-family: var(--BF);
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .auth-switch-link {
+        color: var(--red);
+        cursor: pointer;
+        text-decoration: none;
+        background: none;
+        border: none;
+        font-family: var(--BF);
+        font-size: 13px;
+        padding: 0;
+      }
+      .auth-switch-link:hover { text-decoration: underline; }
+
+      /* Password strength */
+      .pw-strength-bar {
+        display: flex;
+        gap: 3px;
+        margin-top: 6px;
+        width: 100%;
+      }
+      .pw-seg {
+        flex: 1;
+        height: 3px;
+        background: var(--lines);
+        transition: background 0.2s;
+      }
+      .pw-strength-label {
+        font-family: var(--HF);
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        text-align: right;
+        margin-top: 4px;
+        min-height: 14px;
+      }
+
+      /* Distributor toggle row */
+      .dist-toggle-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 16px;
+        border: 1px solid var(--lines);
+        background: var(--surface);
+        margin-bottom: 18px;
+        transition: border-color 0.2s, background 0.2s;
+      }
+      .dist-toggle-row.on {
+        border-color: var(--navy);
+        background: rgba(34,47,75,0.04);
+      }
+      .dist-toggle-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .dist-toggle-labels { display: flex; flex-direction: column; }
+      .dist-toggle-title {
+        font-family: var(--HF);
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--navy);
+        display: block;
+        margin-bottom: 2px;
+      }
+      .dist-toggle-sub {
+        font-family: var(--BF);
+        font-size: 11px;
+        color: var(--muted);
+        display: block;
+        transition: color 0.2s;
+      }
+      .dist-toggle-row.on .dist-toggle-sub { color: var(--navy); }
+
+      /* Custom toggle switch */
+      .toggle-switch { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
+      .toggle-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+      .toggle-track {
+        position: absolute;
+        inset: 0;
+        background: var(--lines);
+        cursor: pointer;
+        transition: background 0.2s;
+        border-radius: 0;
+      }
+      .toggle-track::after {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        background: #ffffff;
+        top: 3px;
+        left: 3px;
+        transition: left 0.2s;
+        border-radius: 0;
+      }
+      .toggle-switch input:checked + .toggle-track { background: var(--navy); }
+      .toggle-switch input:checked + .toggle-track::after { left: 21px; }
+
+      /* Company reg field (collapsible) */
+      .dist-reg-wrap {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+      }
+      .dist-reg-wrap.open { max-height: 90px; opacity: 1; }
+      .field-helper {
+        font-family: var(--BF);
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 4px;
+        line-height: 1.5;
+      }
+
+      /* Terms checkbox */
+      .terms-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+      .custom-checkbox { position: relative; flex-shrink: 0; margin-top: 2px; }
+      .custom-checkbox input { opacity: 0; width: 0; height: 0; position: absolute; }
+      .custom-checkbox-box {
+        width: 15px;
+        height: 15px;
+        border: 1px solid var(--lines);
+        background: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 0;
+        transition: background 0.15s, border-color 0.15s;
+        font-size: 10px;
+        color: transparent;
+        user-select: none;
+      }
+      .custom-checkbox input:checked + .custom-checkbox-box {
+        background: var(--navy);
+        border-color: var(--navy);
+        color: #ffffff;
+      }
+      .custom-checkbox-box.error { border-color: var(--red); }
+      .terms-label {
+        font-family: var(--BF);
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.5;
+        cursor: pointer;
+      }
+      .terms-label a { color: var(--red); text-decoration: none; }
+      .terms-label a:hover { text-decoration: underline; }
+
+      /* Success state */
+      .auth-success {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 8px 0;
+      }
+      .auth-success.visible { display: flex; }
+      .auth-success-icon {
+        font-size: 48px;
+        color: var(--navy);
+        margin-bottom: 16px;
+        line-height: 1;
+      }
+      .auth-success-heading {
+        font-family: var(--HF);
+        font-size: 22px;
+        letter-spacing: -0.01em;
+        color: var(--navy);
+        font-weight: 400;
+        margin-bottom: 8px;
+      }
+      .auth-success-sub {
+        font-family: var(--BF);
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.6;
+        max-width: 320px;
+        margin: 0 auto 24px;
+      }
+      .auth-success-dist {
+        font-family: var(--BF);
+        font-size: 12px;
+        color: var(--muted);
+        text-align: center;
+        margin-bottom: 24px;
+        display: none;
+      }
+      .auth-success-dist.visible { display: block; }
+
+      /* Panel visibility */
+      .auth-panel { display: none; }
+      .auth-panel.active { display: block; }
+
+      /* Responsive */
+      @media (max-width: 320px) {
+        .auth-card { padding: 20px 14px 18px; }
+        .auth-heading { font-size: 20px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wf">
+
+      <!-- [A] EXPO BAR -->
+      <div class="expo-bar">
+        <div class="expo-bar-t">🔴 EXPO 2026 — Booth 4A · Apr 20–26 · Come find us</div>
+      </div>
+
+      <!-- [A] UTILITY BAR -->
+      <div class="util">
+        <div class="util-ct">
+          <span class="ut">(+1) 555-000-0000</span>
+          <span class="ut">info@thermalmotion.com</span>
+        </div>
+        <div class="util-right">
+          <div class="si-row">
+            <a class="si" href="#"><i class="ph ph-linkedin-logo"></i></a>
+            <a class="si" href="#"><i class="ph ph-instagram-logo"></i></a>
+            <a class="si" href="#"><i class="ph ph-facebook-logo"></i></a>
+          </div>
+          <div class="ubadge">Expo Apr 20–26 · Booth [X]</div>
+        </div>
+      </div>
+
+      <!-- [B] NAV -->
+      <div class="nav">
+        <div class="logo"><img alt="TMG" src="./assets/logo/TMG Logo.svg" /></div>
+        <div class="navlinks">
+          <a class="nl" href="index.html">Products</a>
+          <div class="nav-dropdown">
+            <span class="nl" style="display:flex;align-items:center;gap:4px">
+              Solutions <i class="ph ph-caret-down" style="font-size:10px"></i>
+            </span>
+            <div class="dropdown-menu">
+              <a class="dm-link" href="#">Aftermarket Coolers <span class="dm-sub">TMG E-Commerce</span></a>
+              <a class="dm-link" href="#">Power Transformers <span class="dm-sub">Static Products</span></a>
+              <a class="dm-link" href="#">Battery Management <span class="dm-sub">Static Products</span></a>
+              <a class="dm-link" href="#">CJP Fabrication <span class="dm-sub">External Partner ↗</span></a>
+              <a class="dm-link" href="#">Seals, Hydraulics &amp; Valves <span class="dm-sub">External Partner ↗</span></a>
+              <a class="dm-link" href="#">Innovation &amp; Prototyping <span class="dm-sub">Custom Services</span></a>
+              <div class="dm-div"></div>
+              <a class="dm-all" href="#">View All Solutions →</a>
+            </div>
+          </div>
+          <div class="nav-dropdown">
+            <span class="nl" style="display:flex;align-items:center;gap:4px">
+              Resources <i class="ph ph-caret-down" style="font-size:10px"></i>
+            </span>
+            <div class="dropdown-menu">
+              <a class="dm-link" href="#">Blogs <span class="dm-sub">Latest Updates</span></a>
+              <a class="dm-link" href="#">Industries Served <span class="dm-sub">Our Reach</span></a>
+              <a class="dm-link" href="#">Applications <span class="dm-sub">Use Cases</span></a>
+            </div>
+          </div>
+          <a class="nl" href="#">About</a>
+          <a class="nl" href="#">Contact / RFQ</a>
+        </div>
+        <div class="nav-actions">
+          <button class="nav-icon" onclick="openSearchOverlay()" aria-label="Search" title="Search" style="background:none;border:none;padding:0;display:inline-flex;align-items:center;justify-content:center;"><i class="ph ph-magnifying-glass"></i></button>
+          <i class="ph ph-user nav-icon active" title="Account"></i>
+          <div class="nav-icon">
+            <i class="ph ph-shopping-cart"></i>
+            <div class="cart-badge">0</div>
+          </div>
+        </div>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+          <a class="mlink" href="index.html">Products</a>
+          <a class="mlink" href="#">Solutions</a>
+          <a class="mlink" href="#">Resources</a>
+          <a class="mlink" href="#">About</a>
+          <a class="mlink" href="#">Contact</a>
+        </div>
+      </div>
+
+      <!-- [C] AUTH SECTION -->
+      <div class="auth-section">
+        <div class="auth-container">
+
+          <!-- Tab Switcher -->
+          <div class="auth-tabs" role="tablist">
+            <button class="auth-tab auth-tab--active" id="tab-login" role="tab"
+              aria-selected="true" aria-controls="panel-login" onclick="switchPanel('login')">
+              Login
+            </button>
+            <button class="auth-tab" id="tab-signup" role="tab"
+              aria-selected="false" aria-controls="panel-signup" onclick="switchPanel('signup')">
+              Sign Up
+            </button>
+          </div>
+
+          <!-- ── PANEL 1: LOGIN ── -->
+          <div class="auth-card">
+            <div class="auth-panel active" id="panel-login" role="tabpanel" aria-labelledby="tab-login">
+              <div class="auth-eyebrow">Welcome Back</div>
+              <div class="auth-heading">Sign in to TMG</div>
+              <div class="auth-subline">Access your orders, saved products, and enquiry history.</div>
+
+              <form id="login-form" novalidate onsubmit="submitLogin(event)">
+                <!-- Email -->
+                <div class="field-wrap">
+                  <label class="field-label" for="login-email">Email Address</label>
+                  <input class="field-input" type="email" id="login-email"
+                    placeholder="you@company.com" autocomplete="email" />
+                  <div class="field-error" id="login-email-err">
+                    <i class="ph ph-warning-circle" style="font-size:12px"></i>
+                    <span id="login-email-err-msg"></span>
+                  </div>
+                </div>
+
+                <!-- Password -->
+                <div class="field-wrap">
+                  <label class="field-label" for="login-password">Password</label>
+                  <div class="pw-wrap">
+                    <input class="field-input field-input--has-toggle" type="password"
+                      id="login-password" placeholder="Enter your password"
+                      autocomplete="current-password" />
+                    <button type="button" class="pw-toggle" id="login-pw-toggle"
+                      onclick="togglePw('login-password','login-pw-toggle')" aria-label="Show password">
+                      <i class="ph ph-eye"></i>
+                    </button>
+                  </div>
+                  <div class="field-error" id="login-password-err">
+                    <i class="ph ph-warning-circle" style="font-size:12px"></i>
+                    <span id="login-password-err-msg"></span>
+                  </div>
+                </div>
+
+                <a class="forgot-link" href="forgot-password.html">Forgot password?</a>
+
+                <button class="btn-auth-primary" type="submit">Sign In</button>
+
+                <div class="auth-divider">
+                  <div class="auth-divider-line"></div>
+                  <span class="auth-divider-text">Or</span>
+                  <div class="auth-divider-line"></div>
+                </div>
+
+                <button class="btn-auth-secondary" type="button"
+                  onclick="console.log('Guest session started')">
+                  Continue as Guest
+                </button>
+              </form>
+
+              <div class="auth-switch">
+                Don't have an account?&nbsp;
+                <button class="auth-switch-link" onclick="switchPanel('signup')">Sign up</button>
+              </div>
+            </div>
+
+            <!-- ── PANEL 2: SIGN UP ── -->
+            <div class="auth-panel" id="panel-signup" role="tabpanel" aria-labelledby="tab-signup">
+              <!-- Success state (hidden by default) -->
+              <div class="auth-success" id="signup-success">
+                <div class="auth-success-icon"><i class="ph ph-check-circle"></i></div>
+                <div class="auth-success-heading">Account Created</div>
+                <div class="auth-success-sub">
+                  Welcome to Thermal Motion Group. Check your email to verify your account before signing in.
+                </div>
+                <div class="auth-success-dist" id="success-dist-msg">
+                  Your distributor registration is under review. You'll be notified within 2 business days.
+                </div>
+                <button class="btn-auth-primary" style="margin-top:0"
+                  onclick="switchPanel('login')">Go to Sign In</button>
+              </div>
+
+              <!-- Form content -->
+              <div id="signup-form-content">
+                <div class="auth-eyebrow">Create Your Account</div>
+                <div class="auth-heading">Join Thermal Motion Group</div>
+                <div class="auth-subline">Create an account to track orders, save products, and manage your enquiries.</div>
+
+                <form id="signup-form" novalidate onsubmit="submitSignup(event)">
+                  <!-- Full Name -->
+                  <div class="field-wrap">
+                    <label class="field-label" for="su-name">Full Name</label>
+                    <input class="field-input" type="text" id="su-name"
+                      placeholder="Your full name" autocomplete="name" />
+                    <div class="field-error" id="su-name-err">
+                      <i class="ph ph-warning-circle" style="font-size:12px"></i>
+                      <span id="su-name-err-msg"></span>
+                    </div>
+                  </div>
+
+                  <!-- Email -->
+                  <div class="field-wrap">
+                    <label class="field-label" for="su-email">Email Address</label>
+                    <input class="field-input" type="email" id="su-email"
+                      placeholder="you@company.com" autocomplete="email" />
+                    <div class="field-error" id="su-email-err">
+                      <i class="ph ph-warning-circle" style="font-size:12px"></i>
+                      <span id="su-email-err-msg"></span>
+                    </div>
+                  </div>
+
+                  <!-- Password -->
+                  <div class="field-wrap">
+                    <label class="field-label" for="su-password">Password</label>
+                    <div class="pw-wrap">
+                      <input class="field-input field-input--has-toggle" type="password"
+                        id="su-password" placeholder="Create a password"
+                        autocomplete="new-password"
+                        oninput="updateStrength(this.value)" />
+                      <button type="button" class="pw-toggle" id="su-pw-toggle"
+                        onclick="togglePw('su-password','su-pw-toggle')" aria-label="Show password">
+                        <i class="ph ph-eye"></i>
+                      </button>
+                    </div>
+                    <div class="field-error" id="su-password-err">
+                      <i class="ph ph-warning-circle" style="font-size:12px"></i>
+                      <span id="su-password-err-msg"></span>
+                    </div>
+                    <!-- Strength meter -->
+                    <div class="pw-strength-bar" id="pw-strength-bar">
+                      <div class="pw-seg" id="ps1"></div>
+                      <div class="pw-seg" id="ps2"></div>
+                      <div class="pw-seg" id="ps3"></div>
+                      <div class="pw-seg" id="ps4"></div>
+                    </div>
+                    <div class="pw-strength-label" id="pw-strength-label"></div>
+                  </div>
+
+                  <!-- Confirm Password -->
+                  <div class="field-wrap">
+                    <label class="field-label" for="su-confirm">Confirm Password</label>
+                    <div class="pw-wrap">
+                      <input class="field-input field-input--has-toggle" type="password"
+                        id="su-confirm" placeholder="Re-enter your password"
+                        autocomplete="new-password"
+                        onblur="checkConfirm()" />
+                      <button type="button" class="pw-toggle" id="su-confirm-toggle"
+                        onclick="togglePw('su-confirm','su-confirm-toggle')" aria-label="Show password">
+                        <i class="ph ph-eye"></i>
+                      </button>
+                      <div class="field-match-icon" id="su-confirm-match">
+                        <i class="ph ph-check-circle" style="color:#065F46;font-size:16px"></i>
+                      </div>
+                    </div>
+                    <div class="field-error" id="su-confirm-err">
+                      <i class="ph ph-warning-circle" style="font-size:12px"></i>
+                      <span id="su-confirm-err-msg"></span>
+                    </div>
+                  </div>
+
+                  <!-- Distributor Toggle -->
+                  <div class="dist-toggle-row" id="dist-row">
+                    <div class="dist-toggle-left">
+                      <i class="ph ph-buildings" style="font-size:16px;color:var(--navy)"></i>
+                      <div class="dist-toggle-labels">
+                        <span class="dist-toggle-title">Are you a Distributor?</span>
+                        <span class="dist-toggle-sub" id="dist-sub-label">
+                          Enable to add your company registration details
+                        </span>
+                      </div>
+                    </div>
+                    <label class="toggle-switch" aria-label="Distributor toggle">
+                      <input type="checkbox" id="dist-toggle" onchange="toggleDistributor()" />
+                      <span class="toggle-track"></span>
+                    </label>
+                  </div>
+
+                  <!-- Company Registration (collapsible) -->
+                  <div class="dist-reg-wrap" id="dist-reg-wrap">
+                    <div class="field-wrap" style="margin-bottom:0">
+                      <label class="field-label" for="su-reg">Company Registration Number</label>
+                      <input class="field-input" type="text" id="su-reg"
+                        placeholder="e.g. US-12345678" autocomplete="off" />
+                      <div class="field-error" id="su-reg-err">
+                        <i class="ph ph-warning-circle" style="font-size:12px"></i>
+                        <span id="su-reg-err-msg"></span>
+                      </div>
+                      <div class="field-helper">
+                        Enter your official company or business registration number.
+                        This will be verified before distributor pricing is activated.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Terms -->
+                  <div class="terms-row" style="margin-top:18px">
+                    <label class="custom-checkbox" aria-label="Agree to terms">
+                      <input type="checkbox" id="su-terms" onchange="onTermsChange()" />
+                      <span class="custom-checkbox-box" id="terms-box">✓</span>
+                    </label>
+                    <span class="terms-label" onclick="document.getElementById('su-terms').click();onTermsChange()">
+                      I agree to the
+                      <a href="terms.html" onclick="event.stopPropagation()">Terms &amp; Conditions</a>
+                      and
+                      <a href="privacy.html" onclick="event.stopPropagation()">Privacy Policy</a>
+                    </span>
+                  </div>
+
+                  <button class="btn-auth-primary" type="submit" id="su-submit" disabled>
+                    Create Account
+                  </button>
+                </form>
+
+                <div class="auth-switch">
+                  Already have an account?&nbsp;
+                  <button class="auth-switch-link" onclick="switchPanel('login')">Sign in</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end auth-card -->
+
+        </div>
+        <!-- end auth-container -->
+      </div>
+      <!-- end auth-section -->
+
+    </div><!-- end .wf -->
+
+    <script>
+    
+    <!-- SEARCH OVERLAY -->
+      /* ============================================================
+         PANEL SWITCHING
+      ============================================================ */
+      
+      function switchPanel(which) {
+        var panels = ['login', 'signup'];
+        panels.forEach(function(p) {
+          var panel = document.getElementById('panel-' + p);
+          var tab   = document.getElementById('tab-' + p);
+          if (p === which) {
+            panel.classList.add('active');
+            tab.classList.add('auth-tab--active');
+            tab.setAttribute('aria-selected', 'true');
+          } else {
+            panel.classList.remove('active');
+            tab.classList.remove('auth-tab--active');
+            tab.setAttribute('aria-selected', 'false');
+          }
+        });
+        clearAllErrors();
+        window.location.hash = which;
+      }
+
+      /* ============================================================
+         PAGE LOAD — read hash
+      ============================================================ */
+      (function() {
+        var hash = window.location.hash.replace('#', '');
+        if (hash === 'signup') {
+          switchPanel('signup');
+        } else {
+          switchPanel('login');
+        }
+      })();
+
+      /* ============================================================
+         MOBILE MENU
+      ============================================================ */
+      function toggleMenu() {
+        document.getElementById('hamburger').classList.toggle('active');
+        document.getElementById('mobileMenu').classList.toggle('open');
+      }
+
+      /* ============================================================
+         PASSWORD SHOW / HIDE
+      ============================================================ */
+      function togglePw(inputId, btnId) {
+        var inp = document.getElementById(inputId);
+        var btn = document.getElementById(btnId);
+        if (inp.type === 'password') {
+          inp.type = 'text';
+          btn.innerHTML = '<i class="ph ph-eye-slash"></i>';
+        } else {
+          inp.type = 'password';
+          btn.innerHTML = '<i class="ph ph-eye"></i>';
+        }
+      }
+
+      /* ============================================================
+         PASSWORD STRENGTH METER
+      ============================================================ */
+      var STRENGTH_COLORS = {
+        1: '#C02B2D',
+        2: '#B45309',
+        3: '#92400E',
+        4: '#065F46'
+      };
+      var STRENGTH_LABELS = {
+        0: '',
+        1: 'Weak',
+        2: 'Fair',
+        3: 'Good',
+        4: 'Strong'
+      };
+
+      function getStrength(val) {
+        if (!val || val.length === 0) return 0;
+        if (val.length < 6) return 1;
+        if (val.length >= 8 && /[A-Z]/.test(val) && /[\d\W]/.test(val)) return 4;
+        if (val.length >= 8 && (/\d/.test(val) || /\W/.test(val))) return 3;
+        return 2;
+      }
+
+      function updateStrength(val) {
+        var level = getStrength(val);
+        var segs = [
+          document.getElementById('ps1'),
+          document.getElementById('ps2'),
+          document.getElementById('ps3'),
+          document.getElementById('ps4')
+        ];
+        var color = level > 0 ? STRENGTH_COLORS[level] : 'var(--lines)';
+        segs.forEach(function(seg, i) {
+          seg.style.background = (i < level) ? color : 'var(--lines)';
+        });
+        var lbl = document.getElementById('pw-strength-label');
+        lbl.textContent = STRENGTH_LABELS[level];
+        lbl.style.color = level > 0 ? color : 'var(--muted)';
+      }
+
+      /* ============================================================
+         CONFIRM PASSWORD LIVE CHECK
+      ============================================================ */
+      function checkConfirm() {
+        var pw  = document.getElementById('su-password').value;
+        var cpw = document.getElementById('su-confirm').value;
+        var inp = document.getElementById('su-confirm');
+        var matchIcon = document.getElementById('su-confirm-match');
+        var errDiv = document.getElementById('su-confirm-err');
+        var errMsg = document.getElementById('su-confirm-err-msg');
+
+        if (!cpw) return; // don't validate empty on blur
+
+        if (pw === cpw) {
+          inp.classList.remove('error');
+          inp.style.borderColor = '#065F46';
+          matchIcon.classList.add('visible');
+          errDiv.classList.remove('visible');
+        } else {
+          inp.classList.add('error');
+          inp.style.borderColor = '';
+          matchIcon.classList.remove('visible');
+          errDiv.classList.add('visible');
+          errMsg.textContent = 'Passwords do not match';
+        }
+      }
+
+      /* ============================================================
+         DISTRIBUTOR TOGGLE
+      ============================================================ */
+      function toggleDistributor() {
+        var cb      = document.getElementById('dist-toggle');
+        var row     = document.getElementById('dist-row');
+        var wrap    = document.getElementById('dist-reg-wrap');
+        var subLbl  = document.getElementById('dist-sub-label');
+
+        if (cb.checked) {
+          row.classList.add('on');
+          wrap.classList.add('open');
+          subLbl.textContent = 'Distributor account — registration required for wholesale pricing';
+        } else {
+          row.classList.remove('on');
+          wrap.classList.remove('open');
+          subLbl.textContent = 'Enable to add your company registration details';
+        }
+      }
+
+      /* ============================================================
+         TERMS CHECKBOX
+      ============================================================ */
+      function onTermsChange() {
+        var cb  = document.getElementById('su-terms');
+        var btn = document.getElementById('su-submit');
+        var box = document.getElementById('terms-box');
+        if (cb.checked) {
+          btn.disabled = false;
+          box.classList.remove('error');
+        } else {
+          btn.disabled = true;
+        }
+      }
+
+      /* ============================================================
+         VALIDATION HELPERS
+      ============================================================ */
+      function isValidEmail(v) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      }
+
+      function setFieldError(inputId, errId, msgId, msg) {
+        var inp = document.getElementById(inputId);
+        var err = document.getElementById(errId);
+        var msg_el = document.getElementById(msgId);
+        inp.classList.add('error');
+        err.classList.add('visible');
+        msg_el.textContent = msg;
+      }
+
+      function clearFieldError(inputId, errId) {
+        var inp = document.getElementById(inputId);
+        var err = document.getElementById(errId);
+        if (inp) inp.classList.remove('error');
+        if (err) err.classList.remove('visible');
+      }
+
+      function clearAllErrors() {
+        var allInputs = document.querySelectorAll('.field-input');
+        allInputs.forEach(function(inp) {
+          inp.classList.remove('error');
+          inp.style.borderColor = '';
+        });
+        var allErrors = document.querySelectorAll('.field-error');
+        allErrors.forEach(function(e) { e.classList.remove('visible'); });
+        var matchIcon = document.getElementById('su-confirm-match');
+        if (matchIcon) matchIcon.classList.remove('visible');
+        var termsBox = document.getElementById('terms-box');
+        if (termsBox) termsBox.classList.remove('error');
+      }
+
+      /* ============================================================
+         LOGIN SUBMIT
+      ============================================================ */
+      function submitLogin(e) {
+        e.preventDefault();
+        clearFieldError('login-email', 'login-email-err');
+        clearFieldError('login-password', 'login-password-err');
+
+        var email = document.getElementById('login-email').value.trim();
+        var pw    = document.getElementById('login-password').value;
+        var errors = [];
+
+        if (!email) {
+          setFieldError('login-email', 'login-email-err', 'login-email-err-msg',
+            'Please enter your email address');
+          errors.push('login-email');
+        } else if (!isValidEmail(email)) {
+          setFieldError('login-email', 'login-email-err', 'login-email-err-msg',
+            'Please enter a valid email address');
+          errors.push('login-email');
+        }
+
+        if (!pw) {
+          setFieldError('login-password', 'login-password-err', 'login-password-err-msg',
+            'Please enter your password');
+          errors.push('login-password');
+        }
+
+        if (errors.length > 0) {
+          document.getElementById(errors[0]).focus();
+          return;
+        }
+
+        console.log('Login submitted', { email: email });
+      }
+
+      /* ============================================================
+         SIGNUP SUBMIT
+      ============================================================ */
+      function submitSignup(e) {
+        e.preventDefault();
+        clearAllErrors();
+
+        var name    = document.getElementById('su-name').value.trim();
+        var email   = document.getElementById('su-email').value.trim();
+        var pw      = document.getElementById('su-password').value;
+        var cpw     = document.getElementById('su-confirm').value;
+        var isDist  = document.getElementById('dist-toggle').checked;
+        var reg     = isDist ? document.getElementById('su-reg').value.trim() : null;
+        var terms   = document.getElementById('su-terms').checked;
+        var errors  = [];
+
+        // Full Name
+        if (!name) {
+          setFieldError('su-name', 'su-name-err', 'su-name-err-msg',
+            'Please enter your full name');
+          errors.push('su-name');
+        } else if (name.length < 2) {
+          setFieldError('su-name', 'su-name-err', 'su-name-err-msg',
+            'Name must be at least 2 characters');
+          errors.push('su-name');
+        }
+
+        // Email
+        if (!email) {
+          setFieldError('su-email', 'su-email-err', 'su-email-err-msg',
+            'Please enter your email address');
+          errors.push('su-email');
+        } else if (!isValidEmail(email)) {
+          setFieldError('su-email', 'su-email-err', 'su-email-err-msg',
+            'Please enter a valid email address');
+          errors.push('su-email');
+        }
+
+        // Password
+        if (!pw) {
+          setFieldError('su-password', 'su-password-err', 'su-password-err-msg',
+            'Please create a password');
+          errors.push('su-password');
+        } else if (pw.length < 6) {
+          setFieldError('su-password', 'su-password-err', 'su-password-err-msg',
+            'Password must be at least 6 characters');
+          errors.push('su-password');
+        }
+
+        // Confirm Password
+        if (!cpw) {
+          setFieldError('su-confirm', 'su-confirm-err', 'su-confirm-err-msg',
+            'Please confirm your password');
+          errors.push('su-confirm');
+        } else if (pw !== cpw) {
+          setFieldError('su-confirm', 'su-confirm-err', 'su-confirm-err-msg',
+            'Passwords do not match');
+          errors.push('su-confirm');
+        }
+
+        // Company Reg (if distributor)
+        if (isDist) {
+          if (!reg) {
+            setFieldError('su-reg', 'su-reg-err', 'su-reg-err-msg',
+              'Please enter your company registration number');
+            errors.push('su-reg');
+          } else if (reg.length < 4) {
+            setFieldError('su-reg', 'su-reg-err', 'su-reg-err-msg',
+              'Please enter a valid registration number');
+            errors.push('su-reg');
+          }
+        }
+
+        // Terms
+        if (!terms) {
+          document.getElementById('terms-box').classList.add('error');
+          var termsRow = document.querySelector('.terms-row');
+          if (termsRow) termsRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (errors.length === 0) return; // terms is the only issue — don't submit
+          errors.push('su-terms');
+        }
+
+        if (errors.length > 0) {
+          document.getElementById(errors[0]).focus();
+          return;
+        }
+
+        // Mock success
+        console.log('Signup submitted', { name: name, email: email, distributor: isDist });
+        showSignupSuccess(isDist);
+      }
+
+      /* ============================================================
+         SIGNUP SUCCESS STATE
+      ============================================================ */
+      function showSignupSuccess(isDistributor) {
+        document.getElementById('signup-form-content').style.display = 'none';
+        var success = document.getElementById('signup-success');
+        success.classList.add('visible');
+        if (isDistributor) {
+          document.getElementById('success-dist-msg').classList.add('visible');
+        }
+      }
+    </script>
+
+  <!-- SEARCH OVERLAY -->
+  <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-overlay-inner">
+      <div class="search-overlay-bar">
+        <button class="search-overlay-close" onclick="closeSearchOverlay()" aria-label="Close search"><i class="ph ph-x"></i></button>
+        <input class="search-overlay-input" id="overlay-input" type="search" placeholder="Search products, industries, applications..." autocomplete="off" aria-label="Search" />
+        <button class="search-overlay-btn" id="overlay-submit-btn" aria-label="Submit search"><i class="ph ph-magnifying-glass"></i></button>
+      </div>
+      <div class="search-overlay-hint">Press <kbd>Enter</kbd> to search &nbsp;·&nbsp; <kbd>Esc</kbd> to close</div>
+    </div>
+  </div>
+
+  <style>
+    .search-overlay{position:fixed;inset:0;background:rgba(15,23,42,.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:2000;display:flex;align-items:flex-start;justify-content:center;padding-top:80px;opacity:0;pointer-events:none;transition:opacity .25s;}
+    .search-overlay.open{opacity:1;pointer-events:auto;}
+    .search-overlay-inner{width:100%;max-width:680px;padding:0 20px;}
+    .search-overlay-bar{position:relative;}
+    .search-overlay-input{width:100%;height:64px;background:#fff;border:none;border-bottom:3px solid #c02b2d;padding:0 64px 0 24px;font-family:"Raleway",sans-serif;font-size:18px;color:#0f172a;outline:none;}
+    .search-overlay-input::placeholder{color:#64748b;}
+    .search-overlay-btn{position:absolute;right:0;top:0;height:64px;width:64px;background:#c02b2d;border:none;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+    .search-overlay-btn:hover{background:#991b1b;}
+    .search-overlay-close{position:absolute;top:-48px;right:0;background:none;border:none;color:rgba(255,255,255,.6);font-size:28px;cursor:pointer;transition:color .2s;display:flex;align-items:center;justify-content:center;}
+    .search-overlay-close:hover{color:#fff;}
+    .search-overlay-hint{font-family:"Sofia Sans",sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:16px;}
+    .search-overlay-hint kbd{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:2px 8px;font-family:"Raleway",sans-serif;font-size:11px;color:rgba(255,255,255,.5);}
+  </style>
+
+  <script>
+    function openSearchOverlay() {
+      document.getElementById('search-overlay').classList.add('open');
+      setTimeout(function(){ document.getElementById('overlay-input').focus(); }, 50);
+    }
+    function closeSearchOverlay() {
+      document.getElementById('search-overlay').classList.remove('open');
+    }
+    document.getElementById('overlay-submit-btn').addEventListener('click', function() {
+      var q = document.getElementById('overlay-input').value.trim();
+      if (q) window.location.href = 'search.html?q=' + encodeURIComponent(q);
+    });
+    document.getElementById('overlay-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { var q = this.value.trim(); if (q) window.location.href = 'search.html?q=' + encodeURIComponent(q); }
+      if (e.key === 'Escape') closeSearchOverlay();
+    });
+    document.getElementById('search-overlay').addEventListener('click', function(e) {
+      if (e.target === this) closeSearchOverlay();
+    });
+  </script>
+  </body>
+</html>

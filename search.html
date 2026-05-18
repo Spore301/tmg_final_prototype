@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Search — TMG</title>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap" rel="stylesheet" />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap");
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    :root{
+      --red:#c02b2d;--red-h:#991b1b;--navy:#222f4b;--pitch:#0f172a;
+      --surface:#f8fafc;--lines:#e2e8f0;--muted:#64748b;--deep:#334155;
+      --HF:"Sofia Sans",sans-serif;--BF:"Raleway",sans-serif;
+    }
+    body{background:var(--surface);font-family:var(--BF);color:var(--navy);-webkit-font-smoothing:antialiased;}
+    .wf{width:100%;background:#fff;border-left:1px solid var(--lines);border-right:1px solid var(--lines);margin:0 auto;}
+
+    /* EXPO BAR */
+    .expo-bar{background:var(--red);padding:10px 20px;display:flex;justify-content:flex-start;align-items:center;gap:14px;text-align:left;}
+    .expo-bar-t{font-family:var(--HF);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;line-height:1.4;}
+    .expo-pill{border:1px solid rgba(255,255,255,.4);color:#fff;font-family:var(--HF);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;display:inline-block;white-space:nowrap;}
+    @media(min-width:768px){.expo-bar{flex-direction:row;justify-content:center;text-align:center;}}
+
+    /* UTILITY */
+    .util{background:var(--surface);border-bottom:1px solid var(--lines);padding:10px 20px;display:flex;justify-content:space-between;align-items:center;}
+    .util-ct{display:flex;gap:24px;}
+    .ut{font-family:var(--HF);font-size:11px;letter-spacing:.04em;color:var(--muted);}
+    .util-right{display:flex;align-items:center;gap:20px;}
+    .si-row{display:flex;gap:10px;align-items:center;}
+    .si{font-size:16px;color:var(--muted);transition:color .2s;text-decoration:none;display:inline-flex;}
+    .si:hover{color:var(--red);}
+    .ubadge{font-family:var(--HF);font-size:10px;letter-spacing:.1em;text-transform:uppercase;background:var(--red);color:#fff;padding:4px 12px;display:none;}
+    @media(min-width:768px){.ubadge{display:block;}}
+    @media(max-width:767px){.util-right .si-row{display:none;}}
+
+    /* NAV */
+    .nav{background:#fff;border-bottom:1px solid var(--lines);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1000;}
+    .logo img{height:44px;width:auto;display:block;}
+    @media(min-width:768px){.logo img{height:56px;}}
+    .navlinks{display:none;gap:32px;}
+    .nl{font-family:var(--HF);font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);cursor:pointer;transition:color .2s;text-decoration:none;}
+    .nl:hover{color:var(--red);}
+    @media(min-width:768px){.navlinks{display:flex;}}
+    .hamburger{width:24px;height:20px;position:relative;cursor:pointer;z-index:110;display:block;}
+    .hamburger span{display:block;position:absolute;height:2px;width:100%;background:var(--navy);transition:all .3s ease;left:0;}
+    .hamburger span:nth-child(1){top:0;}
+    .hamburger span:nth-child(2){top:9px;}
+    .hamburger span:nth-child(3){top:18px;}
+    .hamburger.active span:nth-child(1){transform:translateY(9px) rotate(45deg);}
+    .hamburger.active span:nth-child(2){opacity:0;}
+    .hamburger.active span:nth-child(3){transform:translateY(-9px) rotate(-45deg);}
+    @media(min-width:768px){.hamburger{display:none;}}
+    .mobile-menu{position:absolute;top:calc(100% + 1px);left:0;width:100%;background:var(--surface);z-index:90;display:flex;flex-direction:column;padding:12px 20px;border-bottom:1px solid var(--lines);transform:translateY(-20px);opacity:0;pointer-events:none;transition:all .3s ease;box-shadow:0 10px 40px rgba(0,0,0,.1);}
+    .mobile-menu.open{transform:translateY(0);opacity:1;pointer-events:auto;}
+    .mlink{font-family:var(--HF);font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--pitch);padding:20px 0;border-bottom:1px solid var(--lines);display:block;text-align:center;transition:color .2s;cursor:pointer;text-decoration:none;}
+    .mlink:hover{color:var(--red);}
+    .mlink:last-child{border-bottom:none;}
+    @media(min-width:768px){.mobile-menu{display:none;}}
+
+    /* NAV ACTIONS */
+    .nav-actions{display:flex;gap:20px;align-items:center;}
+    .nav-icon{font-size:20px;color:var(--navy);cursor:pointer;position:relative;background:none;border:none;padding:0;display:inline-flex;align-items:center;justify-content:center;}
+    .nav-icon:hover{color:var(--red);}
+    .cart-badge{position:absolute;top:-6px;right:-8px;background:var(--red);color:#fff;font-family:var(--HF);font-size:9px;width:16px;height:16px;border-radius:0;display:flex;align-items:center;justify-content:center;}
+    .desktop-only{display:none;}
+    @media(min-width:768px){.desktop-only{display:inline-flex;}}
+
+    /* NAV DROPDOWN */
+    .nav-dropdown{position:relative;display:flex;align-items:center;}
+    .dropdown-menu{position:absolute;top:100%;left:50%;transform:translateX(-50%);background:#fff;border:1px solid var(--lines);box-shadow:0 8px 24px rgba(0,0,0,.08);padding:0;display:none;flex-direction:column;min-width:240px;margin-top:8px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:1001;}
+    .nav-dropdown:hover .dropdown-menu{display:flex;opacity:1;pointer-events:auto;}
+    .dm-link{padding:12px 20px;display:block;text-decoration:none;color:var(--navy);font-family:var(--BF);font-size:14px;transition:background .2s;}
+    .dm-link:hover{background:var(--surface);}
+    .dm-sub{display:block;font-family:var(--HF);font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);margin-top:4px;}
+
+    /* BREADCRUMB */
+    .bc-bar{background:var(--surface);border-bottom:1px solid var(--lines);padding:10px 20px;display:flex;align-items:center;gap:8px;font-family:var(--HF);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+    @media(min-width:768px){.bc-bar{padding:10px 40px;}}
+    .bc-link{color:var(--navy);text-decoration:none;transition:color .2s;}
+    .bc-link:hover{color:var(--red);}
+    .bc-sep{color:#64748b;}
+    .bc-curr{color:var(--pitch);}
+
+    /* SEARCH HERO */
+    .search-hero{background:#fff;border-bottom:1px solid var(--lines);padding:20px 20px;}
+    @media(min-width:768px){.search-hero{padding:28px 40px;}}
+    .search-hero-inner{max-width:none;margin:0;}
+    .eyebrow{font-family:var(--HF);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+    @media(min-width:768px){.eyebrow{font-size:12px;letter-spacing:.25em;}}
+    .sec-h2{font-family:var(--HF);font-size:28px;line-height:1.2;text-transform:uppercase;font-weight:400;color:var(--pitch);margin-bottom:16px;}
+    @media(min-width:768px){.sec-h2{font-size:40px;}}
+    .sec-rule{width:40px;height:2px;background:var(--red);margin-bottom:24px;}
+
+    /* SEARCH BAR */
+    .search-bar-wrap{position:relative;margin-bottom:24px;}
+    .search-bar{width:100%;height:56px;background:var(--surface);border:2px solid var(--lines);padding:0 56px 0 20px;font-family:var(--BF);font-size:16px;color:var(--pitch);outline:none;transition:border-color .2s,background .2s;}
+    .search-bar:focus{background:#fff;border-color:var(--navy);}
+    .search-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:40px;height:40px;background:var(--red);border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+    .search-btn:hover{background:var(--red-h);}
+    .search-btn:active{background:#7F1D1D;box-shadow:inset 2px 2px 0px rgba(0,0,0,0.2);}
+
+    /* SEARCH FILTERS */
+    .search-filters{display:flex;gap:12px;flex-wrap:wrap;}
+    .filter-chip{font-family:var(--HF);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:8px 16px;border:1px solid var(--lines);background:#fff;color:var(--muted);cursor:pointer;transition:all .2s;}
+    .filter-chip:hover{border-color:var(--navy);color:var(--navy);}
+    .filter-chip.active{background:var(--navy);border-color:var(--navy);color:#fff;}
+
+    /* SEARCH RESULTS */
+    .search-results{background:var(--surface);padding:20px 20px;}
+    @media(min-width:768px){.search-results{padding:20px 40px;}}
+    .results-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:16px;}
+    .results-count{font-family:var(--HF);font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:var(--pitch);}
+    .results-count span{color:var(--red);}
+    .sort-select{height:40px;border:1px solid var(--lines);background:#fff;color:var(--pitch);font-family:var(--BF);font-size:14px;padding:0 36px 0 12px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer;outline:none;}
+    .sort-select:focus{border-color:var(--navy);}
+
+    /* RESULT SECTIONS */
+    .result-section{margin-bottom:48px;}
+    .result-section:last-child{margin-bottom:0;}
+    .section-title{font-family:var(--HF);font-size:18px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--red);}
+
+    /* PRODUCT RESULTS */
+    .product-results{display:grid;grid-template-columns:1fr;gap:16px;}
+    @media(min-width:580px){.product-results{grid-template-columns:repeat(2,1fr);}}
+    @media(min-width:1024px){.product-results{grid-template-columns:repeat(4,1fr);}}
+    .pcard{border:1px solid var(--lines);background:#fff;transition:border-color .35s;display:flex;flex-direction:column;text-decoration:none;}
+    .pcard:hover{border-color:var(--red);}
+    .pcard-accent{height:3px;background:var(--lines);transition:background .35s;}
+    .pcard:hover .pcard-accent{background:var(--red);}
+    .pcard-img{width:100%;aspect-ratio:1/1;background:var(--surface);display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--lines);overflow:hidden;position:relative;}
+    .pcard-img img{width:100%;height:100%;object-fit:cover;display:block;mix-blend-mode:multiply;}
+    .pcard-body{padding:24px 20px;display:flex;flex-direction:column;flex:1;}
+    .pcard-name{font-family:var(--HF);font-size:16px;letter-spacing:.04em;text-transform:uppercase;color:var(--pitch);margin-bottom:12px;}
+    .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+    .tag{font-family:var(--HF);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--deep);padding:4px 10px;border:1px solid var(--lines);background:var(--surface);}
+    .tag-div{background:var(--red);color:#fff;border:1px solid var(--red);}
+    .tag-ind{background:transparent;color:var(--red);border:1px solid var(--red);}
+    .specs{margin-bottom:16px;flex:1;}
+    .spec{font-family:var(--BF);font-size:13px;line-height:1.5;color:var(--muted);padding-left:12px;position:relative;margin-bottom:6px;}
+    .spec::before{content:"—";position:absolute;left:0;color:var(--red);}
+    .pcard-price{font-family:var(--HF);font-size:18px;color:var(--navy);font-variant-numeric:tabular-nums;margin-top:auto;padding-top:16px;margin-bottom:12px;}
+
+    /* BLOG RESULTS */
+    .blog-results{display:grid;grid-template-columns:1fr;gap:20px;}
+    @media(min-width:640px){.blog-results{grid-template-columns:repeat(2,1fr);}}
+    @media(min-width:1024px){.blog-results{grid-template-columns:repeat(3,1fr);}}
+    .blog-card{background:#fff;border:1px solid var(--lines);cursor:pointer;text-decoration:none;display:block;transition:border-color .15s;overflow:hidden;}
+    .blog-card:hover{border-color:var(--navy);}
+    .blog-img{width:100%;height:200px;display:block;overflow:hidden;background:var(--surface);}
+    .blog-img img{width:100%;height:100%;object-fit:cover;display:block;}
+    .blog-body{padding:20px 24px;display:flex;flex-direction:column;}
+    .blog-date{font-family:var(--BF);font-size:12px;color:var(--muted);margin-bottom:8px;}
+    .blog-name{font-family:var(--HF);font-size:15px;letter-spacing:.04em;text-transform:uppercase;color:var(--navy);line-height:1.4;}
+
+    /* PAGE RESULTS */
+    .page-results{display:grid;grid-template-columns:1fr;gap:16px;}
+    @media(min-width:768px){.page-results{grid-template-columns:repeat(2,1fr);}}
+    .page-card{background:#fff;border:1px solid var(--lines);padding:24px;transition:border-color .2s;text-decoration:none;display:block;}
+    .page-card:hover{border-color:var(--red);}
+    .page-card-title{font-family:var(--HF);font-size:16px;letter-spacing:.04em;text-transform:uppercase;color:var(--pitch);margin-bottom:8px;}
+    .page-card-desc{font-family:var(--BF);font-size:14px;line-height:1.6;color:var(--deep);margin-bottom:12px;}
+    .page-card-link{font-family:var(--HF);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);}
+
+    /* EMPTY STATE */
+    .empty-state{text-align:center;padding:80px 20px;}
+    .empty-icon{font-size:64px;color:var(--lines);margin-bottom:24px;}
+    .empty-title{font-family:var(--HF);font-size:20px;letter-spacing:.04em;text-transform:uppercase;color:var(--pitch);margin-bottom:12px;}
+    .empty-desc{font-family:var(--BF);font-size:15px;color:var(--muted);max-width:400px;margin:0 auto 32px;}
+    .btn-p{font-family:var(--HF);font-size:13px;letter-spacing:.1em;text-transform:uppercase;background:var(--red);color:#fff;border:none;padding:16px 28px;cursor:pointer;transition:background .2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;}
+    .btn-p:hover{background:var(--red-h);}
+    .btn-p:active{background:#7F1D1D;box-shadow:inset 2px 2px 0px rgba(0,0,0,0.2);}
+
+    /* HIGHLIGHT */
+    mark{background:rgba(192,43,45,.12);color:var(--red);font-style:normal;padding:0 2px;}
+
+    /* FOOTER */
+    .footer{background:var(--pitch);padding:48px 20px 24px;position:relative;}
+    @media(min-width:768px){.footer{padding:80px 40px 32px;}}
+    .footer-expo{background:var(--red);margin:-48px -20px 40px;padding:14px 20px;text-align:center;font-family:var(--HF);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#fff;line-height:1.4;}
+    @media(min-width:768px){.footer-expo{margin:-80px -40px 60px;padding:16px 40px;font-size:12px;}}
+    .footer-grid{display:grid;grid-template-columns:1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08);}
+    @media(min-width:768px){.footer-grid{grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:40px;}}
+    .flogo{margin-bottom:24px;display:flex;align-items:center;}
+    .flogo img{height:40px;width:auto;opacity:.9;}
+    @media(min-width:768px){.flogo img{height:50px;}}
+    .ftagline{font-family:var(--HF);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px;}
+    .fdesc{font-family:var(--BF);font-size:14px;line-height:1.6;color:rgba(255,255,255,.3);max-width:320px;}
+    .fcl{font-family:var(--HF);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:24px;}
+    .flink{font-family:var(--HF);font-size:14px;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:16px;display:block;text-decoration:none;transition:color .2s;}
+    .flink:hover{color:#fff;}
+    .flink-d{font-family:var(--HF);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.2);margin-bottom:12px;display:block;text-decoration:none;transition:color .2s;}
+    .flink-d:hover{color:rgba(255,255,255,.5);}
+    .fc{font-family:var(--BF);font-size:14px;color:rgba(255,255,255,.5);margin-bottom:12px;}
+    .ficons{display:flex;gap:16px;margin-top:24px;}
+    .fi{font-size:20px;color:rgba(255,255,255,.4);transition:color .2s;text-decoration:none;display:inline-flex;}
+    .fi:hover{color:#fff;}
+    .footer-base{padding:32px 0 0;display:flex;flex-direction:column;gap:16px;align-items:flex-start;}
+    @media(min-width:768px){.footer-base{flex-direction:row;justify-content:space-between;align-items:center;}}
+    .flegal{font-family:var(--BF);font-size:13px;color:rgba(255,255,255,.2);}
+
+    /* SEARCH OVERLAY (for nav icon on other pages) */
+    .search-overlay{position:fixed;inset:0;background:rgba(15,23,42,.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:2000;display:flex;align-items:flex-start;justify-content:center;padding-top:80px;opacity:0;pointer-events:none;transition:opacity .25s;}
+    .search-overlay.open{opacity:1;pointer-events:auto;}
+    .search-overlay-inner{width:100%;max-width:680px;padding:0 20px;}
+    .search-overlay-bar{position:relative;}
+    .search-overlay-input{width:100%;height:64px;background:#fff;border:none;border-bottom:3px solid var(--red);padding:0 64px 0 24px;font-family:var(--BF);font-size:18px;color:var(--pitch);outline:none;}
+    .search-overlay-input::placeholder{color:var(--muted);}
+    .search-overlay-btn{position:absolute;right:0;top:0;height:64px;width:64px;background:var(--red);border:none;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+    .search-overlay-btn:hover{background:var(--red-h);}
+    .search-overlay-close{position:absolute;top:-48px;right:0;background:none;border:none;color:rgba(255,255,255,.6);font-size:28px;cursor:pointer;transition:color .2s;display:flex;align-items:center;justify-content:center;}
+    .search-overlay-close:hover{color:#fff;}
+    .search-overlay-hint{font-family:var(--HF);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:16px;}
+    .search-overlay-hint kbd{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:2px 8px;font-family:var(--BF);font-size:11px;color:rgba(255,255,255,.5);}
+  </style>
+</head>
+<body>
+<div class="wf">
+
+  <!-- EXPO BAR -->
+  <div class="expo-bar">
+    <span class="expo-bar-t">We're exhibiting at Expo Apr 20–26</span>
+    <span class="expo-pill">Booth [X]</span>
+  </div>
+
+  <!-- UTILITY -->
+  <div class="util">
+    <div class="util-ct">
+      <span class="ut">(+1) 555-000-0000</span>
+      <span class="ut" style="display:none;" id="util-email">info@thermalmotion.com</span>
+    </div>
+    <div class="util-right">
+      <div class="si-row">
+        <a class="si" href="#"><i class="ph ph-linkedin-logo"></i></a>
+        <a class="si" href="#"><i class="ph ph-instagram-logo"></i></a>
+        <a class="si" href="#"><i class="ph ph-facebook-logo"></i></a>
+      </div>
+      <div class="ubadge">Expo Apr 20–26 · Booth [X]</div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <div class="nav">
+    <div class="logo"><a href="index.html"><img alt="TMG" src="./assets/logo/TMG Logo.svg" /></a></div>
+    <div class="navlinks">
+      <a class="nl" href="products.html">Products</a>
+      <a class="nl" href="industries.html">Industries</a>
+      <a class="nl" href="applications.html">Applications</a>
+      <div class="nav-dropdown">
+        <span class="nl" style="display:flex;align-items:center;gap:4px;">Resources <i class="ph ph-caret-down" style="font-size:10px;"></i></span>
+        <div class="dropdown-menu">
+          <a class="dm-link" href="news.html">Blogs <span class="dm-sub">Latest Updates</span></a>
+          <a class="dm-link" href="industries.html">Industries Served <span class="dm-sub">Our Reach</span></a>
+          <a class="dm-link" href="applications.html">Applications <span class="dm-sub">Use Cases</span></a>
+        </div>
+      </div>
+      <a class="nl" href="about.html">About</a>
+      <a class="nl" href="contact.html">Contact / RFQ</a>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-icon" id="search-icon-btn" onclick="openSearchOverlay()" aria-label="Search" title="Search">
+        <i class="ph ph-magnifying-glass"></i>
+      </button>
+      <button class="nav-icon desktop-only" onclick="window.location.href='auth.html'" aria-label="Account" title="Account">
+        <i class="ph ph-user"></i>
+      </button>
+      <div class="nav-icon" style="cursor:pointer;" onclick="window.location.href='cart.html'">
+        <i class="ph ph-shopping-cart"></i>
+        <div class="cart-badge" id="cart-b">0</div>
+      </div>
+    </div>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a class="mlink" href="products.html">Products</a>
+      <a class="mlink" href="industries.html">Industries</a>
+      <a class="mlink" href="applications.html">Applications</a>
+      <a class="mlink" href="about.html">About</a>
+      <a class="mlink" href="contact.html">Contact</a>
+    </div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div class="bc-bar">
+    <a class="bc-link" href="index.html">Home</a>
+    <span class="bc-sep">›</span>
+    <span class="bc-curr" id="bc-query">Search</span>
+  </div>
+
+  <!-- SEARCH HERO -->
+  <div class="search-hero">
+    <div class="search-hero-inner">
+      <div class="eyebrow">Site Search</div>
+      <div class="sec-rule"></div>
+      <div class="search-bar-wrap">
+        <input
+          class="search-bar"
+          id="search-input"
+          type="search"
+          placeholder="Search products, industries, applications..."
+          autocomplete="off"
+          aria-label="Search"
+        />
+        <button class="search-btn" id="search-submit-btn" aria-label="Submit search">
+          <i class="ph ph-magnifying-glass"></i>
+        </button>
+      </div>
+      <div class="search-filters" id="filter-chips">
+        <button class="filter-chip active" data-type="all">All</button>
+        <button class="filter-chip" data-type="products">Products</button>
+        <button class="filter-chip" data-type="pages">Pages</button>
+        <button class="filter-chip" data-type="blogs">Blogs</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEARCH RESULTS -->
+  <div class="search-results" id="results-area">
+
+    <!-- EMPTY / INITIAL STATE -->
+    <div class="empty-state" id="empty-state">
+      <div class="empty-icon"><i class="ph ph-magnifying-glass"></i></div>
+      <div class="empty-title">Start Searching</div>
+      <div class="empty-desc">Enter a product name, industry, application, or keyword above to find what you need.</div>
+      <a class="btn-p" href="products.html">Browse All Products <i class="ph ph-arrow-right"></i></a>
+    </div>
+
+    <!-- NO RESULTS STATE (hidden by default) -->
+    <div class="empty-state" id="no-results-state" style="display:none;">
+      <div class="empty-icon"><i class="ph ph-x-circle"></i></div>
+      <div class="empty-title">No Results Found</div>
+      <div class="empty-desc" id="no-results-desc">No results for your search. Try different keywords or browse our products.</div>
+      <a class="btn-p" href="products.html">Browse All Products <i class="ph ph-arrow-right"></i></a>
+    </div>
+
+    <!-- RESULTS CONTAINER (hidden by default) -->
+    <div id="results-container" style="display:none;">
+      <div class="results-header">
+        <div class="results-count" id="results-count"><span id="count-num">0</span> results</div>
+        <select class="sort-select" id="sort-select" aria-label="Sort results">
+          <option value="relevance">Sort: Relevance</option>
+          <option value="az">Sort: A–Z</option>
+          <option value="za">Sort: Z–A</option>
+        </select>
+      </div>
+
+      <!-- PRODUCTS SECTION -->
+      <div class="result-section" id="products-section" style="display:none;">
+        <div class="section-title">Products</div>
+        <div class="product-results" id="products-grid"></div>
+      </div>
+
+      <!-- PAGES SECTION -->
+      <div class="result-section" id="pages-section" style="display:none;">
+        <div class="section-title">Pages</div>
+        <div class="page-results" id="pages-grid"></div>
+      </div>
+
+      <!-- BLOGS SECTION -->
+      <div class="result-section" id="blogs-section" style="display:none;">
+        <div class="section-title">Blogs &amp; Resources</div>
+        <div class="blog-results" id="blogs-grid"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-expo">We're at Expo Apr 20–26 · Booth [X] · Come find us</div>
+    <div class="footer-grid">
+      <div>
+        <div class="flogo"><img alt="TMG" src="./assets/logo/TMG Logo_White.svg" /></div>
+        <div class="ftagline">Keeping Industry Moving</div>
+        <div class="fdesc">US-based aftermarket radiators and cooling systems for the industries that can't afford downtime.</div>
+      </div>
+      <div>
+        <div class="fcl">Company</div>
+        <a class="flink" href="about.html">About Us</a>
+        <a class="flink" href="products.html">Products</a>
+        <a class="flink" href="contact.html">Contact / RFQ</a>
+      </div>
+      <div>
+        <div class="fcl">Solutions</div>
+        <a class="flink" href="#">Aftermarket Coolers</a>
+        <a class="flink" href="#">Power Transformers</a>
+        <a class="flink" href="#">Battery Management</a>
+        <a class="flink" href="#">CJP Fabrication</a>
+        <a class="flink" href="#">Seals, Hydraulics &amp; Valves</a>
+        <a class="flink" href="#">Innovation &amp; Prototyping</a>
+      </div>
+      <div>
+        <div class="fcl">Resources</div>
+        <a class="flink" href="news.html">Blogs</a>
+        <a class="flink" href="industries.html">Industries Served</a>
+        <a class="flink" href="applications.html">Applications</a>
+        <a class="flink" href="#">Case Studies</a>
+        <a class="flink" href="#">Documentation</a>
+        <br />
+        <a class="flink-d" href="#">Privacy Policy</a>
+        <a class="flink-d" href="#">Terms of Use</a>
+      </div>
+      <div>
+        <div class="fcl">Contact</div>
+        <div class="fc">(+1) 555-000-0000</div>
+        <div class="fc">info@thermalmotion.com</div>
+        <div class="fc">[City, State]</div>
+        <div class="ficons">
+          <a class="fi" href="#"><i class="ph ph-linkedin-logo"></i></a>
+          <a class="fi" href="#"><i class="ph ph-instagram-logo"></i></a>
+          <a class="fi" href="#"><i class="ph ph-facebook-logo"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span class="flegal">© 2026 Thermal Motion Group. All rights reserved.</span>
+      <span class="flegal">Made in the USA</span>
+    </div>
+  </div>
+
+</div><!-- /.wf -->
+
+<!-- SEARCH OVERLAY (used when nav icon clicked on other pages) -->
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
+  <div class="search-overlay-inner">
+    <div class="search-overlay-bar">
+      <button class="search-overlay-close" id="overlay-close-btn" onclick="closeSearchOverlay()" aria-label="Close search">
+        <i class="ph ph-x"></i>
+      </button>
+      <input
+        class="search-overlay-input"
+        id="overlay-input"
+        type="search"
+        placeholder="Search products, industries, applications..."
+        autocomplete="off"
+        aria-label="Search"
+      />
+      <button class="search-overlay-btn" id="overlay-submit-btn" aria-label="Submit search">
+        <i class="ph ph-magnifying-glass"></i>
+      </button>
+    </div>
+    <div class="search-overlay-hint">Press <kbd>Enter</kbd> to search &nbsp;·&nbsp; <kbd>Esc</kbd> to close</div>
+  </div>
+</div>
+
+<script>
+// ─── SEARCH DATA INDEX ───────────────────────────────────────────────────────
+var SEARCH_DATA = {
+  products: [
+    {
+      id: 'p1',
+      name: 'Heavy-Duty Aluminium Radiator',
+      sku: 'TMG-RAD-0042',
+      division: 'Aftermarket Radiators',
+      industries: ['Agriculture', 'Earthmoving', 'OEM Fit'],
+      specs: ['240mm Core', 'Alloy Construction', 'Fits: CAT 320–340 Series'],
+      price: '$340.00',
+      img: './assets/products/cad_ag_radiator.png',
+      url: 'pdp.html',
+      keywords: 'radiator aluminium heavy duty agricultural earthmoving cat 320 340 aftermarket cooler'
+    },
+    {
+      id: 'p2',
+      name: 'Genset Radiator GR-550',
+      sku: 'TMG-RAD-0055',
+      division: 'Aftermarket Radiators',
+      industries: ['Power Generation', 'Mining'],
+      specs: ['550mm Core', 'Copper-Brass Construction', 'Fits: Cummins QSX15'],
+      price: '$620.00',
+      img: './assets/products/cad_genset_radiator.png',
+      url: 'pdp.html',
+      keywords: 'genset radiator power generation mining cummins qsx15 copper brass aftermarket'
+    },
+    {
+      id: 'p3',
+      name: 'Hydraulic Oil Cooler HC-200',
+      sku: 'TMG-HYD-0021',
+      division: 'Aftermarket Radiators',
+      industries: ['Hydraulics', 'Industrial'],
+      specs: ['200L/min Flow Rate', 'Bar-and-Plate Core', 'Aluminium Alloy'],
+      price: '$480.00',
+      img: './assets/products/cad_hydraulic_radiator.png',
+      url: 'pdp.html',
+      keywords: 'hydraulic oil cooler industrial bar plate aluminium alloy flow rate'
+    },
+    {
+      id: 'p4',
+      name: 'Mining Cooler MC-750',
+      sku: 'TMG-MIN-0033',
+      division: 'Aftermarket Radiators',
+      industries: ['Mining', 'Oil & Gas'],
+      specs: ['750mm Core', 'Stainless Headers', 'IP67 Rated'],
+      price: '$1,249.00',
+      img: './assets/products/cad_mining_cooler.png',
+      url: 'pdp.html',
+      keywords: 'mining cooler oil gas stainless headers ip67 rated heavy duty extreme environment'
+    },
+    {
+      id: 'p5',
+      name: 'Oilfield Cooler OFC-400',
+      sku: 'TMG-OIL-0018',
+      division: 'Aftermarket Radiators',
+      industries: ['Oil & Gas', 'Exploration'],
+      specs: ['400mm Core', 'High-Pressure Rated', 'Desert-Grade Coating'],
+      price: '$890.00',
+      img: './assets/products/cad_oil_radiator.png',
+      url: 'pdp.html',
+      keywords: 'oilfield cooler oil gas exploration high pressure desert grade coating aftermarket'
+    },
+    {
+      id: 'p6',
+      name: 'Truck Radiator TR-320',
+      sku: 'TMG-TRK-0067',
+      division: 'Aftermarket Radiators',
+      industries: ['Trucking', 'Heavy Transport'],
+      specs: ['Drop-in OEM Fit', 'Aluminium Core', 'Fits: Kenworth T680'],
+      price: '$520.00',
+      img: './assets/products/cad_truck_radiator.png',
+      url: 'pdp.html',
+      keywords: 'truck radiator trucking heavy transport kenworth t680 drop in oem fit aluminium'
+    },
+    {
+      id: 'p7',
+      name: 'Charge Air Cooler CAC-18T',
+      sku: 'TMG-CAC-0012',
+      division: 'Aftermarket Radiators',
+      industries: ['Heavy Transport', 'Mining'],
+      specs: ['18 inch Bar-and-Plate Core', 'Pressure-tested to 120 PSI', 'OEM-grade aluminium'],
+      price: '$849.00',
+      img: './assets/products/cad_ag_radiator_2.png',
+      url: 'pdp.html',
+      keywords: 'charge air cooler cac bar plate pressure tested oem grade aluminium heavy transport mining'
+    },
+    {
+      id: 'p8',
+      name: 'Aftermarket Radiator XR-240',
+      sku: 'TMG-RAD-0024',
+      division: 'Aftermarket Radiators',
+      industries: ['Mining', 'Oil & Gas'],
+      specs: ['240mm Core', 'Alloy Construction', 'Fits: CAT 320–340 Series'],
+      price: '$1,249.00',
+      img: './assets/products/cad_genset_radiator_2.png',
+      url: 'pdp.html',
+      keywords: 'aftermarket radiator xr240 mining oil gas alloy cat 320 340'
+    }
+  ],
+  pages: [
+    {
+      id: 'pg1',
+      title: 'Products',
+      desc: 'Browse our full range of aftermarket radiators, hydraulic coolers, and thermal management solutions.',
+      url: 'products.html',
+      keywords: 'products shop buy radiator cooler thermal management aftermarket'
+    },
+    {
+      id: 'pg2',
+      title: 'Industries',
+      desc: 'Thermal solutions for agriculture, mining, oil & gas, trucking, power generation, and hydraulics.',
+      url: 'industries.html',
+      keywords: 'industries agriculture mining oil gas trucking power generation hydraulics'
+    },
+    {
+      id: 'pg3',
+      title: 'Applications',
+      desc: 'Explore specific cooling applications across all TMG product divisions.',
+      url: 'applications.html',
+      keywords: 'applications cooling use cases solutions'
+    },
+    {
+      id: 'pg4',
+      title: 'About TMG',
+      desc: 'American manufacturing, global standards. 20+ years of thermal management expertise.',
+      url: 'about.html',
+      keywords: 'about tmg thermal motion group american manufacturing history'
+    },
+    {
+      id: 'pg5',
+      title: 'Contact / RFQ',
+      desc: 'Get in touch with our engineering team for quotes, custom specs, and technical support.',
+      url: 'contact.html',
+      keywords: 'contact rfq quote enquiry engineering support'
+    },
+    {
+      id: 'pg6',
+      title: 'Solutions',
+      desc: 'Complete thermal platform: aftermarket coolers, power transformers, battery management, and more.',
+      url: 'solutions.html',
+      keywords: 'solutions aftermarket coolers power transformers battery management cjp fabrication'
+    },
+    {
+      id: 'pg7',
+      title: 'Data Centers & Crypto',
+      desc: 'Pre-packaged rack cooling for high-density mining environments and data center operations.',
+      url: 'data-centers.html',
+      keywords: 'data centers crypto mining rack cooling high density'
+    },
+    {
+      id: 'pg8',
+      title: 'Cart',
+      desc: 'View your cart and proceed to checkout.',
+      url: 'cart.html',
+      keywords: 'cart checkout buy purchase order'
+    }
+  ],
+  blogs: [
+    {
+      id: 'b1',
+      title: 'Advancements in Aftermarket Cooling',
+      date: 'May 15, 2026',
+      img: './assets/blogs/Advancements in Aftermarket Cooling.jpg',
+      url: 'news.html',
+      keywords: 'aftermarket cooling advancements technology radiator innovation'
+    },
+    {
+      id: 'b2',
+      title: 'The Future of Battery Thermal Management',
+      date: 'April 28, 2026',
+      img: './assets/blogs/The Future of Battery Thermal Management.jpg',
+      url: 'news.html',
+      keywords: 'battery thermal management bess energy storage future technology'
+    },
+    {
+      id: 'b3',
+      title: 'Optimizing Heavy Duty Components',
+      date: 'March 12, 2026',
+      img: './assets/blogs/Optimizing Heavy Duty Components.jpg',
+      url: 'news.html',
+      keywords: 'heavy duty components optimization performance mining trucking'
+    }
+  ]
+};
+</script>
+
+<script>
+// ─── SEARCH ENGINE ────────────────────────────────────────────────────────────
+var currentQuery = '';
+var currentFilter = 'all';
+var currentSort = 'relevance';
+
+function scoreItem(item, query) {
+  var q = query.toLowerCase().trim();
+  if (!q) return 0;
+  var terms = q.split(/\s+/);
+  var score = 0;
+  var searchable = '';
+
+  if (item.name) searchable += ' ' + item.name;
+  if (item.title) searchable += ' ' + item.title;
+  if (item.sku) searchable += ' ' + item.sku;
+  if (item.division) searchable += ' ' + item.division;
+  if (item.desc) searchable += ' ' + item.desc;
+  if (item.keywords) searchable += ' ' + item.keywords;
+  if (item.industries) searchable += ' ' + item.industries.join(' ');
+  if (item.specs) searchable += ' ' + item.specs.join(' ');
+
+  searchable = searchable.toLowerCase();
+
+  terms.forEach(function(term) {
+    if (!term) return;
+    // Exact name/title match = highest score
+    var nameField = (item.name || item.title || '').toLowerCase();
+    if (nameField === q) score += 100;
+    if (nameField.startsWith(term)) score += 40;
+    if (nameField.includes(term)) score += 20;
+    // SKU match
+    if (item.sku && item.sku.toLowerCase().includes(term)) score += 30;
+    // General keyword match
+    var idx = 0;
+    while ((idx = searchable.indexOf(term, idx)) !== -1) {
+      score += 5;
+      idx += term.length;
+    }
+  });
+
+  return score;
+}
+
+function highlight(text, query) {
+  if (!query || !text) return text;
+  var terms = query.trim().split(/\s+/).filter(Boolean);
+  var result = text;
+  terms.forEach(function(term) {
+    var re = new RegExp('(' + term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+    result = result.replace(re, '<mark>$1</mark>');
+  });
+  return result;
+}
+
+function runSearch(query, filter, sort) {
+  currentQuery = query;
+  currentFilter = filter;
+  currentSort = sort;
+
+  var q = query.trim();
+
+  // Update breadcrumb and heading
+  document.getElementById('bc-query').textContent = q ? 'Search: ' + q : 'Search';
+
+  if (!q) {
+    showState('empty');
+    return;
+  }
+
+  // Score all items
+  var productResults = [];
+  var pageResults = [];
+  var blogResults = [];
+
+  if (filter === 'all' || filter === 'products') {
+    SEARCH_DATA.products.forEach(function(item) {
+      var s = scoreItem(item, q);
+      if (s > 0) productResults.push({ item: item, score: s });
+    });
+  }
+  if (filter === 'all' || filter === 'pages') {
+    SEARCH_DATA.pages.forEach(function(item) {
+      var s = scoreItem(item, q);
+      if (s > 0) pageResults.push({ item: item, score: s });
+    });
+  }
+  if (filter === 'all' || filter === 'blogs') {
+    SEARCH_DATA.blogs.forEach(function(item) {
+      var s = scoreItem(item, q);
+      if (s > 0) blogResults.push({ item: item, score: s });
+    });
+  }
+
+  // Sort
+  function sortFn(a, b) {
+    if (sort === 'az') return (a.item.name || a.item.title || '').localeCompare(b.item.name || b.item.title || '');
+    if (sort === 'za') return (b.item.name || b.item.title || '').localeCompare(a.item.name || a.item.title || '');
+    return b.score - a.score; // relevance
+  }
+  productResults.sort(sortFn);
+  pageResults.sort(sortFn);
+  blogResults.sort(sortFn);
+
+  var total = productResults.length + pageResults.length + blogResults.length;
+
+  if (total === 0) {
+    document.getElementById('no-results-desc').textContent = 'No results for "' + q + '". Try different keywords or browse our products.';
+    showState('none');
+    return;
+  }
+
+  // Render
+  document.getElementById('count-num').textContent = total;
+  renderProducts(productResults, q);
+  renderPages(pageResults, q);
+  renderBlogs(blogResults, q);
+  showState('results');
+}
+
+function renderProducts(results, q) {
+  var sec = document.getElementById('products-section');
+  var grid = document.getElementById('products-grid');
+  if (results.length === 0) { sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+  grid.innerHTML = results.map(function(r) {
+    var p = r.item;
+    var tagsHtml = '<span class="tag tag-div">' + p.division + '</span>' +
+      p.industries.map(function(i){ return '<span class="tag tag-ind">' + i + '</span>'; }).join('');
+    var specsHtml = p.specs.map(function(s){ return '<div class="spec">' + highlight(s, q) + '</div>'; }).join('');
+    return '<a class="pcard" href="' + p.url + '">' +
+      '<div class="pcard-accent"></div>' +
+      '<div class="pcard-img"><img src="' + p.img + '" alt="' + p.name + '" loading="lazy" /></div>' +
+      '<div class="pcard-body">' +
+        '<div class="pcard-name">' + highlight(p.name, q) + '</div>' +
+        '<div class="tags">' + tagsHtml + '</div>' +
+        '<div class="specs">' + specsHtml + '</div>' +
+        '<div class="pcard-price">' + p.price + '</div>' +
+      '</div>' +
+    '</a>';
+  }).join('');
+}
+
+function renderPages(results, q) {
+  var sec = document.getElementById('pages-section');
+  var grid = document.getElementById('pages-grid');
+  if (results.length === 0) { sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+  grid.innerHTML = results.map(function(r) {
+    var p = r.item;
+    return '<a class="page-card" href="' + p.url + '">' +
+      '<div class="page-card-title">' + highlight(p.title, q) + '</div>' +
+      '<div class="page-card-desc">' + highlight(p.desc, q) + '</div>' +
+      '<div class="page-card-link">' + p.url + ' <i class="ph ph-arrow-right"></i></div>' +
+    '</a>';
+  }).join('');
+}
+
+function renderBlogs(results, q) {
+  var sec = document.getElementById('blogs-section');
+  var grid = document.getElementById('blogs-grid');
+  if (results.length === 0) { sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+  grid.innerHTML = results.map(function(r) {
+    var b = r.item;
+    return '<a class="blog-card" href="' + b.url + '">' +
+      '<div class="blog-img"><img src="' + b.img + '" alt="' + b.title + '" loading="lazy" /></div>' +
+      '<div class="blog-body">' +
+        '<div class="blog-date">' + b.date + '</div>' +
+        '<div class="blog-name">' + highlight(b.title, q) + '</div>' +
+      '</div>' +
+    '</a>';
+  }).join('');
+}
+
+function showState(state) {
+  document.getElementById('empty-state').style.display = state === 'empty' ? 'block' : 'none';
+  document.getElementById('no-results-state').style.display = state === 'none' ? 'block' : 'none';
+  document.getElementById('results-container').style.display = state === 'results' ? 'block' : 'none';
+}
+
+// ─── FILTER CHIPS ─────────────────────────────────────────────────────────────
+document.getElementById('filter-chips').addEventListener('click', function(e) {
+  var chip = e.target.closest('.filter-chip');
+  if (!chip) return;
+  document.querySelectorAll('.filter-chip').forEach(function(c){ c.classList.remove('active'); });
+  chip.classList.add('active');
+  currentFilter = chip.dataset.type;
+  if (currentQuery) runSearch(currentQuery, currentFilter, currentSort);
+});
+
+// ─── SORT ─────────────────────────────────────────────────────────────────────
+document.getElementById('sort-select').addEventListener('change', function() {
+  currentSort = this.value;
+  if (currentQuery) runSearch(currentQuery, currentFilter, currentSort);
+});
+
+// ─── SEARCH BAR SUBMIT ────────────────────────────────────────────────────────
+function submitSearch() {
+  var q = document.getElementById('search-input').value.trim();
+  if (!q) return;
+  // Update URL without reload
+  var url = new URL(window.location.href);
+  url.searchParams.set('q', q);
+  window.history.pushState({}, '', url.toString());
+  runSearch(q, currentFilter, currentSort);
+}
+
+document.getElementById('search-submit-btn').addEventListener('click', submitSearch);
+document.getElementById('search-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') submitSearch();
+});
+
+// ─── OVERLAY LOGIC ────────────────────────────────────────────────────────────
+function openSearchOverlay() {
+  var ov = document.getElementById('search-overlay');
+  ov.classList.add('open');
+  setTimeout(function(){ document.getElementById('overlay-input').focus(); }, 50);
+}
+function closeSearchOverlay() {
+  document.getElementById('search-overlay').classList.remove('open');
+}
+document.getElementById('overlay-submit-btn').addEventListener('click', function() {
+  var q = document.getElementById('overlay-input').value.trim();
+  if (!q) return;
+  window.location.href = 'search.html?q=' + encodeURIComponent(q);
+});
+document.getElementById('overlay-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    var q = this.value.trim();
+    if (!q) return;
+    window.location.href = 'search.html?q=' + encodeURIComponent(q);
+  }
+  if (e.key === 'Escape') closeSearchOverlay();
+});
+document.getElementById('search-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeSearchOverlay();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeSearchOverlay();
+});
+
+// ─── MOBILE MENU ─────────────────────────────────────────────────────────────
+function toggleMenu() {
+  document.getElementById('hamburger').classList.toggle('active');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// ─── INIT: READ URL PARAM ─────────────────────────────────────────────────────
+(function init() {
+  var params = new URLSearchParams(window.location.search);
+  var q = params.get('q') || '';
+  if (q) {
+    document.getElementById('search-input').value = q;
+    runSearch(q, currentFilter, currentSort);
+  }
+})();
+</script>
+</body>
+</html>

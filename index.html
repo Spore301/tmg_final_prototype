@@ -1,0 +1,4347 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>TMG Homepage Responsive</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap");
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      :root {
+        --red: #c02b2d;
+        --red-h: #991b1b;
+        --navy: #222f4b;
+        --pitch: #0f172a;
+        --surface: #f8fafc;
+        --lines: #e2e8f0;
+        --muted: #64748b;
+        --deep: #334155;
+        --HF: "Sofia Sans", sans-serif;
+        --BF: "Raleway", sans-serif;
+      }
+
+      body {
+        background: var(--surface);
+        font-family: var(--BF);
+        color: var(--navy);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .wf {
+        width: 100%;
+        background: #fff;
+        border-left: 1px solid var(--lines);
+        border-right: 1px solid var(--lines);
+        margin: 0 auto;
+      }
+
+      /* ============================
+   EXPO & UTILITY
+============================ */
+      .expo-bar {
+        background: var(--red);
+        padding: 10px 20px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 14px;
+        text-align: left;
+      }
+
+      .expo-bar-t {
+        font-family: var(--HF);
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #fff;
+        line-height: 1.4;
+      }
+
+      .expo-pill {
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: #fff;
+        font-family: var(--HF);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 3px 10px;
+        display: inline-block;
+        white-space: nowrap;
+      }
+
+      .util {
+        background: var(--surface);
+        border-bottom: 1px solid var(--lines);
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .util-ct {
+        display: flex;
+        gap: 24px;
+      }
+
+      .ut {
+        font-family: var(--HF);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+      }
+
+      .util-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .si-row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .si {
+        font-size: 16px;
+        color: var(--muted);
+        transition: color 0.2s;
+        text-decoration: none;
+        display: inline-flex;
+      }
+
+      .si:hover {
+        color: var(--red);
+      }
+
+      .ubadge {
+        font-family: var(--HF);
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: var(--red);
+        color: #fff;
+        padding: 4px 12px;
+        display: none;
+      }
+
+      @media (min-width: 768px) {
+        .expo-bar {
+          flex-direction: row;
+          justify-content: center;
+          text-align: center;
+        }
+
+        .ubadge {
+          display: block;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .util-right .si-row {
+          display: none;
+        }
+      }
+
+      /* ============================
+   NAV
+============================ */
+      .nav {
+        background: #fff;
+        border-bottom: 1px solid var(--lines);
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .logo img {
+        height: 44px;
+        width: auto;
+        display: block;
+        transition: height 0.2s ease;
+      }
+
+      @media (min-width: 768px) {
+        .logo img {
+          height: 56px;
+        }
+      }
+
+      /* Desktop Links */
+      .navlinks {
+        display: none;
+        gap: 32px;
+      }
+
+      .nl {
+        font-family: var(--HF);
+        font-size: 14px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--navy);
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+
+      .nl:hover {
+        color: var(--red);
+      }
+
+      @media (min-width: 768px) {
+        .navlinks {
+          display: flex;
+        }
+      }
+
+      /* Mobile Hamburger */
+      .hamburger {
+        width: 24px;
+        height: 20px;
+        position: relative;
+        cursor: pointer;
+        z-index: 110;
+        display: block;
+      }
+
+      .hamburger span {
+        display: block;
+        position: absolute;
+        height: 2px;
+        width: 100%;
+        background: var(--navy);
+        transition: all 0.3s ease;
+        left: 0;
+      }
+
+      .hamburger span:nth-child(1) {
+        top: 0px;
+      }
+
+      .hamburger span:nth-child(2) {
+        top: 9px;
+      }
+
+      .hamburger span:nth-child(3) {
+        top: 18px;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+      }
+
+      @media (min-width: 768px) {
+        .hamburger {
+          display: none;
+        }
+      }
+
+      .mobile-menu {
+        position: absolute;
+        top: calc(100% + 1px);
+        left: 0;
+        width: 100%;
+        background: var(--surface);
+        z-index: 90;
+        display: flex;
+        flex-direction: column;
+        padding: 12px 20px;
+        border-bottom: 1px solid var(--lines);
+        transform: translateY(-20px);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .mobile-menu.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .mlink {
+        font-family: var(--HF);
+        font-size: 16px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--pitch);
+        padding: 20px 0;
+        border-bottom: 1px solid var(--lines);
+        display: block;
+        text-align: center;
+        transition: color 0.2s;
+        cursor: pointer;
+      }
+
+      .mlink:hover {
+        color: var(--red);
+      }
+
+      .mlink:last-child {
+        border-bottom: none;
+      }
+
+      @media (min-width: 768px) {
+        .mobile-menu {
+          display: none;
+        }
+      }
+
+      /* ============================
+   HERO / IMMERSIVE
+============================ */
+      .hero-wrapper {
+        position: relative;
+        background: var(--pitch);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+
+      @media (min-width: 768px) {
+        .hero-wrapper {
+          min-height: 400px;
+        }
+      }
+
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        opacity: 0.6;
+        transition: opacity 0.35s ease;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 40px 20px;
+        background: linear-gradient(
+          180deg,
+          rgba(15, 23, 42, 0.8) 0%,
+          rgba(15, 23, 42, 0.3) 50%,
+          rgba(15, 23, 42, 0) 100%
+        );
+      }
+
+      @media (min-width: 768px) {
+        .hero-content {
+          padding: 40px 20px;
+          justify-content: center;
+          padding-top: 80px;
+        }
+      }
+
+      .hero-eyebrow {
+        font-family: var(--HF);
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 12px;
+        transition: opacity 0.35s ease;
+      }
+
+      .hero-h1 {
+        font-family: var(--HF);
+        font-size: 40px;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        font-weight: 400;
+        color: #fff;
+        margin-bottom: 12px;
+        transition:
+          opacity 0.35s,
+          transform 0.35s;
+      }
+
+      .hero-sub {
+        font-family: var(--BF);
+        font-size: 14px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 24px;
+        transition:
+          opacity 0.35s,
+          transform 0.35s;
+        max-width: 440px;
+      }
+
+      @media (min-width: 768px) {
+        .hero-eyebrow {
+          font-size: 12px;
+          letter-spacing: 0.25em;
+          margin-bottom: 14px;
+        }
+
+        .hero-h1 {
+          font-size: 56px;
+          margin-bottom: 14px;
+        }
+
+        .hero-sub {
+          font-size: 16px;
+          margin-bottom: 32px;
+        }
+      }
+
+      .cta-row {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        max-width: 440px;
+      }
+
+      .btn-p {
+        font-family: var(--HF);
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: var(--red);
+        color: #fff;
+        border: none;
+        border-radius: 0;
+        padding: 16px 28px;
+        width: 100%;
+        justify-content: center;
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+        gap: 8px;
+        transition: background 0.2s;
+      }
+
+      .btn-p:hover {
+        background: var(--red-h);
+      }
+
+      .btn-p:active {
+        background: #7F1D1D;
+        box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn-hero-o {
+        font-family: var(--HF);
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 0;
+        padding: 16px 28px;
+        width: 100%;
+        justify-content: center;
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+        transition: border-color 0.2s;
+      }
+
+      .btn-hero-o:hover {
+        border-color: #fff;
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .btn-hero-o:active {
+        background: rgba(0, 0, 0, 0.5);
+        box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.2);
+      }
+
+      @media (min-width: 768px) {
+        .cta-row {
+          flex-direction: row;
+          width: auto;
+          max-width: none;
+        }
+
+        .btn-p,
+        .btn-o,
+        .btn-hero-o {
+          width: auto;
+        }
+      }
+
+      /* ── INDUSTRY STRIP (Immersive) ── */
+      .ind-strip {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        position: relative;
+        z-index: 2;
+        background: rgba(15, 23, 42, 0.4);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .ind-strip::-webkit-scrollbar {
+        display: none;
+      }
+
+      .ic {
+        flex: 0 0 240px;
+        padding: 24px 20px;
+        text-align: left;
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+        scroll-snap-align: start;
+        transition: background 0.25s;
+        position: relative;
+        cursor: pointer;
+      }
+
+      @media (min-width: 768px) {
+        .ic {
+          flex: 1 1 0;
+        }
+
+        .ic:last-child {
+          border-right: none;
+        }
+      }
+
+      .ic-prog-bg {
+        width: 100%;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.2);
+        margin-bottom: 16px;
+      }
+
+      .ic-prog-fill {
+        height: 100%;
+        background: #fff;
+        width: 0%;
+        transition: width 0.1s linear;
+      }
+
+      .ic-title {
+        font-family: var(--HF);
+        font-size: 16px;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+        line-height: 1.2;
+        transition: color 0.25s;
+        margin-bottom: 8px;
+      }
+
+      .ic-sub {
+        font-family: var(--BF);
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.3);
+        line-height: 1.4;
+        transition: color 0.25s;
+      }
+
+      @media (min-width: 768px) {
+        .ic-title {
+          font-size: 18px;
+        }
+
+        .ic-sub {
+          font-size: 14px;
+        }
+      }
+
+      .ic.on {
+        background: rgba(192, 43, 45, 0.85);
+        box-shadow: inset 0 2px 0 var(--red);
+      }
+
+      .ic.on .ic-title {
+        color: #fff;
+      }
+
+      .ic.on .ic-sub {
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .ic:not(.on):hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      /* ── TRUSTMARKERS ── */
+      .trust-bar {
+        background: #fff;
+        padding: 24px 0;
+        border-bottom: 1px solid var(--lines);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .trust-track {
+        display: flex;
+        align-items: center;
+        gap: 60px;
+        width: max-content;
+        animation: scroll-trust 30s linear infinite;
+      }
+
+      @keyframes scroll-trust {
+        0% {
+          transform: translateX(0);
+        }
+
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      .tbrand {
+        font-family: var(--HF);
+        font-size: 18px;
+        font-weight: 400;
+        color: var(--navy);
+        opacity: 0.25;
+        transition:
+          opacity 0.3s,
+          color 0.3s;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .tbrand:hover {
+        color: var(--red);
+        opacity: 1;
+        cursor: default;
+      }
+
+      @media (min-width: 768px) {
+        .trust-track {
+          gap: 100px;
+          animation: scroll-trust 40s linear infinite;
+        }
+
+        .tbrand {
+          font-size: 22px;
+        }
+      }
+
+      /* ── GLOBALS ── */
+      .sec {
+        padding: 56px 20px;
+        scroll-margin-top: 70px;
+      }
+
+      @media (min-width: 768px) {
+        .sec {
+          padding: 80px 40px;
+          scroll-margin-top: 80px;
+        }
+      }
+
+      .sec.alt {
+        background: var(--surface);
+      }
+
+      .sec + .sec {
+        border-top: 1px solid var(--lines);
+      }
+
+      .eyebrow {
+        font-family: var(--HF);
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 12px;
+      }
+
+      .sec-h2 {
+        font-family: var(--HF);
+        font-size: 28px;
+        line-height: 1.2;
+        text-transform: uppercase;
+        font-weight: 400;
+        color: var(--pitch);
+        margin-bottom: 16px;
+      }
+
+      .sec-body {
+        font-family: var(--BF);
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--deep);
+        margin-bottom: 32px;
+        max-width: 600px;
+      }
+
+      .sec-rule {
+        width: 40px;
+        height: 2px;
+        background: var(--red);
+        margin-bottom: 24px;
+      }
+
+      @media (min-width: 768px) {
+        .eyebrow {
+          font-size: 12px;
+          letter-spacing: 0.25em;
+        }
+
+        .sec-h2 {
+          font-size: 40px;
+        }
+
+        .sec-body {
+          font-size: 16px;
+          margin-bottom: 48px;
+        }
+
+        .sec-rule {
+          margin-bottom: 32px;
+        }
+      }
+
+      /* ── PRODUCTS ── */
+      .prod-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        padding: 0 0px;
+      }
+
+      .pnav-dots {
+        display: flex;
+        align-items: baseline;
+        gap: 4px;
+        font-family: var(--HF);
+        font-size: 18px;
+        color: var(--pitch);
+      }
+
+      .pnav-sub {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .pnav-arrs {
+        display: flex;
+        gap: 8px;
+      }
+
+      .parr {
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--lines);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-family: var(--HF);
+        font-size: 16px;
+        color: var(--pitch);
+        transition: background 0.2s;
+        background: #fff;
+      }
+
+      .parr:hover {
+        background: var(--surface);
+      }
+
+      .prod-grid-wrap {
+        position: relative;
+        overflow: hidden;
+        margin: 0 -20px;
+        padding: 0 20px;
+      }
+
+      @media (min-width: 768px) {
+        .prod-grid-wrap {
+          margin: 0 -40px;
+          padding: 0 40px;
+        }
+      }
+
+      .fade-edges::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 20px;
+        background: linear-gradient(to right, #fff, transparent);
+        z-index: 5;
+        pointer-events: none;
+      }
+
+      .fade-edges::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 50px;
+        background: linear-gradient(to left, #fff, transparent);
+        z-index: 5;
+        pointer-events: none;
+      }
+
+      .prod-grid {
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 24px;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+      }
+
+      .prod-grid::-webkit-scrollbar {
+        display: none;
+      }
+
+      .pcard {
+        border: 1px solid var(--lines);
+        background: #fff;
+        transition: border-color 0.35s;
+        flex: 0 0 calc(100% - 40px);
+        scroll-snap-align: center;
+        display: flex;
+        flex-direction: column;
+      }
+
+      @media (min-width: 580px) {
+        .pcard {
+          flex: 0 0 calc(50% - 20px);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .pcard {
+          flex: 0 0 calc(25% - 20px);
+          scroll-snap-align: start;
+        }
+      }
+
+      .pcard:hover,
+      .pcard.lit {
+        border-color: var(--red);
+      }
+
+      .pcard-accent {
+        height: 3px;
+        background: var(--lines);
+        transition: background 0.35s;
+      }
+
+      .pcard:hover .pcard-accent,
+      .pcard.lit .pcard-accent {
+        background: var(--red);
+      }
+
+      .pcard-img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        background: var(--surface);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid var(--lines);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .pcard-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        border-style: none;
+        mix-blend-mode: multiply;
+      }
+
+      .pcard-img-l {
+        font-family: var(--HF);
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--muted);
+        opacity: 0.5;
+        position: absolute;
+      }
+
+      .pcard-body {
+        padding: 24px 20px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+
+      .pcard-name {
+        font-family: var(--HF);
+        font-size: 16px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--pitch);
+        margin-bottom: 12px;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 16px;
+      }
+
+      .tag {
+        font-family: var(--HF);
+        font-size: 9px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--deep);
+        padding: 4px 10px;
+        border: 1px solid var(--lines);
+        background: var(--surface);
+        transition:
+          background 0.2s,
+          border-color 0.2s,
+          color 0.2s;
+      }
+
+      .pcard:hover .tag.active-tag,
+      .pcard.lit .tag.active-tag {
+        background: var(--red);
+        border-color: var(--red);
+        color: #fff;
+      }
+
+      .specs {
+        margin-bottom: 24px;
+        flex: 1;
+      }
+
+      .spec {
+        font-family: var(--BF);
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--muted);
+        padding-left: 12px;
+        position: relative;
+        margin-bottom: 6px;
+      }
+
+      .spec::before {
+        content: "—";
+        position: absolute;
+        left: 0;
+        color: var(--red);
+      }
+
+      .pcard-btn {
+        width: 100%;
+        text-align: center;
+        font-family: var(--HF);
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #fff;
+        padding: 12px;
+        border: 1px solid var(--red);
+        border-radius: 0;
+        background: var(--red);
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .pcard-btn:hover {
+        background: var(--red-h);
+      }
+
+      .pcard-btn:active {
+        background: #7F1D1D;
+        box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.2);
+      }
+
+      /* ── INDUSTRIES ACCORDIONS ── */
+      .acc {
+        border: 1px solid var(--lines);
+        margin-bottom: 8px;
+        background: #fff;
+        transition: box-shadow 0.2s;
+      }
+
+      .acc:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      }
+
+      .acc-hdr {
+        padding: 18px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .acc-hdr-l {
+        font-family: var(--HF);
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--navy);
+        transition: color 0.2s;
+      }
+
+      .acc-hdr.on {
+        background: var(--red);
+      }
+
+      .acc-hdr.on .acc-hdr-l {
+        color: #fff;
+      }
+
+      .acc-chev {
+        font-size: 16px;
+        color: var(--muted);
+        transition:
+          transform 0.2s,
+          color 0.2s;
+        display: block;
+        line-height: 1;
+      }
+
+      .acc-hdr.on .acc-chev {
+        color: rgba(255, 255, 255, 0.8);
+        transform: rotate(90deg);
+      }
+
+      .acc-body {
+        max-height: 0;
+        overflow: hidden;
+        padding: 0 20px;
+        border-top: 1px solid transparent;
+        transition:
+          max-height 0.4s ease,
+          padding 0.4s ease,
+          border-color 0.4s ease;
+        background: #fff;
+      }
+
+      .acc-body.on {
+        max-height: 800px;
+        padding: 24px 20px;
+        border-top-color: var(--lines);
+      }
+
+      .acc-ch {
+        font-family: var(--BF);
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--deep);
+        margin-bottom: 12px;
+      }
+
+      .acc-diff {
+        font-family: var(--BF);
+        font-size: 13px;
+        line-height: 1.6;
+        color: var(--muted);
+        border-left: 2px solid var(--red);
+        padding-left: 14px;
+        margin-bottom: 24px;
+      }
+
+      .acc-cta {
+        font-family: var(--HF);
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--navy);
+        padding: 12px 20px;
+        border: 1px solid var(--deep);
+        border-radius: 0;
+        background: transparent;
+        cursor: pointer;
+        display: inline-flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+
+      .acc-cta:hover {
+        background: var(--navy);
+        color: #fff;
+      }
+
+      .acc-cta:active {
+        background: var(--pitch);
+        color: #fff;
+        box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.2);
+      }
+
+      @media (min-width: 768px) {
+        .acc-hdr {
+          padding: 20px 32px;
+        }
+
+        .acc-body {
+          padding: 0 32px;
+        }
+
+        .acc-body.on {
+          padding: 32px;
+        }
+
+        .acc-ch {
+          font-size: 15px;
+          margin-bottom: 16px;
+        }
+
+        .acc-diff {
+          font-size: 14px;
+          margin-bottom: 24px;
+        }
+
+        .acc-cta {
+          width: auto;
+          display: inline-flex;
+        }
+      }
+
+      /* ── ABOUT ── */
+      .about-cols {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-bottom: 48px;
+        align-items: stretch;
+      }
+
+      @media (min-width: 768px) {
+        .about-cols {
+          grid-template-columns: calc(50vw - 40px) 1fr;
+          gap: 60px;
+        }
+
+        .about-content {
+          padding-bottom: 30px;
+        }
+      }
+
+      .about-copy {
+        font-family: var(--BF);
+        font-size: 15px;
+        line-height: 1.7;
+        color: var(--deep);
+      }
+
+      .about-copy p + p {
+        margin-top: 16px;
+      }
+
+      .about-photo {
+        height: 300px;
+        background: var(--surface);
+        border: 1px solid var(--lines);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      @media (min-width: 768px) {
+        .about-photo {
+          height: auto;
+          min-height: 100%;
+        }
+      }
+
+      .stats-bar {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        background: transparent;
+        margin-top: 48px;
+        border-top: 1px solid var(--lines);
+        border-left: 1px solid var(--lines);
+      }
+
+      .stat {
+        padding: 32px 20px;
+        text-align: center;
+        border-right: 1px solid var(--lines);
+        border-bottom: 1px solid var(--lines);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .stat-n {
+        font-family: var(--HF);
+        font-size: 32px;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+        color: var(--navy);
+        margin-bottom: 8px;
+      }
+
+      .stat-l {
+        font-family: var(--HF);
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .stat-rule {
+        width: 20px;
+        height: 1px;
+        background: var(--red);
+        margin: 0 auto 12px;
+      }
+
+      /* ── CONTACT ── */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      @media (min-width: 768px) {
+        .contact-grid {
+          grid-template-columns: 1.2fr 1fr;
+          gap: 80px;
+          align-items: start;
+        }
+
+        .contact-form {
+          grid-row: 1;
+          grid-column: 1;
+        }
+
+        .contact-info {
+          grid-row: 1;
+          grid-column: 2;
+        }
+      }
+
+      .expo-note {
+        background: var(--red);
+        padding: 18px 24px;
+        margin-bottom: 32px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .expo-note-t {
+        font-family: var(--HF);
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #fff;
+        line-height: 1.6;
+        position: relative;
+        z-index: 1;
+      }
+
+      .form-row2 {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      @media (min-width: 768px) {
+        .form-row2 {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .ff,
+      .ff-full {
+        height: 48px;
+        background: var(--surface);
+        border: none;
+        border-bottom: 2px solid var(--lines);
+        padding: 0 16px;
+        font-family: var(--BF);
+        font-size: 15px;
+        color: var(--pitch);
+        width: 100%;
+        border-radius: 0;
+        appearance: none;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+        outline: none;
+      }
+
+      .ff-full {
+        margin-bottom: 16px;
+      }
+
+      .ff-ta {
+        height: 140px;
+        background: var(--surface);
+        border: none;
+        border-bottom: 2px solid var(--lines);
+        padding: 16px;
+        font-family: var(--BF);
+        font-size: 15px;
+        color: var(--pitch);
+        width: 100%;
+        margin-bottom: 32px;
+        resize: vertical;
+        border-radius: 0;
+        outline: none;
+        appearance: none;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+
+      .ff:hover,
+      .ff-full:hover,
+      .ff-ta:hover {
+        background: #f1f5f9;
+        border-color: #cbd5e1;
+      }
+
+      .ff:focus,
+      .ff-full:focus,
+      .ff-ta:focus {
+        background: #fff;
+        border-bottom-color: var(--navy);
+      }
+
+      .form-lbl {
+        font-family: var(--HF);
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      /* Custom Select */
+      .custom-sel {
+        position: relative;
+        width: 100%;
+        margin-bottom: 16px;
+        outline: none;
+        z-index: 5;
+      }
+
+      .cs-top {
+        height: 48px;
+        background: var(--surface);
+        border: none;
+        border-bottom: 2px solid var(--lines);
+        padding: 0 16px;
+        font-family: var(--BF);
+        font-size: 15px;
+        color: var(--pitch);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+
+      .custom-sel:hover .cs-top {
+        background: #f1f5f9;
+        border-color: #cbd5e1;
+      }
+
+      .custom-sel.open .cs-top {
+        background: #fff;
+        border-bottom-color: var(--navy);
+      }
+
+      .cs-val {
+        color: rgba(15, 23, 42, 0.5);
+      }
+
+      .custom-sel.has-val .cs-val {
+        color: var(--pitch);
+      }
+
+      .cs-arr {
+        color: var(--muted);
+        transition: transform 0.2s;
+      }
+
+      .custom-sel.open .cs-arr {
+        transform: rotate(180deg);
+        color: var(--navy);
+      }
+
+      .cs-opts {
+        position: absolute;
+        top: calc(100% + 2px);
+        left: 0;
+        right: 0;
+        background: #fff;
+        border: 1px solid var(--lines);
+        border-top: none;
+        z-index: 10;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-4px);
+        transition:
+          opacity 0.2s ease,
+          transform 0.2s ease;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        max-height: 250px;
+        overflow-y: auto;
+      }
+
+      .custom-sel.open .cs-opts {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .cs-opt {
+        padding: 14px 16px;
+        font-family: var(--BF);
+        font-size: 15px;
+        color: var(--deep);
+        cursor: pointer;
+        border-bottom: 1px solid var(--surface);
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+
+      .cs-opt:last-child {
+        border-bottom: none;
+      }
+
+      .cs-opt:hover {
+        background: var(--navy);
+        color: #fff;
+        font-weight: 400;
+      }
+
+      .form-btn {
+        font-family: var(--HF);
+        font-size: 14px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: var(--red);
+        color: #fff;
+        padding: 18px 32px;
+        width: 100%;
+        justify-content: center;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        border: none;
+        border-radius: 0;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .form-btn:hover {
+        background: var(--red-h);
+      }
+
+      .form-btn:active {
+        background: #7F1D1D;
+        box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.2);
+      }
+
+      @media (min-width: 768px) {
+        .form-btn {
+          width: auto;
+        }
+      }
+
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .ca-block {
+        padding: 24px 0;
+        border-bottom: 1px solid var(--lines);
+      }
+
+      .ca-block:first-child {
+        padding-top: 0;
+      }
+
+      .ca-l {
+        font-family: var(--HF);
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
+
+      .ca-v {
+        font-family: var(--BF);
+        font-size: 16px;
+        color: var(--deep);
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        background: var(--pitch);
+        padding: 48px 20px 24px;
+        position: relative;
+      }
+
+      @media (min-width: 768px) {
+        .footer {
+          padding: 80px 40px 32px;
+        }
+      }
+
+      .footer-expo {
+        background: var(--red);
+        margin: -48px -20px 40px;
+        padding: 14px 20px;
+        text-align: center;
+        font-family: var(--HF);
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #fff;
+        line-height: 1.4;
+      }
+
+      @media (min-width: 768px) {
+        .footer-expo {
+          margin: -80px -40px 60px;
+          padding: 16px 40px;
+          font-size: 12px;
+        }
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding-bottom: 48px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      @media (min-width: 768px) {
+        .footer-grid {
+          grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+          gap: 40px;
+        }
+      }
+
+      .flogo {
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+      }
+
+      .flogo img {
+        height: 40px;
+        width: auto;
+        opacity: 0.9;
+      }
+
+      @media (min-width: 768px) {
+        .flogo img {
+          height: 50px;
+        }
+      }
+
+      .ftagline {
+        font-family: var(--HF);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 12px;
+      }
+
+      .fdesc {
+        font-family: var(--BF);
+        font-size: 14px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.3);
+        max-width: 320px;
+      }
+
+      .fcl {
+        font-family: var(--HF);
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+        margin-bottom: 24px;
+      }
+
+      .flink {
+        font-family: var(--HF);
+        font-size: 14px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 16px;
+        display: block;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .flink:hover {
+        color: #fff;
+      }
+
+      .flink-d {
+        font-family: var(--HF);
+        font-size: 12px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.2);
+        margin-bottom: 12px;
+        display: block;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .flink-d:hover {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .fc {
+        font-family: var(--BF);
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 12px;
+      }
+
+      .ficons {
+        display: flex;
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .fi {
+        font-size: 20px;
+        color: rgba(255, 255, 255, 0.4);
+        transition: color 0.2s;
+        text-decoration: none;
+        display: inline-flex;
+      }
+
+      .fi:hover {
+        color: #fff;
+      }
+
+      .footer-base {
+        padding: 32px 0 0;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      @media (min-width: 768px) {
+        .footer-base {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+
+      .flegal {
+        font-family: var(--BF);
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Fade transitions for hero text */
+      .fade {
+        animation: fd 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      @keyframes fd {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* --- NEW PHASE 2 CSS --- */
+      /* Announcement Bar */
+      .ann-dots {
+        display: flex;
+        gap: 6px;
+        justify-content: center;
+        margin-top: 6px;
+      }
+      .ann-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 0;
+        background: #fff;
+        opacity: 0.4;
+        transition: opacity 0.2s;
+      }
+      .ann-dot.active {
+        opacity: 1;
+      }
+
+      /* Navigation Dropdown */
+      .nav-dropdown {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+      .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #fff;
+        border: 1px solid var(--lines);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        padding: 0;
+        display: none;
+        flex-direction: column;
+        min-width: 240px;
+        margin-top: 8px;
+        opacity: 0;
+        transition:
+          opacity 0.2s,
+          transform 0.2s;
+        pointer-events: none;
+        z-index: 1001;
+        border-radius: 0;
+      }
+      .dropdown-menu::before {
+        content: '';
+        position: absolute;
+        top: -8px;
+        left: 0;
+        right: 0;
+        height: 8px;
+        background: transparent;
+      }
+      .nav-dropdown:hover .dropdown-menu {
+        display: flex;
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+        pointer-events: auto;
+        margin-top: 8px;
+      }
+      .dm-link {
+        padding: 12px 20px;
+        display: block;
+        text-decoration: none;
+        color: var(--navy);
+        font-family: var(--BF);
+        font-size: 14px;
+        transition: background 0.2s;
+      }
+      .dm-link:hover {
+        background: var(--surface-low);
+        color: var(--navy);
+      }
+      .dm-sub {
+        display: block;
+        font-family: var(--HF);
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+      .dm-div {
+        height: 1px;
+        background: var(--lines);
+        margin: 4px 0;
+      }
+      .dm-all {
+        padding: 12px 20px;
+        font-family: var(--HF);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--red);
+        text-decoration: none;
+        display: block;
+      }
+
+      /* Nav Actions */
+      .nav-actions {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+      }
+      .nav-icon {
+        font-size: 20px;
+        color: var(--navy);
+        cursor: pointer;
+        position: relative;
+      }
+      .nav-icon:hover {
+        color: var(--red);
+      }
+      .cart-badge {
+        position: absolute;
+        top: -6px;
+        right: -8px;
+        background: var(--red);
+        color: #fff;
+        font-family: var(--HF);
+        font-size: 9px;
+        width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Filter Tabs */
+      .filter-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+      .filter-tabs {
+        display: flex;
+        overflow-x: auto;
+        gap: 0;
+        scrollbar-width: none;
+        align-items: center;
+      }
+      .filter-tabs::-webkit-scrollbar {
+        display: none;
+      }
+      .ftab {
+        padding: 10px 20px;
+        font-family: var(--HF);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        border-bottom: 2px solid transparent;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .ftab.active {
+        color: var(--navy);
+        border-bottom-color: var(--red);
+      }
+
+      /* Buttons & Elements */
+      .btn-s {
+        font-family: var(--HF);
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: var(--navy);
+        color: #fff;
+        border: none;
+        border-radius: 0;
+        padding: 16px 28px;
+        justify-content: center;
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+        transition: background 0.2s;
+        text-decoration: none;
+      }
+      .btn-s:hover {
+        background: #1e293b;
+      }
+      .btn-s:active {
+        background: var(--pitch);
+        box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.2);
+      }
+      .btn-p {
+        font-family: var(--HF);
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: var(--red);
+        color: #fff;
+        border: none;
+        border-radius: 0;
+        padding: 16px 28px;
+        justify-content: center;
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+        transition: background 0.2s;
+        text-decoration: none;
+      }
+      .btn-p:hover {
+        background: #a02020;
+      }
+      .btn-p:active {
+        background: #7F1D1D;
+        box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.2);
+      }
+      .btn-o {
+        font-family: var(--HF);
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: transparent;
+        color: var(--navy);
+        border: 1px solid var(--navy);
+        border-radius: 0;
+        padding: 16px 28px;
+        justify-content: center;
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+      }
+      .btn-o:hover {
+        background: var(--surface-low);
+      }
+      .btn-o:active {
+        background: var(--lines);
+        box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.1);
+      }
+
+      /* ── TMG BUTTON SYSTEM (Figma Design System) ── */
+      .tmg-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        font-family: var(--HF);
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        border-radius: 0;
+        transition: all 0.2s ease-out;
+        cursor: pointer;
+        text-decoration: none;
+        border: 1px solid transparent;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      .tmg-btn:disabled {
+        background-color: #E2E8F0;
+        color: #94A3B8;
+        cursor: not-allowed;
+        pointer-events: none;
+        border-color: transparent;
+      }
+      .tmg-btn--sm  { font-size: 0.75rem;  padding: 0.625rem 1.5rem; }
+      .tmg-btn--md  { font-size: 0.875rem; padding: 0.75rem 2rem; }
+      .tmg-btn--lg  { font-size: 1rem;     padding: 1rem 3rem; }
+      .tmg-btn--primary { background-color: var(--red); color: #fff; border-color: var(--red); }
+      .tmg-btn--primary:hover { background-color: var(--red-h); border-color: var(--red-h); color: #fff; }
+      .tmg-btn--primary:active { background-color: #7f1d1d; border-color: #7f1d1d; color: #fff; box-shadow: inset 2px 2px 0 rgba(0,0,0,.2); }
+      .tmg-btn--secondary { background-color: var(--navy); color: #fff; border-color: var(--navy); }
+      .tmg-btn--secondary:hover { background-color: #1e293b; border-color: #1e293b; color: #fff; }
+      .tmg-btn--secondary:active { background-color: var(--pitch); border-color: var(--pitch); color: #fff; box-shadow: inset 2px 2px 0 rgba(0,0,0,.4); }
+      .tmg-btn--outline { background-color: transparent; color: var(--navy); border-color: #94A3B8; }
+      .tmg-btn--outline:hover { background-color: var(--surface); color: var(--navy); border-color: var(--navy); }
+      .tmg-btn--outline:active { background-color: #f1f5f9; color: var(--navy); border-color: var(--navy); }
+      .tmg-btn--ghost { background-color: transparent; color: var(--navy); border-color: transparent; }
+      .tmg-btn--ghost:hover { background-color: #f1f5f9; color: var(--navy); }
+      .tmg-btn--ghost:active { background-color: #e2e8f0; color: var(--navy); }
+
+      .btn-nl {
+        font-family: var(--HF);
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: #fff;
+        color: var(--navy);
+        border: none;
+        padding: 16px 28px;
+        justify-content: center;
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+        transition: background 0.2s;
+        text-decoration: none;
+        height: 48px;
+      }
+      .btn-nl:hover {
+        background: var(--surface);
+      }
+
+      /* Product Carousel & Cards updates */
+      .prod-grid {
+        align-items: stretch;
+      }
+      .pc-wrap {
+        display: flex;
+        align-self: stretch;
+        height: auto;
+      }
+      .pcard {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      .pcard-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .pcard .cta-grid {
+        margin-top: auto;
+      }
+      .pcard .btn-o {
+        margin-top: auto;
+      }
+      .pcard-img {
+        position: relative;
+      }
+      .wishlist-btn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 32px;
+        height: 32px;
+        background: #fff;
+        border: 1px solid var(--lines);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s;
+        color: var(--red);
+        font-size: 18px;
+        cursor: pointer;
+        z-index: 10;
+      }
+      .pcard:hover .wishlist-btn {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .pcard-price {
+        font-family: var(--HF);
+        font-size: 18px;
+        color: var(--navy);
+        font-variant-numeric: tabular-nums;
+        margin-top: auto;
+        padding-top: 16px;
+        margin-bottom: 12px;
+      }
+      .pcard-top-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+      }
+
+      .tag-div {
+        background: var(--red);
+        color: #fff;
+        border: 1px solid var(--red);
+      }
+      .tag-ind {
+        background: transparent;
+        color: var(--red);
+        border: 1px solid var(--red);
+      }
+
+      .cta-grid {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+      }
+      .cart-sq {
+        aspect-ratio: 1 / 1;
+        background: #fff;
+        border: 1px solid var(--lines);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--navy);
+        font-size: 18px;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+      .cart-sq:hover {
+        background: var(--surface-low);
+        border-color: var(--navy);
+      }
+
+      /* Blogs */
+      .blog-card {
+        background: #fff;
+        border: 1px solid var(--lines);
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+      }
+      .blog-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+      }
+      .blog-img {
+        width: 100%;
+        height: 200px;
+        background: #eee;
+        overflow: hidden;
+      }
+      .blog-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .blog-body {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+      }
+      .blog-date {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .blog-name {
+        font-family: var(--HF);
+        font-size: 18px;
+        color: var(--navy);
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+
+      /* Newsletter */
+      .nl-sec {
+        background: var(--deep);
+        padding: 40px 20px;
+        position: relative;
+        overflow: hidden;
+      }
+      .nl-bg-pattern {
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 10px,
+          rgba(255, 255, 255, 0.1) 10px,
+          rgba(255, 255, 255, 0.1) 11px
+        );
+        z-index: 0;
+      }
+      .nl-wrap {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 32px;
+        align-items: center;
+        max-width: 1440px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+      .nl-eb {
+        font-family: var(--HF);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.25em;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 12px;
+      }
+      .nl-h2 {
+        font-family: var(--HF);
+        font-size: 32px;
+        text-transform: uppercase;
+        color: #fff;
+        line-height: 1.2;
+        margin-bottom: 16px;
+      }
+      .nl-sub {
+        font-family: var(--BF);
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.6;
+      }
+      .nl-form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .nl-inp {
+        height: 48px;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        padding: 0 20px;
+        font-family: var(--BF);
+        font-size: 15px;
+        color: #fff;
+        width: 100%;
+        outline: none;
+        transition: border-color 0.2s;
+        border-radius: 0;
+      }
+      .nl-inp:focus {
+        border-color: #fff;
+      }
+      .nl-inp::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .nl-note {
+        font-family: var(--BF);
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 12px;
+      }
+      @media (min-width: 768px) {
+        .nl-sec {
+          padding: 56px 40px;
+        }
+        .nl-wrap {
+          grid-template-columns: 1fr 1fr;
+          gap: 80px;
+        }
+        .nl-form {
+          flex-direction: row;
+        }
+        .nl-inp {
+          flex: 1;
+        }
+      }
+
+      /* Industries Grid */
+      .hdr-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 48px;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .hdr-left {
+        flex: 1;
+        min-width: 300px;
+        margin-bottom: 0 !important;
+      }
+      .ind-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      @media (min-width: 768px) {
+        .ind-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (min-width: 1024px) {
+        .ind-grid {
+          grid-template-columns: 1fr 1fr 1fr;
+        }
+      }
+      .ind-card {
+        background: #fff;
+        border: 1px solid var(--lines);
+        padding: 32px 28px;
+        position: relative;
+        transition: border-color 0.3s;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        border-radius: 0;
+      }
+      .ind-card .pcard-accent {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: transparent;
+        transition: background 0.3s;
+      }
+      .ind-card:hover {
+        border-color: var(--card-color, var(--red));
+      }
+      .ind-card:hover .pcard-accent {
+        background: var(--card-color, var(--red));
+      }
+      .ind-icon {
+        font-size: 28px;
+        color: var(--card-color, var(--red));
+        margin-bottom: 16px;
+        display: block;
+      }
+      .ind-title {
+        font-family: var(--HF);
+        font-size: 18px;
+        text-transform: uppercase;
+        color: var(--pitch);
+        margin-bottom: 8px;
+      }
+      .ind-desc {
+        font-family: var(--BF);
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .ind-link {
+        font-family: var(--HF);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--red);
+        margin-top: auto;
+        padding-top: 16px;
+        display: block;
+        text-decoration: none;
+      }
+
+      /* Testimonials */
+      .test-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      @media (min-width: 768px) {
+        .test-layout {
+          grid-template-columns: 35% 1fr;
+          gap: 60px;
+        }
+      }
+      .test-list {
+        position: relative;
+        height: 180px;
+        overflow: hidden;
+      }
+      .test-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        position: absolute;
+        width: 100%;
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .ti-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 0;
+        border: 2px solid var(--lines);
+        background: var(--surface);
+      }
+      .ti-info {
+        display: flex;
+        flex-direction: column;
+      }
+      .ti-name {
+        font-family: var(--HF);
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--muted);
+        transition: color 0.5s;
+      }
+      .ti-rat {
+        font-family: var(--BF);
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .ti-rat span {
+        color: var(--red);
+      }
+
+      .test-item.active {
+        opacity: 1;
+        transform: translateY(70px) scale(1);
+        z-index: 2;
+        pointer-events: auto;
+      }
+      .test-item.active .ti-img {
+        border-color: var(--red);
+      }
+      .test-item.active .ti-name {
+        color: var(--pitch);
+      }
+      .test-item.prev {
+        opacity: 0.35;
+        transform: translateY(10px) scale(0.9);
+        z-index: 1;
+        pointer-events: none;
+        filter: grayscale(1);
+      }
+      .test-item.next {
+        opacity: 0.35;
+        transform: translateY(130px) scale(0.9);
+        z-index: 1;
+        pointer-events: none;
+        filter: grayscale(1);
+      }
+      .test-item.hidden {
+        opacity: 0;
+        transform: translateY(-40px) scale(0.9);
+        pointer-events: none;
+      }
+
+      .test-quote-col {
+        border-left: 1px solid var(--lines);
+        padding-left: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      @media (min-width: 768px) {
+        .test-quote-col {
+          padding-left: 60px;
+        }
+      }
+      .tq-mark {
+        font-family: var(--HF);
+        font-size: 72px;
+        color: var(--red);
+        opacity: 0.15;
+        line-height: 0.5;
+        margin-bottom: 8px;
+        display: block;
+      }
+      .tq-text {
+        font-family: var(--BF);
+        font-size: 17px;
+        font-style: italic;
+        line-height: 1.7;
+        color: var(--deep);
+        transition: opacity 0.4s ease;
+        min-height: 80px;
+        margin-bottom: 16px;
+      }
+      .tq-name {
+        font-family: var(--HF);
+        font-size: 13px;
+        text-transform: uppercase;
+        color: var(--pitch);
+      }
+      .tq-co {
+        font-family: var(--BF);
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      /* Enquiry Modal */
+      .modal-ov {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.7);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+      }
+      .modal-ov.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .modal-bx {
+        background: #fff;
+        padding: 48px;
+        max-width: 560px;
+        width: 100%;
+        position: relative;
+        border-radius: 0;
+      }
+      .modal-cl {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        font-size: 24px;
+        color: var(--muted);
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+      .modal-cl:hover {
+        color: var(--pitch);
+      }
+      .div-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      @media (min-width: 768px) {
+        .div-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (min-width: 1024px) {
+        .div-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .div-card {
+        background: white;
+        border: 1px solid var(--lines);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        height: 100%;
+      }
+      .div-accent {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: 5;
+      }
+      .div-img-area {
+        aspect-ratio: 16/9;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .div-pattern {
+        position: absolute;
+        inset: 0;
+        opacity: 0.1;
+        z-index: 1;
+      }
+      .div-icon {
+        font-size: 80px;
+        color: var(--navy);
+        opacity: 0.15;
+        transition: opacity 0.3s;
+        z-index: 2;
+      }
+      .div-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+      }
+      .div-card:hover .div-accent {
+        opacity: 1;
+      }
+      .div-card:hover .div-icon {
+        opacity: 0.3;
+      }
+      .div-img-area {
+        background: var(--surface);
+      }
+      .div-accent {
+        background: var(--navy);
+      }
+      .div-body {
+        padding: 32px 24px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .div-type {
+        font-family: "Sofia Sans", sans-serif;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 12px;
+      }
+      .div-title {
+        font-family: "Sofia Sans", sans-serif;
+        font-size: 20px;
+        text-transform: uppercase;
+        color: var(--navy);
+        margin-bottom: 12px;
+      }
+      .div-desc {
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--muted);
+        flex-grow: 1;
+        margin-bottom: 16px;
+        font-family: var(--BF);
+      }
+      .div-arrow {
+        font-size: 24px;
+        color: var(--muted);
+        transition: all 0.2s;
+        align-self: flex-start;
+      }
+      .div-card:hover .div-arrow {
+        transform: translateX(6px);
+        color: var(--navy);
+      }
+
+
+
+      /* Ensure Bucket Grid works properly */
+      @media (min-width: 768px) {
+        .div-grid {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+      }
+      @media (min-width: 1024px) {
+        .div-grid {
+          grid-template-columns: repeat(3, 1fr) !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wf">
+      <div
+        class="top-fold"
+        style="display: flex; flex-direction: column; min-height: 100vh"
+      >
+        <!-- EXPO -->
+        <div
+          class="expo-bar"
+          id="ann-bar"
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            min-height: 40px;
+          "
+        >
+          <div
+            class="expo-bar-t"
+            id="ann-text"
+            style="transition: opacity 0.4s ease"
+          >
+            🔴 EXPO 2026 — Booth 4A · Apr 20–26 · Come find us
+          </div>
+        </div>
+        <!-- UTILITY -->
+        <div class="util">
+          <div class="util-ct">
+            <span class="ut">(+1) 555-000-0000</span>
+            <span class="ut desktop-only">info@thermalmotion.com</span>
+          </div>
+          <div class="util-right">
+            <div class="si-row">
+              <a class="si" href="#"><i class="ph ph-linkedin-logo"></i></a>
+              <a class="si" href="#"><i class="ph ph-instagram-logo"></i></a>
+              <a class="si" href="#"><i class="ph ph-facebook-logo"></i></a>
+            </div>
+            <div class="ubadge">Expo Apr 20–26 · Booth [X]</div>
+          </div>
+        </div>
+        <!-- NAV -->
+        <div class="nav-spacer" style="display: none"></div>
+        <div class="nav">
+          <div class="logo"><img alt="TMG" src="./assets/logo/TMG Logo.svg" /></div>
+          <div class="navlinks">
+            <a class="nl" href="#products" style="text-decoration: none"
+              >Products</a
+            >
+            <div class="nav-dropdown">
+              <span
+                class="nl"
+                style="display: flex; align-items: center; gap: 4px"
+                >Solutions
+                <i class="ph ph-caret-down" style="font-size: 10px"></i
+              ></span>
+              <div class="dropdown-menu">
+                <a class="dm-link" href="#"
+                  >Aftermarket Coolers
+                  <span class="dm-sub">TMG E-Commerce</span></a
+                >
+                <a class="dm-link" href="#"
+                  >Power Transformers
+                  <span class="dm-sub">Static Products</span></a
+                >
+                <a class="dm-link" href="#"
+                  >Battery Management
+                  <span class="dm-sub">Static Products</span></a
+                >
+                <a class="dm-link" href="#"
+                  >CJP Fabrication
+                  <span class="dm-sub">External Partner ↗</span></a
+                >
+                <a class="dm-link" href="#"
+                  >Seals, Hydraulics &amp; Valves
+                  <span class="dm-sub">External Partner ↗</span></a
+                >
+                <a class="dm-link" href="#"
+                  >Innovation &amp; Prototyping
+                  <span class="dm-sub">Custom Services</span></a
+                >
+                <div class="dm-div"></div>
+                <a class="dm-all" href="#">View All Solutions →</a>
+              </div>
+            </div>
+            <div class="nav-dropdown">
+              <span
+                class="nl"
+                style="display: flex; align-items: center; gap: 4px"
+                >Resources
+                <i class="ph ph-caret-down" style="font-size: 10px"></i
+              ></span>
+              <div class="dropdown-menu">
+                <a class="dm-link" href="#blogs"
+                  >Blogs
+                  <span class="dm-sub">Latest Updates</span></a
+                >
+                <a class="dm-link" href="#"
+                  >Industries Served
+                  <span class="dm-sub">Our Reach</span></a
+                >
+                <a class="dm-link" href="#"
+                  >Applications
+                  <span class="dm-sub">Use Cases</span></a
+                >
+              </div>
+            </div>
+            <a class="nl" href="#about" style="text-decoration: none">About</a>
+            <a class="nl" href="#contact" style="text-decoration: none"
+              >Contact / RFQ</a
+            >
+          </div>
+          <div class="nav-actions">
+            <button class="nav-icon" onclick="openSearchOverlay()" aria-label="Search" title="Search" style="background:none;border:none;padding:0;display:inline-flex;align-items:center;justify-content:center;"><i class="ph ph-magnifying-glass"></i></button>
+            <i class="ph ph-user nav-icon desktop-only"></i>
+            <div class="nav-icon">
+              <i class="ph ph-shopping-cart"></i>
+              <div class="cart-badge" id="cart-b">0</div>
+            </div>
+          </div>
+          <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="mobile-menu" id="mobileMenu">
+            <a class="mlink" href="#" style="text-decoration: none"
+              >Solutions <i class="ph ph-caret-down"></i
+            ></a>
+            <div style="background: var(--surface-low); padding: 10px 0">
+              <a
+                class="mlink"
+                href="#"
+                style="font-size: 14px; border-bottom: none; padding: 10px 0"
+                >Aftermarket Coolers</a
+              >
+              <a
+                class="mlink"
+                href="#"
+                style="font-size: 14px; border-bottom: none; padding: 10px 0"
+                >Power Transformers</a
+              >
+              <a
+                class="mlink"
+                href="#"
+                style="font-size: 14px; border-bottom: none; padding: 10px 0"
+                >Battery Management</a
+              >
+            </div>
+            <a
+              class="mlink"
+              href="#products"
+              onclick="toggleMenu()"
+              style="text-decoration: none"
+              >Products</a
+            >
+            <a
+              class="mlink"
+              href="#industries"
+              onclick="toggleMenu()"
+              style="text-decoration: none"
+              >Industries</a
+            >
+            <a
+              class="mlink"
+              href="#about"
+              onclick="toggleMenu()"
+              style="text-decoration: none"
+              >About</a
+            >
+            <a
+              class="mlink"
+              href="#contact"
+              onclick="toggleMenu()"
+              style="text-decoration: none"
+              >Contact</a
+            >
+            <div
+              class="mobile-socials"
+              style="
+                display: flex;
+                justify-content: center;
+                gap: 20px;
+                margin-top: 24px;
+                padding-bottom: 12px;
+              "
+            >
+              <a class="si" href="#"><i class="ph ph-linkedin-logo"></i></a>
+              <a class="si" href="#"><i class="ph ph-instagram-logo"></i></a>
+              <a class="si" href="#"><i class="ph ph-facebook-logo"></i></a>
+            </div>
+          </div>
+        </div>
+        <!-- HERO IMMERSIVE -->
+        <div class="hero-wrapper">
+          <!-- Client's high-fidelity hero image injection -->
+          <img
+            alt="Hero Industry Background"
+            class="hero-bg"
+            id="hbg"
+            src="../assets/hero-images/crypto_data_centers.png"
+          />
+          <div
+            class="hero-content-layer"
+            style="display: flex; flex-direction: column; flex: 1"
+          >
+            <!-- Photo Area -->
+            <div class="hero-content">
+              <div class="hero-eyebrow" id="heb">Crypto &amp; Data Centers</div>
+              <div class="hero-h1" id="hh1">Keeping<br />Industry Moving</div>
+              <div class="hero-sub" id="hsub">
+                Pre-packaged rack cooling for high-density mining environments.
+                No consultation lag.
+              </div>
+              <div class="cta-row">
+                <button class="btn-p" onclick="scrollToContact(hd[cur].v)">
+                  Enquire Now <i class="ph ph-arrow-right"></i>
+                </button>
+                <button
+                  class="btn-hero-o"
+                  id="hcta2"
+                  onclick="
+                    document
+                      .getElementById('products')
+                      .scrollIntoView({ behavior: 'smooth' })
+                  "
+                >
+                  See Crypto Solutions
+                </button>
+              </div>
+            </div>
+            <!-- Immersive Industry Strip bleeding over background -->
+            <div class="ind-strip immersive" id="istrip">
+              <div class="ic on" data-i="0">
+                <div class="ic-prog-bg">
+                  <div class="ic-prog-fill"></div>
+                </div>
+                <div class="ic-title">Crypto &amp;<br />Data Centers</div>
+                <div class="ic-sub">Industrial scale cooling</div>
+              </div>
+              <div class="ic" data-i="1">
+                <div class="ic-prog-bg">
+                  <div class="ic-prog-fill"></div>
+                </div>
+                <div class="ic-title">Power<br />Generation</div>
+                <div class="ic-sub">Reliable unattended ops</div>
+              </div>
+              <div class="ic" data-i="2">
+                <div class="ic-prog-bg">
+                  <div class="ic-prog-fill"></div>
+                </div>
+                <div class="ic-title">Agriculture &amp;<br />Earthmoving</div>
+                <div class="ic-sub">Tier 3/4 specific solutions</div>
+              </div>
+              <div class="ic" data-i="3">
+                <div class="ic-prog-bg">
+                  <div class="ic-prog-fill"></div>
+                </div>
+                <div class="ic-title">Oil &amp;<br />Gas</div>
+                <div class="ic-sub">Remote deployment</div>
+              </div>
+              <div class="ic" data-i="4">
+                <div class="ic-prog-bg">
+                  <div class="ic-prog-fill"></div>
+                </div>
+                <div class="ic-title">Trucking &amp;<br />Transport</div>
+                <div class="ic-sub">OEM platform match</div>
+              </div>
+              <div class="ic" data-i="5">
+                <div class="ic-prog-bg">
+                  <div class="ic-prog-fill"></div>
+                </div>
+                <div class="ic-title">Hydraulics &amp;<br />Industrial</div>
+                <div class="ic-sub">Air-to-oil standard</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="trust-bar">
+          <div class="trust-track">
+            <div class="tbrand">Caterpillar</div>
+            <div class="tbrand">Cummins</div>
+            <div class="tbrand">John Deere</div>
+            <div class="tbrand">Kenworth</div>
+            <div class="tbrand">Bitmain</div>
+            <div class="tbrand">Halliburton</div>
+            <!-- Duplicates -->
+            <div class="tbrand">Caterpillar</div>
+            <div class="tbrand">Cummins</div>
+            <div class="tbrand">John Deere</div>
+            <div class="tbrand">Kenworth</div>
+            <div class="tbrand">Bitmain</div>
+            <div class="tbrand">Halliburton</div>
+          </div>
+        </div>
+      </div>
+      <!-- PRODUCTS -->
+      <div class="sec alt" id="products" style="padding-bottom: 24px">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+            gap: 20px;
+          "
+        >
+          <div style="display: flex; flex-direction: column">
+            <div class="eyebrow">Revenue Divisions</div>
+            <div class="sec-h2">Shop the Ecosystem</div>
+            <div class="sec-rule" style="margin-bottom: 24px"></div>
+            <div class="sec-body" style="margin-bottom: 0; max-width: 600px">
+              Browse components from across TMG's active product divisions.
+            </div>
+          </div>
+          <div style="display: flex; gap: 12px">
+            <button class="tmg-btn tmg-btn--outline tmg-btn--md" onclick="openModal()">Request a Quote</button>
+            <a class="tmg-btn tmg-btn--primary tmg-btn--md" href="products.html">View All Products</a>
+          </div>
+        </div>
+        <div class="filter-row">
+          <div class="filter-tabs" id="ftabs1">
+            <div class="ftab active" data-f="all">All</div>
+            <div class="ftab" data-f="aftermarket">Aftermarket Coolers</div>
+            <div class="ftab" data-f="power">Power Transformers</div>
+            <div class="ftab" data-f="battery">Battery Systems</div>
+          </div>
+          <div class="pnav-arrs">
+            <div class="parr" onclick="scrollGrid('pgrid1', -1)">
+              <i class="ph ph-arrow-left"></i>
+            </div>
+            <div class="parr" onclick="scrollGrid('pgrid1', 1)">
+              <i class="ph ph-arrow-right"></i>
+            </div>
+          </div>
+        </div>
+        <div class="prod-grid-wrap fade-edges">
+          <div class="prod-grid" id="pgrid1">
+            <!-- Add multiple data-cat cards here -->
+            <div class="pc-wrap" data-cat="aftermarket">
+              <div class="pcard">
+                <div class="pcard-accent"></div>
+                <div class="pcard-img">
+                  <img
+                    alt="Aftermarket Radiator XR-240"
+                    src="./assets/products/cad_ag_radiator_2.png"
+                  />
+                  <div class="wishlist-btn"><i class="ph ph-heart"></i></div>
+                </div>
+                <div class="pcard-body">
+                  <div class="pcard-top-row">
+                    <div class="pcard-name">Aftermarket Radiator XR-240</div>
+                  </div>
+                  <div class="tags">
+                    <span class="tag tag-div">Aftermarket Radiators</span
+                    ><span class="tag tag-ind">Mining</span
+                    ><span class="tag tag-ind">Oil &amp; Gas</span>
+                  </div>
+                  <div class="specs">
+                    <div class="spec">240mm Core</div>
+                    <div class="spec">Alloy Construction</div>
+                    <div class="spec">Fits: CAT 320–340 Series</div>
+                  </div>
+                  <div class="pcard-price">$1,249</div>
+                  <div class="cta-grid">
+                    <button class="btn-p" onclick="addCart()">Buy Now</button>
+                    <div class="cart-sq" onclick="addCart()">
+                      <i class="ph ph-shopping-cart"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pc-wrap" data-cat="aftermarket">
+              <div class="pcard">
+                <div class="pcard-accent"></div>
+                <div class="pcard-img">
+                  <img
+                    alt="Charge Air Cooler CAC-18T"
+                    src="./assets/products/cad_genset_radiator_2.png"
+                  />
+                  <div class="wishlist-btn"><i class="ph ph-heart"></i></div>
+                </div>
+                <div class="pcard-body">
+                  <div class="pcard-top-row">
+                    <div class="pcard-name">Charge Air Cooler CAC-18T</div>
+                  </div>
+                  <div class="tags">
+                    <span class="tag tag-div">Aftermarket Radiators</span
+                    ><span class="tag tag-ind">Heavy Transport</span
+                    ><span class="tag tag-ind">Mining</span>
+                  </div>
+                  <div class="specs">
+                    <div class="spec">18 inch Bar-and-Plate Core</div>
+                    <div class="spec">Pressure-tested to 120 PSI</div>
+                    <div class="spec">OEM-grade aluminium</div>
+                  </div>
+                  <div class="pcard-price">$849</div>
+                  <div class="cta-grid">
+                    <button class="btn-p" onclick="addCart()">Buy Now</button>
+                    <div class="cart-sq" onclick="addCart()">
+                      <i class="ph ph-shopping-cart"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pc-wrap" data-cat="power">
+              <div class="pcard">
+                <div class="pcard-accent"></div>
+                <div class="pcard-img">
+                  <img
+                    alt="Step-Up Transformer T-500U"
+                    src="./assets/products/cad_hydraulic_radiator_2.png"
+                  />
+                  <div class="wishlist-btn"><i class="ph ph-heart"></i></div>
+                </div>
+                <div class="pcard-body">
+                  <div class="pcard-top-row">
+                    <div class="pcard-name">Step-Up Transformer T-500U</div>
+                  </div>
+                  <div class="tags">
+                    <span class="tag tag-div">Power Transformers</span
+                    ><span class="tag tag-ind">Data Centers</span
+                    ><span class="tag tag-ind">Battery Storage</span>
+                  </div>
+                  <div class="specs">
+                    <div class="spec">500 kVA</div>
+                    <div class="spec">ONAN Cooled</div>
+                    <div class="spec">IEEE C57.12 Compliant</div>
+                  </div>
+                  <div class="pcard-price">Enquire</div>
+                  <button
+                    class="tmg-btn tmg-btn--outline tmg-btn--md"
+                    onclick="openModal()"
+                    style="width: 100%"
+                  >
+                    Enquire Now
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="pc-wrap" data-cat="battery">
+              <div class="pcard">
+                <div class="pcard-accent"></div>
+                <div class="pcard-img">
+                  <img
+                    alt="BESS Coolant Loop BCL-48"
+                    src="./assets/products/cad_mining_cooler_2.png"
+                  />
+                  <div class="wishlist-btn"><i class="ph ph-heart"></i></div>
+                </div>
+                <div class="pcard-body">
+                  <div class="pcard-top-row">
+                    <div class="pcard-name">BESS Coolant Loop BCL-48</div>
+                  </div>
+                  <div class="tags">
+                    <span class="tag tag-div">Battery Management</span
+                    ><span class="tag tag-ind">Battery Storage</span
+                    ><span class="tag tag-ind">Data Centers</span>
+                  </div>
+                  <div class="specs">
+                    <div class="spec">48V Nominal Loop</div>
+                    <div class="spec">Dual-redundant pump</div>
+                    <div class="spec">-40°C Operational</div>
+                  </div>
+                  <div class="pcard-price">Enquire</div>
+                  <button
+                    class="tmg-btn tmg-btn--outline tmg-btn--md"
+                    onclick="openModal()"
+                    style="width: 100%"
+                  >
+                    Enquire Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nl-sec">
+        <div class="nl-bg-pattern"></div>
+        <div class="nl-wrap">
+          <div>
+            <div class="nl-eb">Stay Informed</div>
+            <div class="nl-h2">New Stock. New Industries. Direct to You.</div>
+            <div class="nl-sub">
+              Subscribe for product drops, restocks, and engineering insights
+              from the TMG team.
+            </div>
+          </div>
+          <div>
+            <div class="nl-form">
+              <input class="nl-inp" placeholder="Email address" type="email" />
+              <button class="btn-nl">Subscribe</button>
+            </div>
+            <div class="nl-note">No spam. Unsubscribe anytime.</div>
+          </div>
+        </div>
+      </div>
+      <div class="sec">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+            gap: 20px;
+          "
+        >
+          <div style="display: flex; flex-direction: column">
+            <div class="eyebrow">Direct Distribution</div>
+            <div class="sec-h2">Ready to Ship — No Lead Time</div>
+            <div class="sec-rule" style="margin-bottom: 24px"></div>
+            <div class="sec-body" style="margin-bottom: 0; max-width: 600px">
+              Spec-matched aftermarket components in stock. Same-week
+              fulfillment on most SKUs.
+            </div>
+          </div>
+          <div style="display: flex; gap: 12px">
+            <button class="tmg-btn tmg-btn--outline tmg-btn--md" onclick="openModal()">Request a Quote</button>
+            <a class="tmg-btn tmg-btn--primary tmg-btn--md" href="products.html">Shop All Products</a>
+          </div>
+        </div>
+        <div class="filter-row">
+          <div class="filter-tabs" id="ftabs2">
+            <div class="ftab active" data-f="all">All</div>
+            <div class="ftab" data-f="aftermarket">Aftermarket Coolers</div>
+          </div>
+          <div class="pnav-arrs">
+            <div class="parr" onclick="scrollGrid('pgrid2', -1)">
+              <i class="ph ph-arrow-left"></i>
+            </div>
+            <div class="parr" onclick="scrollGrid('pgrid2', 1)">
+              <i class="ph ph-arrow-right"></i>
+            </div>
+          </div>
+        </div>
+        <div class="prod-grid-wrap fade-edges">
+          <div class="prod-grid" id="pgrid2">
+            <div class="pc-wrap" data-cat="aftermarket">
+              <div class="pcard">
+                <div class="pcard-accent"></div>
+                <div class="pcard-img">
+                  <img
+                    alt="Charge Air Cooler CAC-18T"
+                    src="./assets/products/cad_truck_radiator_2.png"
+                  />
+                  <div class="wishlist-btn"><i class="ph ph-heart"></i></div>
+                </div>
+                <div class="pcard-body">
+                  <div class="pcard-top-row">
+                    <div class="pcard-name">Charge Air Cooler CAC-18T</div>
+                  </div>
+                  <div class="tags">
+                    <span class="tag tag-div">Aftermarket Radiators</span
+                    ><span class="tag tag-ind">Heavy Transport</span
+                    ><span class="tag tag-ind">Mining</span>
+                  </div>
+                  <div class="specs">
+                    <div class="spec">18 inch Bar-and-Plate Core</div>
+                    <div class="spec">Pressure-tested to 120 PSI</div>
+                    <div class="spec">OEM-grade aluminium</div>
+                  </div>
+                  <div class="pcard-price">$849</div>
+                  <div class="cta-grid">
+                    <button class="btn-p" onclick="addCart()">Buy Now</button>
+                    <div class="cart-sq" onclick="addCart()">
+                      <i class="ph ph-shopping-cart"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pc-wrap" data-cat="aftermarket">
+              <div class="pcard">
+                <div class="pcard-accent"></div>
+                <div class="pcard-img">
+                  <img
+                    alt="Oil Cooler OC-6000"
+                    src="./assets/products/cad_ag_radiator_2.png"
+                  />
+                  <div class="wishlist-btn"><i class="ph ph-heart"></i></div>
+                </div>
+                <div class="pcard-body">
+                  <div class="pcard-top-row">
+                    <div class="pcard-name">Oil Cooler OC-6000</div>
+                  </div>
+                  <div class="tags">
+                    <span class="tag tag-div">Aftermarket Radiators</span
+                    ><span class="tag tag-ind">Oil &amp; Gas</span
+                    ><span class="tag tag-ind">Data Centers</span>
+                  </div>
+                  <div class="specs">
+                    <div class="spec">6000 BTU/hr</div>
+                    <div class="spec">Hydraulic Oil Compatible</div>
+                    <div class="spec">Compact Form Factor</div>
+                  </div>
+                  <div class="pcard-price">$620</div>
+                  <div class="cta-grid">
+                    <button class="btn-p" onclick="addCart()">Buy Now</button>
+                    <div class="cart-sq" onclick="addCart()">
+                      <i class="ph ph-shopping-cart"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pc-wrap" data-cat="aftermarket">
+              <div class="pcard">
+                <div class="pcard-accent"></div>
+                <div class="pcard-img">
+                  <img
+                    alt="Radiator Core RC-100M"
+                    src="./assets/products/cad_genset_radiator_2.png"
+                  />
+                  <div class="wishlist-btn"><i class="ph ph-heart"></i></div>
+                </div>
+                <div class="pcard-body">
+                  <div class="pcard-top-row">
+                    <div class="pcard-name">Radiator Core RC-100M</div>
+                  </div>
+                  <div class="tags">
+                    <span class="tag tag-div">Aftermarket Radiators</span
+                    ><span class="tag tag-ind">Mining</span
+                    ><span class="tag tag-ind">Agriculture</span>
+                  </div>
+                  <div class="specs">
+                    <div class="spec">100mm width</div>
+                    <div class="spec">4-row copper core</div>
+                    <div class="spec">Universal bolt pattern</div>
+                  </div>
+                  <div class="pcard-price">$480</div>
+                  <div class="cta-grid">
+                    <button class="btn-p" onclick="addCart()">Buy Now</button>
+                    <div class="cart-sq" onclick="addCart()">
+                      <i class="ph ph-shopping-cart"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="pc-wrap" data-cat="aftermarket">
+              <div class="pcard">
+                <div class="pcard-accent"></div>
+                <div class="pcard-img">
+                  <img
+                    alt="Aftermarket Radiator XR-240"
+                    src="./assets/products/cad_hydraulic_radiator_2.png"
+                  />
+                  <div class="wishlist-btn"><i class="ph ph-heart"></i></div>
+                </div>
+                <div class="pcard-body">
+                  <div class="pcard-top-row">
+                    <div class="pcard-name">Aftermarket Radiator XR-240</div>
+                  </div>
+                  <div class="tags">
+                    <span class="tag tag-div">Aftermarket Radiators</span
+                    ><span class="tag tag-ind">Mining</span
+                    ><span class="tag tag-ind">Oil &amp; Gas</span>
+                  </div>
+                  <div class="specs">
+                    <div class="spec">240mm Core</div>
+                    <div class="spec">Alloy Construction</div>
+                    <div class="spec">Fits: CAT 320–340 Series</div>
+                  </div>
+                  <div class="pcard-price">$1,249</div>
+                  <div class="cta-grid">
+                    <button class="btn-p" onclick="addCart()">Buy Now</button>
+                    <div class="cart-sq" onclick="addCart()">
+                      <i class="ph ph-shopping-cart"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- INDUSTRIES -->
+      <div class="sec alt" id="industries">
+        <div class="hdr-row">
+          <div class="hdr-left">
+            <div class="eyebrow">Application Spectrum</div>
+            <div class="sec-h2">Built for the Most Demanding Industries</div>
+            <div class="sec-rule"></div>
+            <div class="sec-body">
+              From data centre cooling to oilfield heat exchangers — TMG
+              components are application-engineered for real-world operating
+              conditions.
+            </div>
+          </div>
+          <a class="tmg-btn tmg-btn--outline tmg-btn--md" href="industries.html">View All Industries</a>
+        </div>
+        <div class="ind-grid">
+          <a class="ind-card" href="#"
+            ><div class="pcard-accent"></div>
+            <i class="ph ph-cpu ind-icon"></i>
+            <div class="ind-title">Data Centers</div>
+            <div class="ind-desc">
+              Precision cooling for high-density server and edge compute
+              environments.
+            </div>
+            <div class="ind-link">View Industry →</div></a
+          >
+          <a class="ind-card" href="#"
+            ><div class="pcard-accent"></div>
+            <i class="ph ph-lightning ind-icon"></i>
+            <div class="ind-title">Gen-Set &amp; Power Generation</div>
+            <div class="ind-desc">
+              Thermal management for standby generators and continuous power
+              platforms.
+            </div>
+            <div class="ind-link">View Industry →</div></a
+          >
+          <a class="ind-card" href="#"
+            ><div class="pcard-accent"></div>
+            <i class="ph ph-tractor ind-icon"></i>
+            <div class="ind-title">Mining &amp; Agriculture</div>
+            <div class="ind-desc">
+              Durable radiator cores engineered for high-dust, high-vibration
+              field operation.
+            </div>
+            <div class="ind-link">View Industry →</div></a
+          >
+          <a class="ind-card" href="#"
+            ><div class="pcard-accent"></div>
+            <i class="ph ph-drop ind-icon"></i>
+            <div class="ind-title">Oil &amp; Gas</div>
+            <div class="ind-desc">
+              Hydraulic and engine cooling for upstream and downstream oil field
+              machinery.
+            </div>
+            <div class="ind-link">View Industry →</div></a
+          >
+          <a class="ind-card" href="#"
+            ><div class="pcard-accent"></div>
+            <i class="ph ph-truck ind-icon"></i>
+            <div class="ind-title">Heavy Transport &amp; Fleet</div>
+            <div class="ind-desc">
+              Charge air and coolant solutions for long-haul diesel and CNG
+              fleets.
+            </div>
+            <div class="ind-link">View Industry →</div></a
+          >
+          <a class="ind-card" href="#"
+            ><div class="pcard-accent"></div>
+            <i class="ph ph-battery-charging ind-icon"></i>
+            <div class="ind-title">Battery Energy Storage</div>
+            <div class="ind-desc">
+              BESS thermal architectures to prevent thermal runaway in
+              large-scale energy storage.
+            </div>
+            <div class="ind-link">View Industry →</div></a
+          >
+        </div>
+      </div>
+      <div class="sec">
+        <div class="eyebrow">Social Proof</div>
+        <div class="sec-h2">Trusted by Operators Worldwide</div>
+        <div class="sec-rule"></div>
+        <div class="test-layout">
+          <div class="test-list" id="tlist">
+            <div class="test-item active">
+              <img class="ti-img" src="https://i.pravatar.cc/150?u=1" />
+              <div class="ti-info">
+                <div class="ti-name">Edward Alexander</div>
+                <div class="ti-rat">Fleet Operations Manager, Southern Transport Co.</div>
+              </div>
+            </div>
+            <div class="test-item next">
+              <img class="ti-img" src="https://i.pravatar.cc/150?u=2" />
+              <div class="ti-info">
+                <div class="ti-name">Diana Johnston</div>
+                <div class="ti-rat">Senior Engineer, GridLink Energy</div>
+              </div>
+            </div>
+            <div class="test-item prev">
+              <img class="ti-img" src="https://i.pravatar.cc/150?u=3" />
+              <div class="ti-info">
+                <div class="ti-name">Lauren Contreras</div>
+                <div class="ti-rat">Director of Maintenance, Pacific Mining Corp.</div>
+              </div>
+            </div>
+          </div>
+          <div class="test-quote-col">
+            <span class="tq-mark">❝</span>
+            <div class="tq-text" id="tq-text">
+              TMG had our radiator spec'd, shipped, and installed before our
+              competitor even sent back a quote. Zero downtime on site.
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ABOUT -->
+      <div class="sec" id="about">
+        <div class="about-cols">
+          <div class="about-content">
+            <div class="eyebrow">Thermal Motion Group</div>
+            <div class="sec-h2">
+              American Manufacturing.<br />Global Standards.
+            </div>
+            <div class="sec-rule"></div>
+            <div class="about-copy">
+              <p>
+                TMG manufactures and supplies aftermarket radiators and
+                industrial cooling systems for the industries that keep America
+                running. Direct enquiry — no middlemen, no distributor markup.
+              </p>
+              <p>
+                With US-based inventory and fast lead times, TMG delivers where
+                PE-owned platforms can't: speed, specialisation, and a direct
+                relationship with the buyer.
+              </p>
+              <p>
+                Serving six verticals — crypto &amp; data centers, power
+                generation, agriculture, oil &amp; gas, trucking, and hydraulics
+                — with a full thermal platform extending into power transformers
+                in Phase 2.
+              </p>
+            </div>
+            <div style="display: flex; gap: 12px; margin-top: 32px">
+              <a class="tmg-btn tmg-btn--secondary tmg-btn--md" href="about.html">Our Story</a>
+              <button class="tmg-btn tmg-btn--outline tmg-btn--md" onclick="openModal()">Contact Engineering</button>
+            </div>
+            <div class="stats-bar">
+              <div class="stat">
+                <div class="stat-rule"></div>
+                <div class="stat-n">20+</div>
+                <div class="stat-l">Years Mfg.</div>
+              </div>
+              <div class="stat">
+                <div class="stat-rule"></div>
+                <div class="stat-n">5,000+</div>
+                <div class="stat-l">SKUs</div>
+              </div>
+              <div class="stat">
+                <div class="stat-rule"></div>
+                <div class="stat-n">14</div>
+                <div class="stat-l">Countries</div>
+              </div>
+              <div class="stat">
+                <div class="stat-rule"></div>
+                <div class="stat-n">98%</div>
+                <div class="stat-l">On-Time</div>
+              </div>
+            </div>
+          </div>
+          <div class="about-photo" style="background-image: url('./assets/about us/about-us-image.jpg'); background-size: cover; background-position: center;"></div>
+        </div>
+      </div>
+      <section class="sec alt" id="ecosystem">
+        <div
+          class="container"
+          style="border: none; padding: 0; background: transparent"
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: flex-end;
+              margin-bottom: 48px;
+              flex-wrap: wrap;
+              gap: 20px;
+            "
+          >
+            <div style="display: flex; flex-direction: column">
+              <div class="eyebrow">Enterprise Hierarchy</div>
+              <div class="sec-h2">The TMG Thermal Ecosystem</div>
+              <div class="sec-rule" style="margin-bottom: 24px"></div>
+              <div class="sec-body" style="margin-bottom: 0; max-width: 600px">
+                Navigate our specific divisions to find spec-matched components,
+                complete cooling platforms, or custom engineering services.
+              </div>
+            </div>
+            <div style="display: flex; gap: 12px">
+              <button class="tmg-btn tmg-btn--outline tmg-btn--md" onclick="openModal()">Request a Consult</button>
+            </div>
+          </div>
+
+          <div class="div-grid">
+            <!-- TMG Core -->
+            <a class="ind-card" href="#" style="--card-color: #222f4b;">
+              <div class="pcard-accent"></div>
+              <i class="ph ph-thermometer ind-icon"></i>
+              <div class="ind-title">Thermal Motion Group</div>
+              <div class="ind-desc">
+                Direct-to-buyer e-commerce platform for aftermarket radiators and cooling systems.
+              </div>
+              <div class="ind-link">E-Commerce Store →</div>
+            </a>
+            <!-- CJP -->
+            <a class="ind-card" href="#" style="--card-color: #1a5c7a;">
+              <div class="pcard-accent"></div>
+              <i class="ph ph-wrench ind-icon"></i>
+              <div class="ind-title">CJP Fabrication</div>
+              <div class="ind-desc">
+                Custom metal fabrication, welding, and structural enclosure
+                solutions.
+              </div>
+              <div class="ind-link">External Partner ↗</div>
+            </a>
+            <!-- PWR -->
+            <a class="ind-card" href="#" style="--card-color: #c02b2d;">
+              <div class="pcard-accent"></div>
+              <i class="ph ph-lightning ind-icon"></i>
+              <div class="ind-title">Power Transformers</div>
+              <div class="ind-desc">
+                High-voltage step-up and step-down platforms for utility scale
+                operations.
+              </div>
+              <div class="ind-link">E-Commerce Store →</div>
+            </a>
+            <!-- BAT -->
+            <a class="ind-card" href="#" style="--card-color: #1b6b42;">
+              <div class="pcard-accent"></div>
+              <i class="ph ph-battery-charging ind-icon"></i>
+              <div class="ind-title">Battery Management</div>
+              <div class="ind-desc">
+                BESS liquid cooling architectures to prevent thermal runaway
+                in energy storage.
+              </div>
+              <div class="ind-link">E-Commerce Store →</div>
+            </a>
+            <!-- SEAL -->
+            <a class="ind-card" href="#" style="--card-color: #b0580f;">
+              <div class="pcard-accent"></div>
+              <i class="ph ph-pipe ind-icon"></i>
+              <div class="ind-title">Seals &amp; Hydraulics</div>
+              <div class="ind-desc">
+                Fluid routing and pressure lockdown components for hostile
+                environments.
+              </div>
+              <div class="ind-link">External Partner ↗</div>
+            </a>
+            <!-- INN -->
+            <a class="ind-card" href="#" style="--card-color: #452080;">
+              <div class="pcard-accent"></div>
+              <i class="ph ph-atom ind-icon"></i>
+              <div class="ind-title">Innovation &amp; Prototyping</div>
+              <div class="ind-desc">
+                Rapid prototyping and white-glove engineering for untested
+                applications.
+              </div>
+              <div class="ind-link">Custom Service →</div>
+            </a>
+          </div>
+        </div>
+      </section>
+      <!-- Blogs Section -->
+      <div class="sec" id="blogs" style="background: var(--surface);">
+        <div class="hdr-row">
+          <div class="hdr-left">
+            <div class="eyebrow">Latest Updates</div>
+            <div class="sec-h2">News &amp; Resources</div>
+            <div class="sec-rule"></div>
+          </div>
+          <a class="tmg-btn tmg-btn--outline tmg-btn--md" href="news.html">All Blogs</a>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+          <!-- Card 1 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img src="./assets/blogs/Advancements in Aftermarket Cooling.jpg" alt="Blog Image" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="blog-body">
+              <div class="blog-date">May 15, 2026</div>
+              <div class="blog-name">Advancements in Aftermarket Cooling</div>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img src="./assets/blogs/The Future of Battery Thermal Management.jpg" alt="Blog Image" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="blog-body">
+              <div class="blog-date">April 28, 2026</div>
+              <div class="blog-name">The Future of Battery Thermal Management</div>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="blog-card">
+            <div class="blog-img">
+              <img src="./assets/blogs/Optimizing Heavy Duty Components.jpg" alt="Blog Image" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="blog-body">
+              <div class="blog-date">March 12, 2026</div>
+              <div class="blog-name">Optimizing Heavy Duty Components</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- CONTACT -->
+      <div class="sec alt" id="contact">
+        <div class="eyebrow">Get In Touch</div>
+        <div class="sec-h2">Enquire About Products</div>
+        <div class="sec-rule"></div>
+        <div class="contact-grid">
+          <div class="contact-form">
+            <div class="expo-note">
+              <div class="expo-note-t">
+                Visiting Expo Apr 20–26?<br />Meet us at Booth [X] — or fill in
+                the form and we'll follow up before the event.
+              </div>
+            </div>
+            <span class="form-lbl">Name &amp; Company</span>
+            <div class="form-row2">
+              <input class="ff" placeholder="Your Name" type="text" />
+              <input class="ff" placeholder="Company Name" type="text" />
+            </div>
+            <span class="form-lbl">Email Address</span>
+            <input class="ff-full" placeholder="you@company.com" type="email" />
+            <span class="form-lbl">Industry</span>
+            <div class="custom-sel" id="prodSel" tabindex="0">
+              <div class="cs-top">
+                <span class="cs-val">Select an Application...</span>
+                <svg
+                  class="cs-arr"
+                  fill="none"
+                  height="6"
+                  viewbox="0 0 10 6"
+                  width="10"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1 1L5 5L9 1"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  ></path>
+                </svg>
+              </div>
+              <div class="cs-opts">
+                <div class="cs-opt">Crypto &amp; Data Center</div>
+                <div class="cs-opt">Power Generation</div>
+                <div class="cs-opt">Agriculture &amp; Earthmoving</div>
+                <div class="cs-opt">Oil &amp; Gas Exploration</div>
+                <div class="cs-opt">Trucking &amp; Heavy Transport</div>
+                <div class="cs-opt">Hydraulics &amp; Industrial</div>
+              </div>
+            </div>
+            <span class="form-lbl">Message &amp; Spec Requirements</span>
+            <textarea
+              class="ff-ta"
+              placeholder="Provide details on your cooling requirements..."
+            ></textarea>
+            <button class="btn-p">
+              Send Inquiry <i class="ph ph-arrow-right"></i>
+            </button>
+          </div>
+          <div class="contact-info">
+            <div class="ca-block">
+              <div class="ca-l">Phone</div>
+              <div class="ca-v">(+1) 555-000-0000</div>
+            </div>
+            <div class="ca-block">
+              <div class="ca-l">Email</div>
+              <div class="ca-v">info@thermalmotion.com</div>
+            </div>
+            <div class="ca-block">
+              <div class="ca-l">Location</div>
+              <div class="ca-v">[City, State]</div>
+            </div>
+            <div class="ca-block" style="border-bottom: none">
+              <div class="ca-l">Response Time</div>
+              <div class="ca-v">Within [X] business hours</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- FOOTER -->
+      <div class="footer">
+        <div class="footer-expo">
+          We're at Expo Apr 20–26 · Booth [X] · Come find us
+        </div>
+        <div class="footer-grid">
+          <div>
+            <div class="flogo">
+              <img alt="TMG" src="./assets/logo/TMG Logo_White.svg" />
+            </div>
+            <div class="ftagline">Keeping Industry Moving</div>
+            <div class="fdesc">
+              US-based aftermarket radiators and cooling systems for the
+              industries that can't afford downtime.
+            </div>
+          </div>
+          <div>
+            <div class="fcl">Company</div>
+            <a class="flink" href="#about">About Us</a>
+            <a class="flink" href="#products">Products</a>
+            <a class="flink" href="#contact">Contact / RFQ</a>
+          </div>
+          <div>
+            <div class="fcl">Solutions</div>
+            <a class="flink" href="#">Aftermarket Coolers</a>
+            <a class="flink" href="#">Power Transformers</a>
+            <a class="flink" href="#">Battery Management</a>
+            <a class="flink" href="#">CJP Fabrication</a>
+            <a class="flink" href="#">Seals, Hydraulics &amp; Valves</a>
+            <a class="flink" href="#">Innovation &amp; Prototyping</a>
+            <a class="flink" href="#">View All Solutions</a>
+          </div>
+          <div>
+            <div class="fcl">Resources</div>
+            <a class="flink" href="#blogs">Blogs</a>
+            <a class="flink" href="#">Industries Served</a>
+            <a class="flink" href="#">Applications</a>
+            <a class="flink" href="#">Case Studies</a>
+            <a class="flink" href="#">Documentation</a>
+            <br />
+            <a class="flink-d" href="#">Privacy Policy</a>
+            <a class="flink-d" href="#">Terms of Use</a>
+          </div>
+          <div>
+            <div class="fcl">Contact</div>
+            <div class="fc">(+1) 555-000-0000</div>
+            <div class="fc">info@thermalmotion.com</div>
+            <div class="fc">[City, State]</div>
+            <div class="ficons">
+              <a class="fi" href="#"><i class="ph ph-linkedin-logo"></i></a>
+              <a class="fi" href="#"><i class="ph ph-instagram-logo"></i></a>
+              <a class="fi" href="#"><i class="ph ph-facebook-logo"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-base">
+          <span class="flegal"
+            >© 2026 Thermal Motion Group. All rights reserved.</span
+          >
+          <span class="flegal">Made in the USA</span>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Mock data and settings
+      var hd = [
+        {
+          eb: "Crypto & Data Centers",
+          h1: "Keeping<br>Industry Moving",
+          s: "Pre-packaged rack cooling for high-density mining environments. No consultation lag.",
+          c: "See Crypto Solutions",
+          v: "Crypto & Data Center",
+          img: "../assets/hero-images/crypto_data_centers.png",
+        },
+        {
+          eb: "Power Generation",
+          h1: "Reliable<br>Continuous Power",
+          s: "Radiators and cooling packages built for Gen-Set and stationary power applications.",
+          c: "See Power Gen Solutions",
+          v: "Power Generation",
+          img: "../assets/hero-images/power_generation.png",
+        },
+        {
+          eb: "Agriculture & Earthmoving",
+          h1: "Cooling<br>Heavy Equipment",
+          s: "Heavy-duty aftermarket cooling for Tier 3 and Tier 4 diesel engine equipment.",
+          c: "See Agriculture Solutions",
+          v: "Agriculture & Earthmoving",
+          img: "../assets/hero-images/agriculture.png",
+        },
+        {
+          eb: "Oil & Gas Exploration",
+          h1: "Extreme<br>Environment Heat",
+          s: "Mission-critical thermal management for exploration and extraction environments.",
+          c: "See Oil & Gas Solutions",
+          v: "Oil & Gas Exploration",
+          img: "../assets/hero-images/oil_and_gas.png",
+        },
+        {
+          eb: "Trucking & Transport",
+          h1: "Minimizing<br>Fleet Downtime",
+          s: "Drop-in replacement radiators for major OEM platforms. Fast lead times.",
+          c: "See Trucking Solutions",
+          v: "Trucking & Heavy Transport",
+          img: "../assets/hero-images/trucking.png",
+        },
+        {
+          eb: "Hydraulics & Industrial",
+          h1: "Industrial<br>Fluid Cooling",
+          s: "Air-to-oil and hydraulic cooling solutions for industrial manufacturing systems.",
+          c: "See Hydraulics Solutions",
+          v: "Hydraulics & Industrial",
+          img: "../assets/hero-images/Hydraulics.png",
+        },
+      ];
+
+      var cur = 0,
+        total = 6,
+        INTERVAL = 5000,
+        tick = 0,
+        TICKS = 80;
+      var progTimer = null;
+
+      // Mobile Menu Toggle
+      function toggleMenu() {
+        document.getElementById("hamburger").classList.toggle("active");
+        document.getElementById("mobileMenu").classList.toggle("open");
+      }
+
+      // Hero progression
+      function goTo(i, manual) {
+        cur = i;
+        document
+          .querySelectorAll("#istrip .ic")
+          .forEach((c) => c.classList.remove("on"));
+        let targetIc = document.querySelectorAll("#istrip .ic")[i];
+        if (targetIc) {
+          targetIc.classList.add("on");
+          // Scroll mobile industry strip logically
+          if (window.innerWidth < 768) {
+            document
+              .getElementById("istrip")
+              .scrollTo({ left: targetIc.offsetLeft - 20, behavior: "smooth" });
+          }
+        }
+
+        // Update Hero Text
+        var el = document.getElementById("hsub");
+        var heb = document.getElementById("heb");
+        var hh1 = document.getElementById("hh1");
+        var hbg = document.getElementById("hbg");
+
+        el.style.opacity = "0";
+        el.style.transform = "translateY(4px)";
+        heb.style.opacity = "0";
+        hh1.style.opacity = "0";
+        if (hbg) hbg.style.opacity = "0";
+
+        setTimeout(function () {
+          if (hbg) {
+            hbg.src = hd[i].img;
+            hbg.style.opacity = "0.6";
+          }
+          heb.textContent = hd[i].eb;
+          heb.style.opacity = "1";
+
+          hh1.style.opacity = "";
+          hh1.innerHTML = hd[i].h1;
+          hh1.classList.remove("fade");
+          void hh1.offsetWidth;
+          hh1.classList.add("fade");
+
+          el.textContent = hd[i].s;
+          el.style.opacity = "1";
+          el.style.transform = "translateY(0)";
+
+          document.getElementById("hcta2").textContent = hd[i].c;
+        }, 350);
+
+        // Removed auto-syncing of accordion for this step
+
+        // Sync Products (mobile only)
+        if (window.innerWidth < 1024) {
+          var pgrid = document.getElementById("pprodgrid");
+          var targetP = document.getElementById("pc" + i);
+          if (targetP) {
+            pgrid.scrollTo({
+              left: targetP.offsetLeft - 20,
+              behavior: "smooth",
+            });
+          }
+        }
+
+        if (manual) {
+          tick = 0;
+          clearProgress();
+          startProgress();
+        }
+      }
+
+      function pauseProgress() {
+        clearInterval(progTimer);
+        progTimer = null;
+      }
+
+      function resumeProgress() {
+        if (progTimer) return;
+        progTimer = setInterval(function () {
+          tick++;
+          var pct = Math.round((tick / TICKS) * 100);
+          var fills = document.querySelectorAll(".ic-prog-fill");
+          fills.forEach((f, idx) => {
+            if (idx !== cur) {
+              f.style.transition = "none";
+              f.style.width = "0%";
+            }
+          });
+          if (fills[cur]) {
+            fills[cur].style.transition = "width 0.1s linear";
+            fills[cur].style.width = pct + "%";
+          }
+          if (tick >= TICKS) {
+            clearInterval(progTimer);
+            progTimer = null;
+            if (fills[cur]) {
+              fills[cur].style.transition = "none";
+              fills[cur].style.width = "0%";
+            }
+            var next = (cur + 1) % total;
+            goTo(next, false);
+            setTimeout(startProgress, 50);
+          }
+        }, INTERVAL / TICKS);
+      }
+
+      function startProgress() {
+        tick = 0;
+        pauseProgress();
+        resumeProgress();
+      }
+
+      function clearProgress() {
+        pauseProgress();
+        document.querySelectorAll(".ic-prog-fill").forEach((f) => {
+          f.style.transition = "none";
+          f.style.width = "0%";
+        });
+      }
+
+      document.querySelectorAll("#istrip .ic").forEach((col) => {
+        col.addEventListener("click", function () {
+          var i = parseInt(this.dataset.i);
+          goTo(i, true);
+        });
+      });
+
+      var istripele = document.getElementById("istrip");
+      if (istripele) {
+        istripele.addEventListener("mouseenter", pauseProgress);
+        istripele.addEventListener("mouseleave", resumeProgress);
+      }
+
+      // Accordions logic
+      function togAcc(n, hdr) {
+        var isOn = hdr.classList.contains("on");
+        document
+          .querySelectorAll(".acc-hdr")
+          .forEach((h) => h.classList.remove("on"));
+        document
+          .querySelectorAll(".acc-body")
+          .forEach((b) => b.classList.remove("on"));
+        if (!isOn) {
+          hdr.classList.add("on");
+          hdr.nextElementSibling.classList.add("on");
+        }
+      }
+
+      // Responsive Product Swiping
+      var pprodAutoTimer;
+      var pcurProd = 0;
+      var gridSnapWidth = 0;
+
+      function updatePpag() {
+        var grid = document.getElementById("pprodgrid");
+        // Dynamic width calculating based on mobile vs desktop
+        if (grid.children.length > 0) {
+          var gap = window.innerWidth >= 768 ? 20 : 16;
+          gridSnapWidth = grid.children[0].offsetWidth + gap;
+        }
+        var idx = Math.round(grid.scrollLeft / gridSnapWidth);
+        if (idx < 0) idx = 0;
+
+        // Calculate max index depending on visible items
+        var visibleItems = 1;
+        if (window.innerWidth >= 1024) visibleItems = 4;
+        else if (window.innerWidth >= 580) visibleItems = 2;
+
+        var maxIdx = total - visibleItems;
+        if (idx > maxIdx) idx = maxIdx;
+        document.getElementById("pcurp").innerHTML = idx + 1;
+        pcurProd = idx;
+
+        // Auto hover state for mobile items in view
+        document
+          .querySelectorAll(".pcard")
+          .forEach((c) => c.classList.remove("lit"));
+        if (window.innerWidth < 1024) {
+          var card = grid.children[pcurProd];
+          if (card) {
+            card.classList.add("lit");
+          }
+        }
+      }
+
+      function scrollPProd(dir) {
+        clearInterval(pprodAutoTimer);
+        var grid = document.getElementById("pprodgrid");
+
+        var visibleItems = 1;
+        if (window.innerWidth >= 1024) visibleItems = 4;
+        else if (window.innerWidth >= 580) visibleItems = 2;
+        var maxIdx = total - visibleItems;
+
+        pcurProd += dir;
+        if (pcurProd < 0) pcurProd = maxIdx;
+        else if (pcurProd > maxIdx) pcurProd = 0;
+
+        var card = grid.children[pcurProd];
+        if (card) {
+          // 20px padding left of grid wrapping container
+          grid.scrollTo({ left: card.offsetLeft - 20, behavior: "smooth" });
+        }
+        autoScrollPProd();
+      }
+
+      function autoScrollPProd() {
+        clearInterval(pprodAutoTimer);
+        if (window.innerWidth >= 1024) return; // Prevent starting interval on desktop
+
+        pprodAutoTimer = setInterval(function () {
+          var visibleItems = 1;
+          if (window.innerWidth >= 1024) visibleItems = 4;
+          else if (window.innerWidth >= 580) visibleItems = 2;
+          var maxIdx = total - visibleItems;
+
+          pcurProd++;
+          if (pcurProd > maxIdx) pcurProd = 0;
+          var grid = document.getElementById("pprodgrid");
+          var card = grid.children[pcurProd];
+          if (card) {
+            grid.scrollTo({ left: card.offsetLeft - 20, behavior: "smooth" });
+          }
+        }, 5000);
+      }
+
+      document
+        .getElementById("pprodgrid")
+        .addEventListener("mouseenter", function () {
+          clearInterval(pprodAutoTimer);
+        });
+      document
+        .getElementById("pprodgrid")
+        .addEventListener("mouseleave", function () {
+          autoScrollPProd();
+        });
+
+      // Custom Select UI logic
+      var csel = document.getElementById("prodSel");
+      if (csel) {
+        var ctop = csel.querySelector(".cs-top");
+        var cval = csel.querySelector(".cs-val");
+        var copts = csel.querySelectorAll(".cs-opt");
+
+        ctop.addEventListener("click", function (e) {
+          e.stopPropagation();
+          csel.classList.toggle("open");
+        });
+
+        copts.forEach((opt) => {
+          opt.addEventListener("click", function (e) {
+            e.stopPropagation();
+            cval.textContent = this.textContent;
+            csel.classList.add("has-val");
+            csel.classList.remove("open");
+          });
+        });
+
+        document.addEventListener("click", function (e) {
+          if (!csel.contains(e.target)) csel.classList.remove("open");
+        });
+      }
+
+      function scrollToContact(appVal) {
+        var contactSec = document.getElementById("contact");
+        if (contactSec) contactSec.scrollIntoView({ behavior: "smooth" });
+
+        if (appVal) {
+          var csel = document.getElementById("prodSel");
+          if (csel) {
+            var copts = csel.querySelectorAll(".cs-opt");
+            var matched = Array.from(copts).find(
+              (o) => o.textContent.trim() === appVal,
+            );
+            if (matched) {
+              var cval = csel.querySelector(".cs-val");
+              cval.textContent = appVal;
+              csel.classList.add("has-val");
+            }
+          }
+        }
+      }
+
+      // Bootstrap
+      setTimeout(startProgress, 600);
+      autoScrollPProd();
+
+      // Global Sticky Nav Override
+      window.addEventListener("scroll", function () {
+        var nav = document.querySelector(".nav");
+        var spacer = document.querySelector(".nav-spacer");
+        var topBars =
+          document.querySelector(".expo-bar").offsetHeight +
+          document.querySelector(".util").offsetHeight;
+
+        if (window.scrollY > topBars) {
+          if (nav.style.position !== "fixed") {
+            spacer.style.height = nav.offsetHeight + "px";
+            spacer.style.display = "block";
+            nav.style.position = "fixed";
+            nav.style.width = "100%";
+            nav.style.top = "0";
+          }
+        } else {
+          if (nav.style.position === "fixed") {
+            nav.style.position = "sticky";
+            nav.style.width = "auto"; // Reset width
+            spacer.style.display = "none";
+          }
+        }
+      });
+
+      // 1. Announcement Bar
+      const annTexts = [
+        "🔴 EXPO 2026 — Booth 4A · Apr 20–26 · Come find us",
+        "🔴 New: Charge Air Coolers now in stock — Ships in 3–5 business days",
+        "🔴 Free shipping on orders over $500 within the continental US",
+      ];
+      let annIdx = 0;
+      const annEl = document.getElementById("ann-text");
+      setInterval(() => {
+        annEl.style.opacity = "0";
+        setTimeout(() => {
+          annIdx = (annIdx + 1) % annTexts.length;
+          annEl.innerHTML = annTexts[annIdx];
+          annEl.style.opacity = "1";
+        }, 400);
+      }, 4000);
+
+      // 3. Nav scroll hide
+      let lastScrollY = window.scrollY;
+      const navbar = document.querySelector(".nav");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 200) {
+          if (window.scrollY > lastScrollY) {
+            navbar.style.transform = "translateY(-100%)";
+          } else {
+            navbar.style.transform = "translateY(0)";
+          }
+        }
+        lastScrollY = window.scrollY;
+      });
+
+      // Shop / Filters
+      function setupFilters(tabsId, gridId) {
+        const tabs = document.querySelectorAll(`#${tabsId} .ftab`);
+        const grid = document.getElementById(gridId);
+        tabs.forEach((t) => {
+          t.addEventListener("click", () => {
+            tabs.forEach((x) => x.classList.remove("active"));
+            t.classList.add("active");
+            const f = t.getAttribute("data-f");
+            const cards = grid.querySelectorAll(".pc-wrap");
+            cards.forEach((c) => {
+              if (f === "all" || c.getAttribute("data-cat") === f) {
+                c.style.display = "flex";
+                setTimeout(() => (c.style.opacity = "1"), 50);
+              } else {
+                c.style.opacity = "0";
+                setTimeout(() => (c.style.display = "none"), 200);
+              }
+            });
+          });
+        });
+      }
+      setupFilters("ftabs1", "pgrid1");
+      if (document.getElementById("ftabs2")) setupFilters("ftabs2", "pgrid2");
+
+      function scrollGrid(id, dir) {
+        const g = document.getElementById(id);
+        const card = g.querySelector(".pc-wrap");
+        if (card) {
+          g.scrollBy({
+            left: (card.offsetWidth + 16) * dir,
+            behavior: "smooth",
+          });
+        }
+      }
+
+      // Cart Badge
+      let cartCount = sessionStorage.getItem("cartCount")
+        ? parseInt(sessionStorage.getItem("cartCount"))
+        : 0;
+      const cb = document.getElementById("cart-b");
+      cb.textContent = cartCount;
+      function addCart() {
+        cartCount++;
+        cb.textContent = cartCount;
+        sessionStorage.setItem("cartCount", cartCount);
+      }
+
+      // Modal
+      function openModal() {
+        document.getElementById("enqModal").classList.add("open");
+      }
+      function closeModal() {
+        document.getElementById("enqModal").classList.remove("open");
+      }
+      document.getElementById("enqModal").addEventListener("click", (e) => {
+        if (e.target.id === "enqModal") closeModal();
+      });
+
+      // Testimonials
+      const tData = [
+        {
+          q: "TMG had our radiator spec'd, shipped, and installed before our competitor even sent back a quote. Zero downtime on site.",
+          n: "Edward Alexander",
+          c: "Fleet Operations Manager, Southern Transport Co.",
+        },
+        {
+          q: "The power transformer platform they configured for our BESS installation was exactly to spec. First time, every time. Seamless and easy process.",
+          n: "Diana Johnston",
+          c: "Senior Engineer, GridLink Energy",
+        },
+        {
+          q: "When we had a custom cooling failure in the field, their engineering team had a prototype solution to us in 72 hours. Truly white-glove.",
+          n: "Lauren Contreras",
+          c: "Director of Maintenance, Pacific Mining Corp.",
+        },
+      ];
+
+      let tIdx = 0;
+      const items = document.querySelectorAll(".test-item");
+      const qtext = document.getElementById("tq-text");
+
+      setInterval(() => {
+        qtext.style.opacity = "0";
+
+        items[tIdx].className = "test-item prev";
+        const nextIdx = (tIdx + 1) % 3;
+        items[nextIdx].className = "test-item active";
+        const prevIdx = (tIdx + 2) % 3;
+        items[prevIdx].className = "test-item next";
+
+        tIdx = nextIdx;
+
+        setTimeout(() => {
+          qtext.textContent = tData[tIdx].q;
+           qtext.style.opacity = "1";
+        }, 400);
+      }, 5000);
+    </script>
+    <div class="modal-ov" id="enqModal">
+      <div class="modal-bx">
+        <i class="ph ph-x modal-cl" onclick="closeModal()"></i>
+        <div class="eyebrow">Contact Sales</div>
+        <div class="sec-h2" style="font-size: 24px">Enquire Now</div>
+        <div class="sec-rule" style="margin-bottom: 24px"></div>
+        <input class="ff-full" placeholder="Name" type="text" />
+        <input class="ff-full" placeholder="Email" type="email" />
+        <input class="ff-full" placeholder="Company" type="text" />
+        <textarea
+          class="ff-ta"
+          placeholder="Message &amp; Requirements"
+        ></textarea>
+        <button class="btn-p" onclick="closeModal()" style="width: 100%">
+          Send Enquiry
+        </button>
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
+  <div class="search-overlay-inner">
+    <div class="search-overlay-bar">
+      <button class="search-overlay-close" onclick="closeSearchOverlay()" aria-label="Close search"><i class="ph ph-x"></i></button>
+      <input class="search-overlay-input" id="overlay-input" type="search" placeholder="Search products, industries, applications..." autocomplete="off" aria-label="Search" />
+      <button class="search-overlay-btn" id="overlay-submit-btn" aria-label="Submit search"><i class="ph ph-magnifying-glass"></i></button>
+    </div>
+    <div class="search-overlay-hint">Press <kbd>Enter</kbd> to search &nbsp;·&nbsp; <kbd>Esc</kbd> to close</div>
+  </div>
+</div>
+<style>
+  .search-overlay{position:fixed;inset:0;background:rgba(15,23,42,.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:2000;display:flex;align-items:flex-start;justify-content:center;padding-top:80px;opacity:0;pointer-events:none;transition:opacity .25s;}
+  .search-overlay.open{opacity:1;pointer-events:auto;}
+  .search-overlay-inner{width:100%;max-width:680px;padding:0 20px;}
+  .search-overlay-bar{position:relative;}
+  .search-overlay-input{width:100%;height:64px;background:#fff;border:none;border-bottom:3px solid #c02b2d;padding:0 64px 0 24px;font-family:"Raleway",sans-serif;font-size:18px;color:#0f172a;outline:none;}
+  .search-overlay-input::placeholder{color:#64748b;}
+  .search-overlay-btn{position:absolute;right:0;top:0;height:64px;width:64px;background:#c02b2d;border:none;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+  .search-overlay-btn:hover{background:#991b1b;}
+  .search-overlay-close{position:absolute;top:-48px;right:0;background:none;border:none;color:rgba(255,255,255,.6);font-size:28px;cursor:pointer;transition:color .2s;display:flex;align-items:center;justify-content:center;}
+  .search-overlay-close:hover{color:#fff;}
+  .search-overlay-hint{font-family:"Sofia Sans",sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:16px;}
+  .search-overlay-hint kbd{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:2px 8px;font-family:"Raleway",sans-serif;font-size:11px;color:rgba(255,255,255,.5);}
+</style>
+<script>
+  document.body.appendChild(document.getElementById('search-overlay'));
+  function openSearchOverlay(){var o=document.getElementById('search-overlay');o.classList.add('open');setTimeout(function(){document.getElementById('overlay-input').focus();},50);}
+  function closeSearchOverlay(){document.getElementById('search-overlay').classList.remove('open');}
+  document.getElementById('overlay-submit-btn').addEventListener('click',function(){var q=document.getElementById('overlay-input').value.trim();if(q)window.location.href='search.html?q='+encodeURIComponent(q);});
+  document.getElementById('overlay-input').addEventListener('keydown',function(e){if(e.key==='Enter'){var q=this.value.trim();if(q)window.location.href='search.html?q='+encodeURIComponent(q);}if(e.key==='Escape')closeSearchOverlay();});
+  document.getElementById('search-overlay').addEventListener('click',function(e){if(e.target===this)closeSearchOverlay();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearchOverlay();});
+</script>
+      </div>
+    </div>
+  </body>
+</html>

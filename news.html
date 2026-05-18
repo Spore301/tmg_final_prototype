@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>News & Resources — Thermal Motion Group</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap");
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      :root {
+        --red: #c02b2d;
+        --red-h: #991b1b;
+        --navy: #222f4b;
+        --pitch: #0f172a;
+        --surface: #f8fafc;
+        --lines: #e2e8f0;
+        --muted: #64748b;
+        --deep: #334155;
+        --HF: "Sofia Sans", sans-serif;
+        --BF: "Raleway", sans-serif;
+        --gutter: 20px;
+      }
+
+      @media (min-width: 768px) {
+        :root {
+          --gutter: 40px;
+        }
+      }
+
+      body {
+        background: var(--surface);
+        font-family: var(--BF);
+        color: var(--navy);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .wf {
+        width: 100%;
+        background: #fff;
+        border-left: 1px solid var(--lines);
+        border-right: 1px solid var(--lines);
+        margin: 0 auto;
+      }
+
+      /* ============================
+         EXPO & UTILITY
+      ============================ */
+      .expo-bar {
+        background: var(--red);
+        padding: 10px 20px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 14px;
+        text-align: left;
+      }
+
+      .expo-bar-t {
+        font-family: var(--HF);
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #fff;
+        line-height: 1.4;
+      }
+
+      .expo-pill {
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: #fff;
+        font-family: var(--HF);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 3px 10px;
+        display: inline-block;
+        white-space: nowrap;
+      }
+
+      .util {
+        background: var(--surface);
+        border-bottom: 1px solid var(--lines);
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .util-ct {
+        display: flex;
+        gap: 24px;
+      }
+
+      .ut {
+        font-family: var(--HF);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+      }
+
+      .util-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .si-row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .si {
+        font-size: 16px;
+        color: var(--muted);
+        transition: color 0.2s;
+        text-decoration: none;
+        display: inline-flex;
+      }
+
+      .si:hover {
+        color: var(--red);
+      }
+
+      .ubadge {
+        font-family: var(--HF);
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: var(--red);
+        color: #fff;
+        padding: 4px 12px;
+        display: none;
+      }
+
+      @media (min-width: 768px) {
+        .expo-bar {
+          flex-direction: row;
+          justify-content: center;
+          text-align: center;
+        }
+
+        .ubadge {
+          display: block;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .util-right .si-row {
+          display: none;
+        }
+      }
+
+      /* ============================
+         NAV
+      ============================ */
+      .nav {
+        background: #fff;
+        border-bottom: 1px solid var(--lines);
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .logo img {
+        height: 44px;
+        width: auto;
+        display: block;
+        transition: height 0.2s ease;
+      }
+
+      @media (min-width: 768px) {
+        .logo img {
+          height: 56px;
+        }
+      }
+
+      .navlinks {
+        display: none;
+        gap: 32px;
+      }
+
+      .nl {
+        font-family: var(--HF);
+        font-size: 14px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--navy);
+        cursor: pointer;
+        transition: color 0.2s;
+        text-decoration: none;
+      }
+
+      .nl:hover {
+        color: var(--red);
+      }
+
+      @media (min-width: 768px) {
+        .navlinks {
+          display: flex;
+        }
+      }
+
+      .hamburger {
+        width: 24px;
+        height: 20px;
+        position: relative;
+        cursor: pointer;
+        z-index: 110;
+        display: block;
+      }
+
+      .hamburger span {
+        display: block;
+        position: absolute;
+        height: 2px;
+        width: 100%;
+        background: var(--navy);
+        transition: all 0.3s ease;
+        left: 0;
+      }
+
+      .hamburger span:nth-child(1) { top: 0px; }
+      .hamburger span:nth-child(2) { top: 9px; }
+      .hamburger span:nth-child(3) { top: 18px; }
+
+      .hamburger.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+      }
+
+      @media (min-width: 768px) {
+        .hamburger {
+          display: none;
+        }
+      }
+
+      .mobile-menu {
+        position: absolute;
+        top: calc(100% + 1px);
+        left: 0;
+        width: 100%;
+        background: var(--surface);
+        z-index: 90;
+        display: flex;
+        flex-direction: column;
+        padding: 12px 20px;
+        border-bottom: 1px solid var(--lines);
+        transform: translateY(-20px);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .mobile-menu.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .mlink {
+        font-family: var(--HF);
+        font-size: 16px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--pitch);
+        padding: 20px 0;
+        border-bottom: 1px solid var(--lines);
+        display: block;
+        text-align: center;
+        transition: color 0.2s;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .mlink:hover {
+        color: var(--red);
+      }
+
+      .mlink:last-child {
+        border-bottom: none;
+      }
+
+      @media (min-width: 768px) {
+        .mobile-menu {
+          display: none;
+        }
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .nav-icon {
+        font-size: 20px;
+        color: var(--navy);
+        cursor: pointer;
+        transition: color 0.2s;
+        position: relative;
+      }
+
+      .nav-icon:hover { color: var(--red); }
+
+      .cart-badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: var(--red);
+        color: #fff;
+        font-family: var(--HF);
+        font-size: 9px;
+        width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0;
+      }
+
+      .desktop-only { display: none; }
+      @media (min-width: 1024px) { .desktop-only { display: block; } }
+
+      /* ============================
+         BREADCRUMB
+      ============================ */
+      .bc-bar {
+        background: var(--surface);
+        border-bottom: 1px solid var(--lines);
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--HF);
+        font-size: 11px;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      @media(min-width:768px) {
+        .bc-bar { padding: 10px 40px; }
+      }
+
+      .bc-link {
+        color: var(--navy);
+        text-decoration: none;
+        transition: color .2s;
+      }
+
+      .bc-link:hover { color: var(--red); }
+
+      .bc-sep { color: #64748b; }
+
+      .bc-curr { color: var(--pitch); }
+
+      /* ============================
+         PAGE HEADER
+      ============================ */
+      .news-header {
+        background: #ffffff;
+        padding: 56px var(--gutter) 40px;
+        border-bottom: 1px solid var(--lines);
+        text-align: left;
+      }
+
+      .eyebrow {
+        font-family: var(--HF);
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 12px;
+      }
+
+      .sec-h2 {
+        font-family: var(--HF);
+        font-size: 28px;
+        line-height: 1.2;
+        text-transform: uppercase;
+        font-weight: 400;
+        color: var(--pitch);
+        margin-bottom: 16px;
+      }
+
+      .sec-rule {
+        width: 40px;
+        height: 2px;
+        background: var(--red);
+        margin-bottom: 24px;
+        display: block;
+      }
+
+      /* ============================
+         BLOG CARD GRID
+      =========================== */
+      .news-grid-section {
+        background: var(--surface);
+        padding: 48px var(--gutter) 80px;
+      }
+
+      .news-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      @media(min-width:640px) {
+        .news-grid { grid-template-columns: repeat(2, 1fr); }
+      }
+
+      @media(min-width:1024px) {
+        .news-grid { grid-template-columns: repeat(3, 1fr); }
+      }
+
+      .blog-card {
+        background: #fff;
+        border: 1px solid var(--lines);
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .blog-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+      }
+
+      .blog-img {
+        width: 100%;
+        height: 200px;
+        background: #eee;
+        overflow: hidden;
+      }
+
+      .blog-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .blog-body {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+
+      .blog-date {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .blog-name {
+        font-family: var(--HF);
+        font-size: 18px;
+        color: var(--navy);
+        text-transform: uppercase;
+        line-height: 1.3;
+      }
+
+      /* ============================
+         FOOTER
+      ============================ */
+      .footer {
+        background: var(--pitch);
+        padding: 48px 20px 24px;
+        position: relative;
+      }
+
+      @media (min-width: 768px) {
+        .footer { padding: 80px 40px 32px; }
+      }
+
+      .footer-expo {
+        background: var(--red);
+        margin: -48px -20px 40px;
+        padding: 14px 20px;
+        color: #fff;
+        font-family: var(--HF);
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      @media (min-width: 768px) {
+        .footer-expo {
+          margin: -80px -40px 60px;
+          padding: 18px 40px;
+        }
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-bottom: 60px;
+      }
+
+      @media (min-width: 768px) {
+        .footer-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .footer-grid {
+          grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+          gap: 32px;
+        }
+      }
+
+      .flogo img {
+        height: 32px;
+        margin-bottom: 20px;
+      }
+
+      .ftagline {
+        color: #fff;
+        font-family: var(--HF);
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+
+      .fdesc {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 14px;
+        line-height: 1.6;
+        max-width: 280px;
+      }
+
+      .fcl {
+        color: #fff;
+        font-family: var(--HF);
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+      }
+
+      .flink {
+        display: block;
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 14px;
+        text-decoration: none;
+        margin-bottom: 12px;
+        transition: color 0.2s;
+      }
+
+      .flink:hover { color: #fff; }
+
+      .flink-d {
+        display: inline-block;
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 12px;
+        text-decoration: none;
+        margin-right: 16px;
+        margin-top: 8px;
+      }
+
+      .fc {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+
+      .ficons {
+        display: flex;
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .fi {
+        font-size: 18px;
+        color: rgba(255, 255, 255, 0.4);
+        transition: color 0.2s;
+        text-decoration: none;
+        display: inline-flex;
+      }
+
+      .fi:hover { color: #fff; }
+
+      .footer-base {
+        padding: 32px 0 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      @media (min-width: 768px) {
+        .footer-base {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+
+      .flegal {
+        color: rgba(255, 255, 255, 0.2);
+        font-size: 12px;
+      }
+    </style>
+</head>
+<body>
+    <div class="wf">
+        <!-- EXPO BAR -->
+        <div class="expo-bar" id="ann-bar">
+            <div class="expo-bar-t" id="ann-text">
+                🔴 EXPO 2026 — Booth 4A · Apr 20–26 · Come find us
+            </div>
+        </div>
+
+        <!-- UTILITY -->
+        <div class="util">
+            <div class="util-ct">
+                <span class="ut">(+1) 555-000-0000</span>
+                <span class="ut desktop-only">info@thermalmotion.com</span>
+            </div>
+            <div class="util-right">
+                <div class="si-row">
+                    <a class="si" href="#"><i class="ph ph-linkedin-logo"></i></a>
+                    <a class="si" href="#"><i class="ph ph-instagram-logo"></i></a>
+                    <a class="si" href="#"><i class="ph ph-facebook-logo"></i></a>
+                </div>
+                <div class="ubadge">Expo Apr 20–26 · Booth [X]</div>
+            </div>
+        </div>
+
+        <!-- NAV -->
+        <div class="nav">
+            <div class="logo"><a href="index.html"><img alt="TMG" src="./assets/logo/TMG Logo.svg" /></a></div>
+            <div class="navlinks">
+                <a class="nl" href="products.html">Products</a>
+                <a class="nl" href="industries.html">Industries</a>
+                <a class="nl" href="applications.html">Applications</a>
+                <a class="nl" href="about.html">About</a>
+                <a class="nl" href="contact.html">Contact / RFQ</a>
+            </div>
+            <div class="nav-actions">
+                <button class="nav-icon" onclick="openSearchOverlay()" aria-label="Search" title="Search" style="background:none;border:none;padding:0;display:inline-flex;align-items:center;justify-content:center;"><i class="ph ph-magnifying-glass"></i></button>
+                <i class="ph ph-user nav-icon desktop-only"></i>
+                <div class="nav-icon">
+                    <i class="ph ph-shopping-cart"></i>
+                    <div class="cart-badge" id="cart-b">0</div>
+                </div>
+            </div>
+            <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
+            </div>
+            <div class="mobile-menu" id="mobileMenu">
+                <a class="mlink" href="products.html">Products</a>
+                <a class="mlink" href="industries.html">Industries</a>
+                <a class="mlink" href="applications.html">Applications</a>
+                <a class="mlink" href="about.html">About</a>
+                <a class="mlink" href="contact.html">Contact</a>
+            </div>
+        </div>
+
+        <!-- BREADCRUMB -->
+        <div class="bc-bar">
+            <a class="bc-link" href="index.html">Home</a>
+            <span class="bc-sep">/</span>
+            <span class="bc-curr">News</span>
+        </div>
+
+        <!-- PAGE HEADER -->
+        <div class="news-header">
+            <div class="eyebrow">Latest Updates</div>
+            <h1 class="sec-h2">News &amp; Resources</h1>
+            <div class="sec-rule"></div>
+        </div>
+
+        <!-- BLOG CARD GRID -->
+        <div class="news-grid-section">
+            <div class="news-grid">
+                <!-- Card 1 -->
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="./assets/blogs/Advancements in Aftermarket Cooling.jpg" alt="Blog Image">
+                    </div>
+                    <div class="blog-body">
+                        <div class="blog-date">May 15, 2026</div>
+                        <div class="blog-name">Advancements in Aftermarket Cooling</div>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="./assets/blogs/The Future of Battery Thermal Management.jpg" alt="Blog Image">
+                    </div>
+                    <div class="blog-body">
+                        <div class="blog-date">April 28, 2026</div>
+                        <div class="blog-name">The Future of Battery Thermal Management</div>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="blog-card">
+                    <div class="blog-img">
+                        <img src="./assets/blogs/Optimizing Heavy Duty Components.jpg" alt="Blog Image">
+                    </div>
+                    <div class="blog-body">
+                        <div class="blog-date">March 12, 2026</div>
+                        <div class="blog-name">Optimizing Heavy Duty Components</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <div class="footer-expo">
+                We're at Expo Apr 20–26 · Booth [X] · Come find us
+            </div>
+            <div class="footer-grid">
+                <div>
+                    <div class="flogo">
+                        <img alt="TMG" src="./assets/logo/TMG Logo_White.svg" />
+                    </div>
+                    <div class="ftagline">Keeping Industry Moving</div>
+                    <div class="fdesc">
+                        US-based aftermarket radiators and cooling systems for the
+                        industries that can't afford downtime.
+                    </div>
+                </div>
+                <div>
+                    <div class="fcl">Company</div>
+                    <a class="flink" href="about.html">About Us</a>
+                    <a class="flink" href="products.html">Products</a>
+                    <a class="flink" href="contact.html">Contact / RFQ</a>
+                </div>
+                <div>
+                    <div class="fcl">Solutions</div>
+                    <a class="flink" href="#">Aftermarket Coolers</a>
+                    <a class="flink" href="#">Power Transformers</a>
+                    <a class="flink" href="#">Battery Management</a>
+                    <a class="flink" href="#">CJP Fabrication</a>
+                    <a class="flink" href="#">Seals, Hydraulics &amp; Valves</a>
+                    <a class="flink" href="#">Innovation &amp; Prototyping</a>
+                    <a class="flink" href="#">View All Solutions</a>
+                </div>
+                <div>
+                    <div class="fcl">Resources</div>
+                    <a class="flink" href="news.html">Blogs</a>
+                    <a class="flink" href="industries.html">Industries Served</a>
+                    <a class="flink" href="applications.html">Applications</a>
+                    <a class="flink" href="#">Case Studies</a>
+                    <a class="flink" href="#">Documentation</a>
+                    <br />
+                    <a class="flink-d" href="#">Privacy Policy</a>
+                    <a class="flink-d" href="#">Terms of Use</a>
+                </div>
+                <div>
+                    <div class="fcl">Contact</div>
+                    <div class="fc">(+1) 555-000-0000</div>
+                    <div class="fc">info@thermalmotion.com</div>
+                    <div class="fc">[City, State]</div>
+                    <div class="ficons">
+                        <a class="fi" href="#"><i class="ph ph-linkedin-logo"></i></a>
+                        <a class="fi" href="#"><i class="ph ph-instagram-logo"></i></a>
+                        <a class="fi" href="#"><i class="ph ph-facebook-logo"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-base">
+                <span class="flegal">© 2026 Thermal Motion Group. All rights reserved.</span>
+                <span class="flegal">Made in the USA</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const hamburger = document.getElementById('hamburger');
+            menu.classList.toggle('open');
+            hamburger.classList.toggle('active');
+        }
+        // Modal
+        function openModal() { document.getElementById('enqModal').classList.add('open'); }
+        function closeModal() { document.getElementById('enqModal').classList.remove('open'); }
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+    </script>
+<!-- ENQUIRY MODAL -->
+<style>
+  .ff-full{height:48px;background:var(--surface);border:none;border-bottom:2px solid var(--lines);padding:0 16px;font-family:var(--BF);font-size:15px;color:var(--pitch);width:100%;margin-bottom:16px;border-radius:0;appearance:none;outline:none;transition:background .2s,border-color .2s;}
+  .ff-full:focus{background:#fff;border-bottom-color:var(--navy);}
+  .ff-ta{height:140px;background:var(--surface);border:none;border-bottom:2px solid var(--lines);padding:16px;font-family:var(--BF);font-size:15px;color:var(--pitch);width:100%;margin-bottom:32px;resize:vertical;border-radius:0;outline:none;appearance:none;transition:background .2s,border-color .2s;}
+  .ff-ta:focus{background:#fff;border-bottom-color:var(--navy);}
+  .modal-ov{position:fixed;inset:0;background:rgba(15,23,42,.7);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s;}
+  .modal-ov.open{opacity:1;pointer-events:auto;}
+  .modal-bx{background:#fff;padding:48px;max-width:560px;width:100%;position:relative;border-radius:0;max-height:90vh;overflow-y:auto;}
+  .modal-cl{position:absolute;top:24px;right:24px;font-size:24px;color:var(--muted);cursor:pointer;transition:color .2s;}
+  .modal-cl:hover{color:var(--pitch);}
+</style>
+<div class="modal-ov" id="enqModal" onclick="if(event.target.id==='enqModal')closeModal()">
+  <div class="modal-bx">
+    <i class="ph ph-x modal-cl" onclick="closeModal()"></i>
+    <div class="eyebrow">Contact Sales</div>
+    <div class="sec-h2" style="font-size:24px;">Enquire Now</div>
+    <div class="sec-rule" style="margin-bottom:24px;"></div>
+    <input class="ff-full" placeholder="Name" type="text" />
+    <input class="ff-full" placeholder="Email" type="email" />
+    <input class="ff-full" placeholder="Company" type="text" />
+    <textarea class="ff-ta" placeholder="Message &amp; Requirements"></textarea>
+    <button class="btn-p" onclick="closeModal()" style="width:100%;">Send Enquiry <i class="ph ph-arrow-right"></i></button>
+  </div>
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
+  <div class="search-overlay-inner">
+    <div class="search-overlay-bar">
+      <button class="search-overlay-close" onclick="closeSearchOverlay()" aria-label="Close search"><i class="ph ph-x"></i></button>
+      <input class="search-overlay-input" id="overlay-input" type="search" placeholder="Search products, industries, applications..." autocomplete="off" aria-label="Search" />
+      <button class="search-overlay-btn" id="overlay-submit-btn" aria-label="Submit search"><i class="ph ph-magnifying-glass"></i></button>
+    </div>
+    <div class="search-overlay-hint">Press <kbd>Enter</kbd> to search &nbsp;·&nbsp; <kbd>Esc</kbd> to close</div>
+  </div>
+</div>
+<style>
+  .search-overlay{position:fixed;inset:0;background:rgba(15,23,42,.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:2000;display:flex;align-items:flex-start;justify-content:center;padding-top:80px;opacity:0;pointer-events:none;transition:opacity .25s;}
+  .search-overlay.open{opacity:1;pointer-events:auto;}
+  .search-overlay-inner{width:100%;max-width:680px;padding:0 20px;}
+  .search-overlay-bar{position:relative;}
+  .search-overlay-input{width:100%;height:64px;background:#fff;border:none;border-bottom:3px solid #c02b2d;padding:0 64px 0 24px;font-family:"Raleway",sans-serif;font-size:18px;color:#0f172a;outline:none;}
+  .search-overlay-input::placeholder{color:#64748b;}
+  .search-overlay-btn{position:absolute;right:0;top:0;height:64px;width:64px;background:#c02b2d;border:none;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+  .search-overlay-btn:hover{background:#991b1b;}
+  .search-overlay-close{position:absolute;top:-48px;right:0;background:none;border:none;color:rgba(255,255,255,.6);font-size:28px;cursor:pointer;transition:color .2s;display:flex;align-items:center;justify-content:center;}
+  .search-overlay-close:hover{color:#fff;}
+  .search-overlay-hint{font-family:"Sofia Sans",sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:16px;}
+  .search-overlay-hint kbd{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:2px 8px;font-family:"Raleway",sans-serif;font-size:11px;color:rgba(255,255,255,.5);}
+</style>
+<script>
+  document.body.appendChild(document.getElementById('search-overlay'));
+  function openSearchOverlay(){var o=document.getElementById('search-overlay');o.classList.add('open');setTimeout(function(){document.getElementById('overlay-input').focus();},50);}
+  function closeSearchOverlay(){document.getElementById('search-overlay').classList.remove('open');}
+  document.getElementById('overlay-submit-btn').addEventListener('click',function(){var q=document.getElementById('overlay-input').value.trim();if(q)window.location.href='search.html?q='+encodeURIComponent(q);});
+  document.getElementById('overlay-input').addEventListener('keydown',function(e){if(e.key==='Enter'){var q=this.value.trim();if(q)window.location.href='search.html?q='+encodeURIComponent(q);}if(e.key==='Escape')closeSearchOverlay();});
+  document.getElementById('search-overlay').addEventListener('click',function(e){if(e.target===this)closeSearchOverlay();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSearchOverlay();});
+</script>
+</div>
+</body>
+</html>
