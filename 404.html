@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>404 — Page Not Found · Thermal Motion Group</title>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap" rel="stylesheet" />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap");
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --red: #c02b2d;
+      --red-h: #991b1b;
+      --navy: #222f4b;
+      --pitch: #0f172a;
+      --surface: #f8fafc;
+      --lines: #e2e8f0;
+      --muted: #64748b;
+      --deep: #334155;
+      --HF: "Sofia Sans", sans-serif;
+      --BF: "Raleway", sans-serif;
+    }
+
+    body {
+      background: var(--surface);
+      font-family: var(--BF);
+      color: var(--navy);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .wf {
+      width: 100%;
+      background: #fff;
+      border-left: 1px solid var(--lines);
+      border-right: 1px solid var(--lines);
+      margin: 0 auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    .nav {
+      background: #fff;
+      border-bottom: 1px solid var(--lines);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo img { height: 44px; width: auto; display: block; }
+    @media (min-width: 768px) { .logo img { height: 56px; } }
+
+    /* 404 BODY */
+    .not-found {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 24px;
+      text-align: center;
+      background: #fff;
+    }
+
+    .nf-code {
+      font-family: var(--HF);
+      font-size: 120px;
+      line-height: 1;
+      font-weight: 400;
+      color: var(--lines);
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+      user-select: none;
+    }
+    @media (min-width: 768px) { .nf-code { font-size: 200px; } }
+
+    .nf-rule {
+      width: 40px;
+      height: 3px;
+      background: var(--red);
+      margin: 0 auto 24px;
+    }
+
+    .nf-eyebrow {
+      font-family: var(--HF);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .nf-heading {
+      font-family: var(--HF);
+      font-size: 24px;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      font-weight: 400;
+      color: var(--pitch);
+      margin-bottom: 12px;
+    }
+    @media (min-width: 768px) { .nf-heading { font-size: 32px; } }
+
+    .nf-sub {
+      font-family: var(--BF);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--muted);
+      max-width: 400px;
+      margin: 0 auto 36px;
+    }
+
+    .btn-home {
+      font-family: var(--HF);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      padding: 16px 32px;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border-radius: 0;
+    }
+    .btn-home:hover { background: var(--red-h); }
+    .btn-home:active { background: #7F1D1D; box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); }
+
+    /* FOOTER STRIP */
+    .foot-strip {
+      border-top: 1px solid var(--lines);
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      background: #fff;
+    }
+    .flegal {
+      font-family: var(--BF);
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wf">
+
+    <!-- NAV -->
+    <div class="nav">
+      <div class="logo">
+        <a href="index.html">
+          <img alt="Thermal Motion Group" src="./assets/logo/TMG Logo.svg" />
+        </a>
+      </div>
+    </div>
+
+    <!-- 404 CONTENT -->
+    <div class="not-found">
+      <div class="nf-code">404</div>
+      <div class="nf-rule"></div>
+      <div class="nf-eyebrow">Page Not Found</div>
+      <div class="nf-heading">Nothing Here</div>
+      <div class="nf-sub">
+        The page you're looking for doesn't exist or has been moved.
+        Head back to the homepage to find what you need.
+      </div>
+      <a class="btn-home" href="index.html">
+        Return to Home <i class="ph ph-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- FOOTER STRIP -->
+    <div class="foot-strip">
+      <span class="flegal">© 2026 Thermal Motion Group. All rights reserved.</span>
+    </div>
+
+  </div>
+</body>
+</html>
