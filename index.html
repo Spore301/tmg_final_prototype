@@ -1656,6 +1656,28 @@
         color: rgba(255, 255, 255, 0.5);
       }
 
+      .flink-cta {
+        font-family: var(--HF);
+        font-size: 14px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 4px;
+        margin-bottom: 16px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+        padding-bottom: 2px;
+        transition: color 0.2s, border-color 0.2s;
+      }
+
+      .flink-cta:hover {
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.6);
+      }
+
       .fc {
         font-family: var(--BF);
         font-size: 14px;
@@ -2346,11 +2368,13 @@
         .test-layout {
           grid-template-columns: 35% 1fr;
           gap: 60px;
+          align-items: center;
         }
       }
+      /* Left column: stacked person list */
       .test-list {
         position: relative;
-        height: 180px;
+        height: 192px; /* 3 × 64px rows */
         overflow: hidden;
       }
       .test-item {
@@ -2359,71 +2383,84 @@
         gap: 16px;
         position: absolute;
         width: 100%;
-        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        height: 56px;
+        cursor: pointer;
+        transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                    filter 0.5s ease;
       }
       .ti-img {
-        width: 40px;
-        height: 40px;
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
         border-radius: 0;
         border: 2px solid var(--lines);
         background: var(--surface);
+        object-fit: cover;
+        transition: border-color 0.4s;
       }
       .ti-info {
         display: flex;
         flex-direction: column;
+        min-width: 0;
       }
       .ti-name {
         font-family: var(--HF);
-        font-size: 14px;
+        font-size: 13px;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.06em;
         color: var(--muted);
-        transition: color 0.5s;
+        transition: color 0.4s;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .ti-rat {
         font-family: var(--BF);
-        font-size: 12px;
+        font-size: 11px;
         color: var(--muted);
-      }
-      .ti-rat span {
-        color: var(--red);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
+      /* Slot positions: prev = top, active = middle, next = bottom */
+      .test-item.prev {
+        opacity: 0.3;
+        transform: translateY(0px) scale(0.92);
+        z-index: 1;
+        filter: grayscale(1);
+      }
       .test-item.active {
         opacity: 1;
-        transform: translateY(70px) scale(1);
-        z-index: 2;
-        pointer-events: auto;
+        transform: translateY(68px) scale(1);
+        z-index: 3;
+        filter: none;
       }
       .test-item.active .ti-img {
         border-color: var(--red);
       }
       .test-item.active .ti-name {
         color: var(--pitch);
-      }
-      .test-item.prev {
-        opacity: 0.35;
-        transform: translateY(10px) scale(0.9);
-        z-index: 1;
-        pointer-events: none;
-        filter: grayscale(1);
+        font-size: 14px;
       }
       .test-item.next {
-        opacity: 0.35;
-        transform: translateY(130px) scale(0.9);
+        opacity: 0.3;
+        transform: translateY(136px) scale(0.92);
         z-index: 1;
-        pointer-events: none;
         filter: grayscale(1);
       }
       .test-item.hidden {
         opacity: 0;
-        transform: translateY(-40px) scale(0.9);
+        transform: translateY(200px) scale(0.88);
         pointer-events: none;
+        z-index: 0;
       }
 
+      /* Right column: quote */
       .test-quote-col {
         border-left: 1px solid var(--lines);
-        padding-left: 20px;
+        padding-left: 24px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -2439,7 +2476,7 @@
         color: var(--red);
         opacity: 0.15;
         line-height: 0.5;
-        margin-bottom: 8px;
+        margin-bottom: 16px;
         display: block;
       }
       .tq-text {
@@ -2448,20 +2485,32 @@
         font-style: italic;
         line-height: 1.7;
         color: var(--deep);
-        transition: opacity 0.4s ease;
-        min-height: 80px;
-        margin-bottom: 16px;
+        transition: opacity 0.35s ease, transform 0.35s ease;
+        min-height: 90px;
+        margin-bottom: 20px;
+      }
+      .tq-text.fade-out {
+        opacity: 0;
+        transform: translateY(6px);
       }
       .tq-name {
         font-family: var(--HF);
         font-size: 13px;
         text-transform: uppercase;
+        letter-spacing: 0.06em;
         color: var(--pitch);
+        transition: opacity 0.35s ease;
       }
       .tq-co {
         font-family: var(--BF);
         font-size: 13px;
         color: var(--muted);
+        margin-top: 4px;
+        transition: opacity 0.35s ease;
+      }
+      .tq-name.fade-out,
+      .tq-co.fade-out {
+        opacity: 0;
       }
 
       /* Enquiry Modal */
@@ -2740,7 +2789,7 @@
               </div>
             </div>
             <a class="nl" href="about.html" style="text-decoration: none">About</a>
-            <a class="nl" href="#contact" style="text-decoration: none"
+            <a class="nl" href="contact.html" style="text-decoration: none"
               >Contact / RFQ</a
             >
           </div>
@@ -3395,22 +3444,22 @@
         <div class="sec-rule"></div>
         <div class="test-layout">
           <div class="test-list" id="tlist">
-            <div class="test-item active">
-              <img class="ti-img" src="https://i.pravatar.cc/150?u=1" />
+            <div class="test-item active" data-t="0">
+              <img class="ti-img" src="https://i.pravatar.cc/150?u=1" alt="Edward Alexander" />
               <div class="ti-info">
                 <div class="ti-name">Edward Alexander</div>
                 <div class="ti-rat">Fleet Operations Manager, Southern Transport Co.</div>
               </div>
             </div>
-            <div class="test-item next">
-              <img class="ti-img" src="https://i.pravatar.cc/150?u=2" />
+            <div class="test-item next" data-t="1">
+              <img class="ti-img" src="https://i.pravatar.cc/150?u=2" alt="Diana Johnston" />
               <div class="ti-info">
                 <div class="ti-name">Diana Johnston</div>
                 <div class="ti-rat">Senior Engineer, GridLink Energy</div>
               </div>
             </div>
-            <div class="test-item prev">
-              <img class="ti-img" src="https://i.pravatar.cc/150?u=3" />
+            <div class="test-item prev" data-t="2">
+              <img class="ti-img" src="https://i.pravatar.cc/150?u=3" alt="Lauren Contreras" />
               <div class="ti-info">
                 <div class="ti-name">Lauren Contreras</div>
                 <div class="ti-rat">Director of Maintenance, Pacific Mining Corp.</div>
@@ -3419,10 +3468,9 @@
           </div>
           <div class="test-quote-col">
             <span class="tq-mark">❝</span>
-            <div class="tq-text" id="tq-text">
-              TMG had our radiator spec'd, shipped, and installed before our
-              competitor even sent back a quote. Zero downtime on site.
-            </div>
+            <div class="tq-text" id="tq-text">TMG had our radiator spec'd, shipped, and installed before our competitor even sent back a quote. Zero downtime on site.</div>
+            <div class="tq-name" id="tq-name">Edward Alexander</div>
+            <div class="tq-co" id="tq-co">Fleet Operations Manager, Southern Transport Co.</div>
           </div>
         </div>
       </div>
@@ -3733,7 +3781,7 @@
             <a class="flink" href="#">CJP Fabrication</a>
             <a class="flink" href="#">Seals, Hydraulics &amp; Valves</a>
             <a class="flink" href="#">Innovation &amp; Prototyping</a>
-            <a class="flink" href="solutions.html">View All Solutions</a>
+            <a class="flink-cta" href="solutions.html">View All Solutions →</a>
           </div>
           <div>
             <div class="fcl">Resources</div>
@@ -3987,6 +4035,7 @@
 
       function updatePpag() {
         var grid = document.getElementById("pprodgrid");
+        if (!grid) return;
         // Dynamic width calculating based on mobile vs desktop
         if (grid.children.length > 0) {
           var gap = window.innerWidth >= 768 ? 20 : 16;
@@ -4020,6 +4069,7 @@
       function scrollPProd(dir) {
         clearInterval(pprodAutoTimer);
         var grid = document.getElementById("pprodgrid");
+        if (!grid) return;
 
         var visibleItems = 1;
         if (window.innerWidth >= 1024) visibleItems = 4;
@@ -4051,6 +4101,7 @@
           pcurProd++;
           if (pcurProd > maxIdx) pcurProd = 0;
           var grid = document.getElementById("pprodgrid");
+          if (!grid) return;
           var card = grid.children[pcurProd];
           if (card) {
             grid.scrollTo({ left: card.offsetLeft - 20, behavior: "smooth" });
@@ -4058,16 +4109,15 @@
         }, 5000);
       }
 
-      document
-        .getElementById("pprodgrid")
-        .addEventListener("mouseenter", function () {
+      var pprodGridEl = document.getElementById("pprodgrid");
+      if (pprodGridEl) {
+        pprodGridEl.addEventListener("mouseenter", function () {
           clearInterval(pprodAutoTimer);
         });
-      document
-        .getElementById("pprodgrid")
-        .addEventListener("mouseleave", function () {
+        pprodGridEl.addEventListener("mouseleave", function () {
           autoScrollPProd();
         });
+      }
 
       // Custom Select UI logic
       var csel = document.getElementById("prodSel");
@@ -4230,11 +4280,14 @@
       function closeModal() {
         document.getElementById("enqModal").classList.remove("open");
       }
-      document.getElementById("enqModal").addEventListener("click", (e) => {
-        if (e.target.id === "enqModal") closeModal();
-      });
+      var enqModalEl = document.getElementById("enqModal");
+      if (enqModalEl) {
+        enqModalEl.addEventListener("click", (e) => {
+          if (e.target.id === "enqModal") closeModal();
+        });
+      }
 
-      // Testimonials
+      // Testimonials — left list scrolls, right quote syncs in lockstep
       const tData = [
         {
           q: "TMG had our radiator spec'd, shipped, and installed before our competitor even sent back a quote. Zero downtime on site.",
@@ -4254,25 +4307,74 @@
       ];
 
       let tIdx = 0;
-      const items = document.querySelectorAll(".test-item");
-      const qtext = document.getElementById("tq-text");
+      const tItems = Array.from(document.querySelectorAll(".test-item"));
+      const tTotal = tData.length;
+      let tTimer = null;
 
-      setInterval(() => {
-        qtext.style.opacity = "0";
+      // Assign slot classes based on active index
+      // Slots: prev = (tIdx - 1 + n) % n, active = tIdx, next = (tIdx + 1) % n
+      function tSetSlots(activeIdx) {
+        const prevIdx = (activeIdx - 1 + tTotal) % tTotal;
+        const nextIdx = (activeIdx + 1) % tTotal;
+        tItems.forEach((item, i) => {
+          item.className = "test-item";
+          if (i === activeIdx) item.classList.add("active");
+          else if (i === prevIdx) item.classList.add("prev");
+          else if (i === nextIdx) item.classList.add("next");
+          else item.classList.add("hidden");
+        });
+      }
 
-        items[tIdx].className = "test-item prev";
-        const nextIdx = (tIdx + 1) % 3;
-        items[nextIdx].className = "test-item active";
-        const prevIdx = (tIdx + 2) % 3;
-        items[prevIdx].className = "test-item next";
-
-        tIdx = nextIdx;
-
+      // Update right-side quote with fade transition
+      function tUpdateQuote(idx) {
+        const qEl = document.getElementById("tq-text");
+        const nEl = document.getElementById("tq-name");
+        const cEl = document.getElementById("tq-co");
+        // Fade out
+        qEl.classList.add("fade-out");
+        nEl.classList.add("fade-out");
+        cEl.classList.add("fade-out");
         setTimeout(() => {
-          qtext.textContent = tData[tIdx].q;
-           qtext.style.opacity = "1";
-        }, 400);
-      }, 5000);
+          qEl.textContent = tData[idx].q;
+          nEl.textContent = tData[idx].n;
+          cEl.textContent = tData[idx].c;
+          qEl.classList.remove("fade-out");
+          nEl.classList.remove("fade-out");
+          cEl.classList.remove("fade-out");
+        }, 350);
+      }
+
+      // Go to a specific testimonial
+      function tGoTo(idx) {
+        tIdx = idx;
+        tSetSlots(tIdx);
+        tUpdateQuote(tIdx);
+      }
+
+      // Auto-advance
+      function tNext() {
+        tGoTo((tIdx + 1) % tTotal);
+      }
+
+      function tStartAuto() {
+        clearInterval(tTimer);
+        tTimer = setInterval(tNext, 5000);
+      }
+
+      // Click on a person to jump to their testimonial
+      tItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          const idx = parseInt(item.getAttribute("data-t"));
+          if (idx !== tIdx) {
+            tGoTo(idx);
+            tStartAuto(); // reset timer on manual click
+          }
+        });
+      });
+
+      // Init
+      tSetSlots(0);
+      tStartAuto();
     </script>
     <div class="modal-ov" id="enqModal">
       <div class="modal-bx">

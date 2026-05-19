@@ -600,6 +600,28 @@
         transition: color 0.2s;
       }
       .flink-d:hover { color: rgba(255,255,255,0.5); }
+
+      .flink-cta {
+        font-family: var(--HF);
+        font-size: 14px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 4px;
+        margin-bottom: 16px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+        padding-bottom: 2px;
+        transition: color 0.2s, border-color 0.2s;
+      }
+
+      .flink-cta:hover {
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.6);
+      }
       .fc {
         font-family: var(--BF);
         font-size: 14px;
@@ -701,7 +723,7 @@
               <a class="dm-link" href="applications.html">Applications <span class="dm-sub">Use Cases</span></a>
             </div>
           </div>
-          <a class="nl" href="index.html#about">About</a>
+          <a class="nl" href="about.html">About</a>
           <a class="nl" href="contact.html">Contact / RFQ</a>
         </div>
         <div class="nav-actions">
@@ -1016,7 +1038,7 @@
             <a class="flink" href="#">CJP Fabrication</a>
             <a class="flink" href="#">Seals, Hydraulics &amp; Valves</a>
             <a class="flink" href="#">Innovation &amp; Prototyping</a>
-            <a class="flink" href="solutions.html">View All Solutions</a>
+            <a class="flink-cta" href="solutions.html">View All Solutions →</a>
           </div>
           <div>
             <div class="fcl">Resources</div>

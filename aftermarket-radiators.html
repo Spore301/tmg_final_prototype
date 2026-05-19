@@ -149,20 +149,35 @@
     .cart-sq{aspect-ratio:1/1;border:1px solid var(--lines);background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;padding:0 12px;transition:background .2s,border-color .2s;}
     .cart-sq:hover{background:var(--surface);border-color:var(--navy);}
 
-    /* WHY TMG — feature grid */
-    .feat-grid{display:grid;grid-template-columns:1fr;gap:24px;}
-    @media(min-width:640px){.feat-grid{grid-template-columns:repeat(2,1fr);}}
-    @media(min-width:1024px){.feat-grid{grid-template-columns:repeat(3,1fr);}}
-    .feat-card{background:#fff;border:1px solid var(--lines);padding:28px 24px;}
-    .feat-icon{font-size:28px;color:var(--red);margin-bottom:16px;display:block;}
-    .feat-title{font-family:var(--HF);font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--pitch);margin-bottom:10px;}
-    .feat-body{font-family:var(--BF);font-size:14px;line-height:1.65;color:var(--muted);}
+    /* WHY TMG — split layout */
+    .why-wrap{display:grid;grid-template-columns:1fr;}
+    @media(min-width:768px){.why-wrap{grid-template-columns:38fr 62fr;}}
+    .why-left{padding:40px 20px;border-bottom:1px solid var(--lines);}
+    @media(min-width:768px){.why-left{padding:56px 40px;border-bottom:none;position:sticky;top:80px;align-self:start;}}
+    .why-right{background:#fff; border-left:1px solid var(--lines);}
+    .why-row{display:flex;align-items:center;gap:24px;padding:32px 20px;border-bottom:1px solid var(--lines);}
+    @media(min-width:768px){.why-row{padding:36px 40px;}}
+    .why-row:last-child{border-bottom:none;}
+    .why-num{font-family:var(--HF);font-size:40px;color:var(--red);font-weight:200;line-height:1;min-width:52px;opacity:1;flex-shrink:0;padding-top:2px;}
+    .why-title{font-family:var(--HF);font-size:16px;letter-spacing:.06em;text-transform:uppercase;color:var(--pitch);margin-bottom:6px;}
+    .why-icon{font-size:20px;color:var(--muted);flex-shrink:0;}
+    .why-title-row{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+    .why-body{font-family:var(--BF);font-size:14px;line-height:1.65;color:var(--muted);}
+    .why-cta{font-family:var(--HF);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--navy);padding-bottom:2px;display:inline-flex;align-items:center;gap:8px;transition:color .2s,border-color .2s;margin-top:24px;}
+    .why-cta:hover{color:var(--red);border-color:var(--red);}
 
-    /* INDUSTRIES SERVED — tag strip */
-    .ind-tag-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
-    .ind-tag{font-family:var(--HF);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:8px 16px;border:1px solid var(--lines);color:var(--navy);text-decoration:none;transition:border-color .2s,color .2s,background .2s;}
-    .ind-tag:hover{border-color:var(--red);color:var(--red);}
-    .ind-tag.active{background:var(--red);border-color:var(--red);color:#fff;}
+    /* INDUSTRIES SERVED — card grid */
+    .ind-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+    @media(min-width:640px){.ind-grid{grid-template-columns:1fr 1fr;}}
+    @media(min-width:1024px){.ind-grid{grid-template-columns:1fr 1fr 1fr;}}
+    .ind-card{background:#fff;border:1px solid var(--lines);padding:28px 24px;position:relative;transition:border-color .3s;display:flex;flex-direction:column;text-decoration:none;}
+    .ind-card .pcard-accent{position:absolute;top:0;left:0;right:0;height:3px;background:transparent;transition:background .3s;}
+    .ind-card:hover{border-color:var(--card-color,var(--red));}
+    .ind-card:hover .pcard-accent{background:var(--card-color,var(--red));}
+    .ind-icon{font-size:28px;color:var(--card-color,var(--red));margin-bottom:16px;display:block;}
+    .ind-title{font-family:var(--HF);font-size:16px;text-transform:uppercase;color:var(--pitch);margin-bottom:8px;}
+    .ind-desc{font-family:var(--BF);font-size:14px;color:var(--muted);line-height:1.6;flex:1;}
+    .ind-link{font-family:var(--HF);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--red);margin-top:16px;display:block;text-decoration:none;}
 
     /* FOOTER */
     .footer{background:var(--pitch);padding:48px 20px 24px;position:relative;}
@@ -269,7 +284,7 @@
   <div class="bc-bar">
     <a class="bc-link" href="index.html">Home</a>
     <span class="bc-sep">›</span>
-    <a class="bc-link" href="products.html">Products</a>
+    <a class="bc-link" href="solutions.html">Solutions</a>
     <span class="bc-sep">›</span>
     <span class="bc-curr">Aftermarket Radiators</span>
   </div>
@@ -432,65 +447,121 @@
   </div>
 
   <!-- WHY TMG -->
-  <div class="sec alt">
-    <div class="eyebrow">Why TMG</div>
-    <div class="sec-h2">The direct-to-buyer difference</div>
-    <div class="sec-rule"></div>
+  <div class="sec" style="padding:0;">
+    <div class="why-wrap">
 
-    <div class="feat-grid">
-
-      <div class="feat-card">
-        <i class="ph ph-warehouse feat-icon"></i>
-        <div class="feat-title">US-Based Inventory</div>
-        <div class="feat-body">Stock held domestically across the most common configurations. No overseas lead times, no customs delays — parts ship the same day.</div>
+      <div class="why-left">
+        <div class="eyebrow">Why TMG</div>
+        <div class="sec-h2">The direct-to-buyer difference</div>
+        <div class="sec-rule"></div>
+        <p style="font-family:var(--BF);font-size:15px;line-height:1.7;color:var(--muted);max-width:400px;">No distributors. No markups. No runaround. TMG sells direct from the manufacturer — one call, one relationship, one price.</p>
+        <a class="why-cta" href="contact.html">Talk to the team <i class="ph ph-arrow-right"></i></a>
       </div>
 
-      <div class="feat-card">
-        <i class="ph ph-handshake feat-icon"></i>
-        <div class="feat-title">Direct Manufacturer Pricing</div>
-        <div class="feat-body">No distributor in the chain means no distributor margin. You pay manufacturer price and deal directly with the engineering team.</div>
-      </div>
-
-      <div class="feat-card">
-        <i class="ph ph-gear feat-icon"></i>
-        <div class="feat-title">Spec-Matched Fitment</div>
-        <div class="feat-body">Every unit is matched to OEM specs before it ships. Drop-in installation, pressure-tested, ready to run — no field modifications required.</div>
-      </div>
-
-      <div class="feat-card">
-        <i class="ph ph-clock feat-icon"></i>
-        <div class="feat-title">24/7 Emergency Supply</div>
-        <div class="feat-body">When a cooling component fails at 2am, we're the call that gets the part on-site before the next business day. Downtime costs more than the part.</div>
-      </div>
-
-      <div class="feat-card">
-        <i class="ph ph-shield-check feat-icon"></i>
-        <div class="feat-title">24-Month Warranty</div>
-        <div class="feat-body">Every aftermarket radiator ships with a 24-month warranty backed directly by TMG. No third-party claims process, no runaround.</div>
-      </div>
-
-      <div class="feat-card">
-        <i class="ph ph-chart-line-up feat-icon"></i>
-        <div class="feat-title">Platform Expanding</div>
-        <div class="feat-body">Aftermarket radiators are Phase 1. The TMG platform extends into power transformers, battery management, and seals &amp; hydraulics in Phase 2.</div>
+      <div class="why-right">
+        <div class="why-row">
+          <div class="why-num">01</div>
+          <div>
+            <div class="why-title-row"><i class="ph ph-warehouse why-icon"></i><div class="why-title">US-Based Inventory</div></div>
+            <div class="why-body">Stock held domestically across the most common configurations. No overseas lead times, no customs delays — parts ship the same day.</div>
+          </div>
+        </div>
+        <div class="why-row">
+          <div class="why-num">02</div>
+          <div>
+            <div class="why-title-row"><i class="ph ph-handshake why-icon"></i><div class="why-title">Direct Manufacturer Pricing</div></div>
+            <div class="why-body">No distributor in the chain means no distributor margin. You pay manufacturer price and deal directly with the engineering team.</div>
+          </div>
+        </div>
+        <div class="why-row">
+          <div class="why-num">03</div>
+          <div>
+            <div class="why-title-row"><i class="ph ph-gear why-icon"></i><div class="why-title">Spec-Matched Fitment</div></div>
+            <div class="why-body">Every unit is matched to OEM specs before it ships. Drop-in installation, pressure-tested, ready to run — no field modifications required.</div>
+          </div>
+        </div>
+        <div class="why-row">
+          <div class="why-num">04</div>
+          <div>
+            <div class="why-title-row"><i class="ph ph-clock why-icon"></i><div class="why-title">24/7 Emergency Supply</div></div>
+            <div class="why-body">When a cooling component fails at 2am, we're the call that gets the part on-site before the next business day. Downtime costs more than the part.</div>
+          </div>
+        </div>
+        <div class="why-row">
+          <div class="why-num">05</div>
+          <div>
+            <div class="why-title-row"><i class="ph ph-shield-check why-icon"></i><div class="why-title">24-Month Warranty</div></div>
+            <div class="why-body">Every aftermarket radiator ships with a 24-month warranty backed directly by TMG. No third-party claims process, no runaround.</div>
+          </div>
+        </div>
+        <div class="why-row">
+          <div class="why-num">06</div>
+          <div>
+            <div class="why-title-row"><i class="ph ph-chart-line-up why-icon"></i><div class="why-title">Platform Expanding</div></div>
+            <div class="why-body">Aftermarket radiators are Phase 1. The TMG platform extends into power transformers, battery management, and seals &amp; hydraulics in Phase 2.</div>
+          </div>
+        </div>
       </div>
 
     </div>
   </div>
 
   <!-- INDUSTRIES SERVED -->
-  <div class="sec">
+  <div class="sec alt">
     <div class="eyebrow">Industries Served</div>
     <div class="sec-h2">Six verticals. One platform.</div>
     <div class="sec-rule"></div>
-    <p style="font-family:var(--BF);font-size:15px;line-height:1.7;color:var(--deep);max-width:640px;margin-bottom:0;">TMG aftermarket radiators are deployed across the industries that can't afford thermal failure. Each vertical has its own spec requirements — TMG stocks for all of them.</p>
-    <div class="ind-tag-row">
-      <a class="ind-tag active" href="data-centers.html">Crypto &amp; Data Centers</a>
-      <a class="ind-tag" href="industries.html">Power Generation</a>
-      <a class="ind-tag" href="industries.html">Agriculture</a>
-      <a class="ind-tag" href="industries.html">Oil &amp; Gas</a>
-      <a class="ind-tag" href="industries.html">Trucking</a>
-      <a class="ind-tag" href="industries.html">Hydraulics</a>
+    <p style="font-family:var(--BF);font-size:15px;line-height:1.7;color:var(--deep);max-width:640px;margin-bottom:24px;">TMG aftermarket radiators are deployed across the industries that can't afford thermal failure. Each vertical has its own spec requirements — TMG stocks for all of them.</p>
+    <div class="ind-grid">
+
+      <a class="ind-card" href="data-centers.html" style="--card-color:var(--red);">
+        <div class="pcard-accent"></div>
+        <i class="ph ph-cpu ind-icon"></i>
+        <div class="ind-title">Crypto &amp; Data Centers</div>
+        <div class="ind-desc">Precision cooling for high-density server racks, crypto mining arrays, and edge compute environments.</div>
+        <div class="ind-link">View Industry →</div>
+      </a>
+
+      <a class="ind-card" href="industries.html" style="--card-color:var(--red);">
+        <div class="pcard-accent"></div>
+        <i class="ph ph-lightning ind-icon"></i>
+        <div class="ind-title">Power Generation</div>
+        <div class="ind-desc">Thermal management for standby generators and continuous power platforms — Cummins, CAT, Kohler and beyond.</div>
+        <div class="ind-link">View Industry →</div>
+      </a>
+
+      <a class="ind-card" href="industries.html" style="--card-color:var(--red);">
+        <div class="pcard-accent"></div>
+        <i class="ph ph-tractor ind-icon"></i>
+        <div class="ind-title">Agriculture</div>
+        <div class="ind-desc">Durable radiator cores engineered for high-dust, high-vibration field operation across Tier 3 and Tier 4 diesel platforms.</div>
+        <div class="ind-link">View Industry →</div>
+      </a>
+
+      <a class="ind-card" href="industries.html" style="--card-color:var(--red);">
+        <div class="pcard-accent"></div>
+        <i class="ph ph-drop ind-icon"></i>
+        <div class="ind-title">Oil &amp; Gas</div>
+        <div class="ind-desc">Hydraulic and engine cooling for upstream and downstream oil field machinery operating in extreme ambient conditions.</div>
+        <div class="ind-link">View Industry →</div>
+      </a>
+
+      <a class="ind-card" href="industries.html" style="--card-color:var(--red);">
+        <div class="pcard-accent"></div>
+        <i class="ph ph-truck ind-icon"></i>
+        <div class="ind-title">Trucking &amp; Fleet</div>
+        <div class="ind-desc">Charge air and coolant solutions for long-haul diesel and CNG fleets — OEM-matched, direct drop-in fitment.</div>
+        <div class="ind-link">View Industry →</div>
+      </a>
+
+      <a class="ind-card" href="industries.html" style="--card-color:var(--red);">
+        <div class="pcard-accent"></div>
+        <i class="ph ph-gear ind-icon"></i>
+        <div class="ind-title">Hydraulics &amp; Industrial</div>
+        <div class="ind-desc">Air-to-oil and water-to-oil coolers for hydraulic circuits across forklifts, cranes, presses, and industrial machinery.</div>
+        <div class="ind-link">View Industry →</div>
+      </a>
+
     </div>
   </div>
 
