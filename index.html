@@ -635,8 +635,8 @@
         font-family: var(--HF);
         font-size: 18px;
         font-weight: 400;
-        color: var(--navy);
-        opacity: 0.25;
+        color: var(--muted);
+        opacity: 0.7;
         transition:
           opacity 0.3s,
           color 0.3s;
@@ -2001,27 +2001,6 @@
       .tmg-btn--ghost:hover { background-color: #f1f5f9; color: var(--navy); }
       .tmg-btn--ghost:active { background-color: #e2e8f0; color: var(--navy); }
 
-      .btn-nl {
-        font-family: var(--HF);
-        font-size: 13px;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        background: #fff;
-        color: var(--navy);
-        border: none;
-        padding: 16px 28px;
-        justify-content: center;
-        display: inline-flex;
-        align-items: center;
-        cursor: pointer;
-        transition: background 0.2s;
-        text-decoration: none;
-        height: 48px;
-      }
-      .btn-nl:hover {
-        background: var(--surface);
-      }
-
       /* Product Carousel & Cards updates */
       .prod-grid {
         align-items: stretch;
@@ -2177,6 +2156,9 @@
         position: relative;
         overflow: hidden;
       }
+      @media (min-width: 768px) {
+        .nl-sec { padding: 56px 40px; }
+      }
       .nl-bg-pattern {
         position: absolute;
         inset: 0;
@@ -2184,8 +2166,8 @@
           45deg,
           transparent,
           transparent 10px,
-          rgba(255, 255, 255, 0.1) 10px,
-          rgba(255, 255, 255, 0.1) 11px
+          rgba(255, 255, 255, 0.03) 10px,
+          rgba(255, 255, 255, 0.03) 11px
         );
         z-index: 0;
       }
@@ -2194,10 +2176,11 @@
         grid-template-columns: 1fr;
         gap: 32px;
         align-items: center;
-        max-width: 1440px;
-        margin: 0 auto;
         position: relative;
         z-index: 1;
+      }
+      @media (min-width: 768px) {
+        .nl-wrap { grid-template-columns: 1fr 1fr; gap: 80px; }
       }
       .nl-eb {
         font-family: var(--HF);
@@ -2226,6 +2209,9 @@
         flex-direction: column;
         gap: 12px;
       }
+      @media (min-width: 768px) {
+        .nl-form { flex-direction: row; }
+      }
       .nl-inp {
         height: 48px;
         background: transparent;
@@ -2234,37 +2220,34 @@
         font-family: var(--BF);
         font-size: 15px;
         color: #fff;
-        width: 100%;
+        flex: 1;
         outline: none;
         transition: border-color 0.2s;
         border-radius: 0;
       }
-      .nl-inp:focus {
-        border-color: #fff;
+      .nl-inp:focus { border-color: #fff; }
+      .nl-inp::placeholder { color: rgba(255, 255, 255, 0.6); }
+      .nl-btn {
+        font-family: var(--HF);
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: #fff;
+        color: var(--navy);
+        border: none;
+        padding: 0 28px;
+        height: 48px;
+        cursor: pointer;
+        transition: background 0.2s;
+        white-space: nowrap;
+        border-radius: 0;
       }
-      .nl-inp::placeholder {
-        color: rgba(255, 255, 255, 0.6);
-      }
+      .nl-btn:hover { background: var(--surface); }
       .nl-note {
         font-family: var(--BF);
         font-size: 12px;
-        color: rgba(255, 255, 255, 0.7);
+        color: rgba(255, 255, 255, 0.5);
         margin-top: 12px;
-      }
-      @media (min-width: 768px) {
-        .nl-sec {
-          padding: 56px 40px;
-        }
-        .nl-wrap {
-          grid-template-columns: 1fr 1fr;
-          gap: 80px;
-        }
-        .nl-form {
-          flex-direction: row;
-        }
-        .nl-inp {
-          flex: 1;
-        }
       }
 
       /* Industries Grid */
@@ -2695,7 +2678,7 @@
         <div class="nav">
           <div class="logo"><img alt="TMG" src="./assets/logo/TMG Logo.svg" /></div>
           <div class="navlinks">
-            <a class="nl" href="#products" style="text-decoration: none"
+            <a class="nl" href="products.html" style="text-decoration: none"
               >Products</a
             >
             <div class="nav-dropdown">
@@ -2706,7 +2689,7 @@
                 <i class="ph ph-caret-down" style="font-size: 10px"></i
               ></span>
               <div class="dropdown-menu">
-                <a class="dm-link" href="#"
+                <a class="dm-link" href="aftermarket-radiators.html"
                   >Aftermarket Coolers
                   <span class="dm-sub">TMG E-Commerce</span></a
                 >
@@ -2731,7 +2714,7 @@
                   <span class="dm-sub">Custom Services</span></a
                 >
                 <div class="dm-div"></div>
-                <a class="dm-all" href="#">View All Solutions →</a>
+                <a class="dm-all" href="solutions.html">View All Solutions →</a>
               </div>
             </div>
             <div class="nav-dropdown">
@@ -2742,30 +2725,30 @@
                 <i class="ph ph-caret-down" style="font-size: 10px"></i
               ></span>
               <div class="dropdown-menu">
-                <a class="dm-link" href="#blogs"
+                <a class="dm-link" href="news.html"
                   >Blogs
                   <span class="dm-sub">Latest Updates</span></a
                 >
-                <a class="dm-link" href="#"
+                <a class="dm-link" href="industries.html"
                   >Industries Served
                   <span class="dm-sub">Our Reach</span></a
                 >
-                <a class="dm-link" href="#"
+                <a class="dm-link" href="applications.html"
                   >Applications
                   <span class="dm-sub">Use Cases</span></a
                 >
               </div>
             </div>
-            <a class="nl" href="#about" style="text-decoration: none">About</a>
+            <a class="nl" href="about.html" style="text-decoration: none">About</a>
             <a class="nl" href="#contact" style="text-decoration: none"
               >Contact / RFQ</a
             >
           </div>
           <div class="nav-actions">
             <button class="nav-icon" onclick="openSearchOverlay()" aria-label="Search" title="Search" style="background:none;border:none;padding:0;display:inline-flex;align-items:center;justify-content:center;"><i class="ph ph-magnifying-glass"></i></button>
-            <i class="ph ph-user nav-icon desktop-only"></i>
-            <div class="nav-icon">
-              <i class="ph ph-shopping-cart"></i>
+            <a href="auth.html" class="nav-icon desktop-only" style="text-decoration:none;color:inherit;" title="Account"><i class="ph ph-user"></i></a>
+            <div class="nav-icon" id="cart-icon" onclick="openCartDrawer()" style="cursor:pointer;">
+        <i class="ph ph-shopping-cart"></i>
               <div class="cart-badge" id="cart-b">0</div>
             </div>
           </div>
@@ -2779,7 +2762,7 @@
             <div style="background: var(--surface-low); padding: 10px 0">
               <a
                 class="mlink"
-                href="#"
+                href="aftermarket-radiators.html"
                 style="font-size: 14px; border-bottom: none; padding: 10px 0"
                 >Aftermarket Coolers</a
               >
@@ -2798,28 +2781,28 @@
             </div>
             <a
               class="mlink"
-              href="#products"
+              href="products.html"
               onclick="toggleMenu()"
               style="text-decoration: none"
               >Products</a
             >
             <a
               class="mlink"
-              href="#industries"
+              href="industries.html"
               onclick="toggleMenu()"
               style="text-decoration: none"
               >Industries</a
             >
             <a
               class="mlink"
-              href="#about"
+              href="about.html"
               onclick="toggleMenu()"
               style="text-decoration: none"
               >About</a
             >
             <a
               class="mlink"
-              href="#contact"
+              href="contact.html"
               onclick="toggleMenu()"
               style="text-decoration: none"
               >Contact</a
@@ -3142,7 +3125,7 @@
           <div>
             <div class="nl-form">
               <input class="nl-inp" placeholder="Email address" type="email" />
-              <button class="btn-nl">Subscribe</button>
+              <button class="nl-btn">Subscribe</button>
             </div>
             <div class="nl-note">No spam. Unsubscribe anytime.</div>
           </div>
@@ -3344,7 +3327,7 @@
           <a class="tmg-btn tmg-btn--outline tmg-btn--md" href="industries.html">View All Industries</a>
         </div>
         <div class="ind-grid">
-          <a class="ind-card" href="#"
+          <a class="ind-card" href="industries.html"
             ><div class="pcard-accent"></div>
             <i class="ph ph-cpu ind-icon"></i>
             <div class="ind-title">Data Centers</div>
@@ -3354,7 +3337,7 @@
             </div>
             <div class="ind-link">View Industry →</div></a
           >
-          <a class="ind-card" href="#"
+          <a class="ind-card" href="industries.html"
             ><div class="pcard-accent"></div>
             <i class="ph ph-lightning ind-icon"></i>
             <div class="ind-title">Gen-Set &amp; Power Generation</div>
@@ -3364,7 +3347,7 @@
             </div>
             <div class="ind-link">View Industry →</div></a
           >
-          <a class="ind-card" href="#"
+          <a class="ind-card" href="industries.html"
             ><div class="pcard-accent"></div>
             <i class="ph ph-tractor ind-icon"></i>
             <div class="ind-title">Mining &amp; Agriculture</div>
@@ -3374,7 +3357,7 @@
             </div>
             <div class="ind-link">View Industry →</div></a
           >
-          <a class="ind-card" href="#"
+          <a class="ind-card" href="industries.html"
             ><div class="pcard-accent"></div>
             <i class="ph ph-drop ind-icon"></i>
             <div class="ind-title">Oil &amp; Gas</div>
@@ -3384,7 +3367,7 @@
             </div>
             <div class="ind-link">View Industry →</div></a
           >
-          <a class="ind-card" href="#"
+          <a class="ind-card" href="industries.html"
             ><div class="pcard-accent"></div>
             <i class="ph ph-truck ind-icon"></i>
             <div class="ind-title">Heavy Transport &amp; Fleet</div>
@@ -3394,7 +3377,7 @@
             </div>
             <div class="ind-link">View Industry →</div></a
           >
-          <a class="ind-card" href="#"
+          <a class="ind-card" href="industries.html"
             ><div class="pcard-accent"></div>
             <i class="ph ph-battery-charging ind-icon"></i>
             <div class="ind-title">Battery Energy Storage</div>
@@ -3531,7 +3514,7 @@
 
           <div class="div-grid">
             <!-- TMG Core -->
-            <a class="ind-card" href="#" style="--card-color: #222f4b;">
+            <a class="ind-card" href="industries.html" style="--card-color: #222f4b;">
               <div class="pcard-accent"></div>
               <i class="ph ph-thermometer ind-icon"></i>
               <div class="ind-title">Thermal Motion Group</div>
@@ -3541,7 +3524,7 @@
               <div class="ind-link">E-Commerce Store →</div>
             </a>
             <!-- CJP -->
-            <a class="ind-card" href="#" style="--card-color: #1a5c7a;">
+            <a class="ind-card" href="industries.html" style="--card-color: #1a5c7a;">
               <div class="pcard-accent"></div>
               <i class="ph ph-wrench ind-icon"></i>
               <div class="ind-title">CJP Fabrication</div>
@@ -3552,7 +3535,7 @@
               <div class="ind-link">External Partner ↗</div>
             </a>
             <!-- PWR -->
-            <a class="ind-card" href="#" style="--card-color: #c02b2d;">
+            <a class="ind-card" href="industries.html" style="--card-color: #c02b2d;">
               <div class="pcard-accent"></div>
               <i class="ph ph-lightning ind-icon"></i>
               <div class="ind-title">Power Transformers</div>
@@ -3563,7 +3546,7 @@
               <div class="ind-link">E-Commerce Store →</div>
             </a>
             <!-- BAT -->
-            <a class="ind-card" href="#" style="--card-color: #1b6b42;">
+            <a class="ind-card" href="industries.html" style="--card-color: #1b6b42;">
               <div class="pcard-accent"></div>
               <i class="ph ph-battery-charging ind-icon"></i>
               <div class="ind-title">Battery Management</div>
@@ -3574,7 +3557,7 @@
               <div class="ind-link">E-Commerce Store →</div>
             </a>
             <!-- SEAL -->
-            <a class="ind-card" href="#" style="--card-color: #b0580f;">
+            <a class="ind-card" href="industries.html" style="--card-color: #b0580f;">
               <div class="pcard-accent"></div>
               <i class="ph ph-pipe ind-icon"></i>
               <div class="ind-title">Seals &amp; Hydraulics</div>
@@ -3585,7 +3568,7 @@
               <div class="ind-link">External Partner ↗</div>
             </a>
             <!-- INN -->
-            <a class="ind-card" href="#" style="--card-color: #452080;">
+            <a class="ind-card" href="industries.html" style="--card-color: #452080;">
               <div class="pcard-accent"></div>
               <i class="ph ph-atom ind-icon"></i>
               <div class="ind-title">Innovation &amp; Prototyping</div>
@@ -3744,19 +3727,19 @@
           </div>
           <div>
             <div class="fcl">Solutions</div>
-            <a class="flink" href="#">Aftermarket Coolers</a>
+            <a class="flink" href="aftermarket-radiators.html">Aftermarket Coolers</a>
             <a class="flink" href="#">Power Transformers</a>
             <a class="flink" href="#">Battery Management</a>
             <a class="flink" href="#">CJP Fabrication</a>
             <a class="flink" href="#">Seals, Hydraulics &amp; Valves</a>
             <a class="flink" href="#">Innovation &amp; Prototyping</a>
-            <a class="flink" href="#">View All Solutions</a>
+            <a class="flink" href="solutions.html">View All Solutions</a>
           </div>
           <div>
             <div class="fcl">Resources</div>
-            <a class="flink" href="#blogs">Blogs</a>
-            <a class="flink" href="#">Industries Served</a>
-            <a class="flink" href="#">Applications</a>
+            <a class="flink" href="news.html">Blogs</a>
+            <a class="flink" href="industries.html">Industries Served</a>
+            <a class="flink" href="applications.html">Applications</a>
             <a class="flink" href="#">Case Studies</a>
             <a class="flink" href="#">Documentation</a>
             <br />
@@ -4343,5 +4326,104 @@
 </script>
       </div>
     </div>
-  </body>
+  <!-- CART DRAWER STYLES -->
+<style>
+  .cart-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:1050;opacity:0;pointer-events:none;transition:opacity .3s ease;}
+  .cart-backdrop.open{opacity:1;pointer-events:all;}
+  .cart-drawer{position:fixed;top:0;right:0;width:420px;max-width:100vw;height:100vh;z-index:1100;background:#fff;border-left:1px solid var(--lines);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s ease;}
+  .cart-drawer.open{transform:translateX(0);}
+  @media(max-width:480px){.cart-drawer{width:100vw;}}
+  .drawer-header{border-bottom:1px solid var(--lines);padding:20px 24px;display:flex;justify-content:space-between;align-items:center;}
+  .drawer-count{font-family:var(--BF);font-size:13px;color:var(--muted);margin-top:4px;}
+  .drawer-close{font-size:20px;color:var(--muted);background:none;border:none;cursor:pointer;display:flex;align-items:center;transition:color .2s;}
+  .drawer-close:hover{color:var(--pitch);}
+  .drawer-items{flex:1;overflow-y:auto;padding:0;}
+  .drawer-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:16px;padding:40px 24px;text-align:center;}
+  .drawer-empty-lbl{font-family:var(--HF);font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+  .drawer-item{display:flex;align-items:flex-start;gap:16px;padding:20px 24px;border-bottom:1px solid var(--lines);}
+  .di-img{width:72px;height:72px;flex-shrink:0;border:1px solid var(--lines);background:var(--surface);object-fit:cover;}
+  .di-info{flex:1;min-width:0;}
+  .di-div{font-family:var(--HF);font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:var(--navy);color:#fff;padding:2px 8px;display:inline-block;margin-bottom:6px;}
+  .di-name{font-family:var(--HF);font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--pitch);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .di-sku{font-family:var(--BF);font-size:11px;color:var(--muted);margin-bottom:4px;}
+  .di-variant{font-family:var(--BF);font-size:11px;color:var(--muted);margin-bottom:8px;}
+  .di-qty-row{display:flex;align-items:center;justify-content:space-between;}
+  .di-price{font-family:var(--HF);font-size:14px;color:var(--pitch);}
+  .di-remove{flex-shrink:0;align-self:flex-start;font-size:16px;color:var(--muted);background:none;border:none;cursor:pointer;padding:4px;margin-top:2px;transition:color .2s;}
+  .di-remove:hover{color:var(--red);}
+  .di-qty-wrap{display:flex;align-items:center;}
+  .di-qty-btn{width:28px;height:28px;border:1px solid var(--lines);background:var(--surface);font-family:var(--HF);font-size:16px;color:var(--pitch);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+  .di-qty-btn:hover{background:var(--lines);}
+  .di-qty-input{width:36px;height:28px;border-top:1px solid var(--lines);border-bottom:1px solid var(--lines);border-left:none;border-right:none;text-align:center;font-family:var(--BF);font-size:12px;color:var(--pitch);outline:none;-moz-appearance:textfield;}
+  .di-qty-input::-webkit-outer-spin-button,.di-qty-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+  .drawer-footer{border-top:1px solid var(--lines);padding:20px 24px;background:#fff;}
+  .drawer-notes-toggle{font-family:var(--HF);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:6px;background:none;border:none;margin-bottom:0;}
+  .drawer-notes-toggle:hover{color:var(--pitch);}
+  .drawer-notes-area{max-height:0;overflow:hidden;transition:max-height .35s ease,margin .35s ease;}
+  .drawer-notes-area.open{max-height:120px;margin-top:10px;}
+  .drawer-total-row{display:flex;justify-content:space-between;align-items:baseline;padding:16px 0;border-top:1px solid var(--lines);margin-top:12px;}
+  .drawer-total-lbl{font-family:var(--HF);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+  .drawer-total-amt{font-family:var(--HF);font-size:22px;color:var(--pitch);}
+  .drawer-tax-note{font-family:var(--BF);font-size:11px;color:var(--muted);margin-bottom:16px;}
+  .drawer-btn-outline{font-family:var(--HF);font-size:12px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--lines);color:var(--navy);background:transparent;padding:14px 20px;width:100%;justify-content:center;display:inline-flex;align-items:center;cursor:pointer;gap:8px;transition:border-color .2s,background .2s;text-decoration:none;margin-top:10px;}
+  .drawer-btn-outline:hover{border-color:var(--navy);background:var(--surface);}
+</style>
+
+<!-- Cart Backdrop -->
+<div class="cart-backdrop" id="cart-backdrop" onclick="closeCartDrawer()"></div>
+
+<!-- Cart Drawer Panel -->
+<div class="cart-drawer" id="cart-drawer">
+  <div class="drawer-header">
+    <div>
+      <div class="eyebrow" style="margin-bottom:4px;">QUOTE CART</div>
+      <div class="drawer-count" id="drawer-count">0 items in your cart</div>
+    </div>
+    <button class="drawer-close" onclick="closeCartDrawer()"><i class="ph ph-x"></i></button>
+  </div>
+  <div class="drawer-items" id="drawer-items"></div>
+  <div class="drawer-footer">
+    <button class="drawer-notes-toggle" onclick="toggleDrawerNotes()">
+      <i class="ph ph-note-pencil" style="font-size:14px;"></i> ADD ORDER NOTES
+    </button>
+    <div class="drawer-notes-area" id="drawer-notes-area">
+      <textarea class="ff-ta" id="drawer-notes" rows="3" placeholder="Special instructions..." style="margin-bottom:0;"></textarea>
+    </div>
+    <div class="drawer-total-row">
+      <span class="drawer-total-lbl">ESTIMATED TOTAL</span>
+      <span class="drawer-total-amt" id="drawer-total-amt">$0.00</span>
+    </div>
+    <p class="drawer-tax-note">Ex GST · Shipping calculated at checkout.</p>
+    <a class="btn-p" href="cart.html" style="width:100%;background:var(--navy);margin-bottom:10px;text-decoration:none;" onmouseover="this.style.background='var(--pitch)'" onmouseout="this.style.background='var(--navy)'">VIEW CART</a>
+    <button class="drawer-btn-outline" onclick="openModal && openModal()">SEND ENQUIRY FOR CART</button>
+  </div>
+</div>
+
+<script>
+  // ── CART STATE ──
+  function getCart(){try{return JSON.parse(sessionStorage.getItem('tmgCart'))||[];}catch(e){return[];}}
+  function saveCart(cart){sessionStorage.setItem('tmgCart',JSON.stringify(cart));}
+  function fmtPrice(n){return'$'+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');}
+  function addToQuoteCart(item){var cart=getCart();var existing=cart.find(function(c){return c.id===item.id&&c.variant===item.variant;});if(existing){existing.qty+=(item.qty||1);}else{item.qty=item.qty||1;cart.push(item);}saveCart(cart);refreshCartUI();}
+  function addCart(){var cart=getCart();var total=cart.reduce(function(s,i){return s+i.qty;},0)+1;var cb=document.getElementById('cart-b');if(cb)cb.textContent=total;}
+  function refreshCartUI(){updateCartBadge();refreshDrawerUI();}
+  function updateCartBadge(){var cart=getCart();var total=cart.reduce(function(s,i){return s+i.qty;},0);var cb=document.getElementById('cart-b');if(cb)cb.textContent=total;}
+  function openCartDrawer(){document.getElementById('cart-backdrop').classList.add('open');document.getElementById('cart-drawer').classList.add('open');document.body.style.overflow='hidden';refreshDrawerUI();}
+  function closeCartDrawer(){document.getElementById('cart-backdrop').classList.remove('open');document.getElementById('cart-drawer').classList.remove('open');document.body.style.overflow='';}
+  function toggleDrawerNotes(){var area=document.getElementById('drawer-notes-area');if(area)area.classList.toggle('open');}
+  function refreshDrawerUI(){var cart=getCart();var container=document.getElementById('drawer-items');var countEl=document.getElementById('drawer-count');var totalEl=document.getElementById('drawer-total-amt');if(!container)return;var total=cart.reduce(function(s,i){return s+i.price*i.qty;},0);var itemCount=cart.reduce(function(s,i){return s+i.qty;},0);if(countEl)countEl.textContent=itemCount+(itemCount===1?' item in your cart':' items in your cart');if(totalEl)totalEl.textContent=fmtPrice(total);if(cart.length===0){container.innerHTML='<div class="drawer-empty"><i class="ph ph-shopping-cart" style="font-size:40px;color:var(--lines);"></i><div class="drawer-empty-lbl">Your quote cart is empty</div><a class="btn-p" href="products.html">BROWSE PRODUCTS <i class="ph ph-arrow-right"></i></a></div>';return;}container.innerHTML='';cart.forEach(function(item,idx){var el=document.createElement('div');el.className='drawer-item';el.innerHTML='<img class="di-img" src="'+(item.img||'')+'" alt="'+item.name+'" onerror="this.style.display=\'none\'" /><div class="di-info"><div class="di-div" style="background:'+(item.divColor||'var(--navy)')+';">'+item.division+'</div><div class="di-name">'+item.name+'</div><div class="di-sku">'+item.id+'</div><div class="di-variant">'+item.variant+'</div><div class="di-qty-row"><div class="di-qty-wrap"><button class="di-qty-btn" onclick="drawerQtyChange('+idx+',-1)">−</button><input class="di-qty-input" type="number" value="'+item.qty+'" min="1" onchange="drawerSetQty('+idx+',this.value)" /><button class="di-qty-btn" onclick="drawerQtyChange('+idx+',1)">+</button></div><div class="di-price">'+fmtPrice(item.price*item.qty)+'</div></div></div><button class="di-remove" onclick="drawerRemove('+idx+')"><i class="ph ph-trash"></i></button>';container.appendChild(el);});var notesEl=document.getElementById('drawer-notes');if(notesEl)notesEl.value=sessionStorage.getItem('tmgCartNotes')||'';}
+  function drawerQtyChange(idx,dir){var cart=getCart();if(!cart[idx])return;cart[idx].qty=Math.max(1,cart[idx].qty+dir);saveCart(cart);refreshDrawerUI();updateCartBadge();}
+  function drawerSetQty(idx,val){var cart=getCart();if(!cart[idx])return;cart[idx].qty=Math.max(1,parseInt(val)||1);saveCart(cart);refreshDrawerUI();updateCartBadge();}
+  function drawerRemove(idx){var cart=getCart();cart.splice(idx,1);saveCart(cart);refreshDrawerUI();updateCartBadge();}
+  document.addEventListener('DOMContentLoaded',function(){
+    var cartIcon=document.getElementById('cart-icon');
+    if(cartIcon){cartIcon.removeAttribute('href');cartIcon.style.cursor='pointer';cartIcon.addEventListener('click',openCartDrawer);}
+    var notesEl=document.getElementById('drawer-notes');
+    if(notesEl){notesEl.value=sessionStorage.getItem('tmgCartNotes')||'';notesEl.addEventListener('input',function(){sessionStorage.setItem('tmgCartNotes',this.value);});}
+    updateCartBadge();refreshDrawerUI();
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeCartDrawer();}});
+</script>
+
+</body>
 </html>
