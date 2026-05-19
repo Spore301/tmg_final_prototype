@@ -312,6 +312,35 @@
     .form-row2{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:0;}
     @media(min-width:768px){.form-row2{grid-template-columns:1fr 1fr;}}
     .nav-spacer{display:none;}
+
+    /* ── DISTRIBUTOR PRICE ── */
+    .price-row{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin-bottom:4px;}
+    .price-divider{width:1px;min-height:1.2em;background:var(--lines);align-self:stretch;margin:0 12px;flex-shrink:0;}
+    .dist-price{display:inline-flex;align-items:center;gap:6px;}
+    .dist-badge{font-family:var(--HF);font-size:8px;letter-spacing:.1em;text-transform:uppercase;background:var(--red);color:#fff;padding:2px 5px;}
+    .dist-price-val{font-family:var(--HF);color:var(--navy);}
+    .dist-note{font-family:var(--BF);font-size:11px;color:var(--muted);margin-top:0;}
+    .pdp-price-sub{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px;}
+    .pdp-price-sub .dist-note{margin-top:0;}
+    .pdp-price-sub .pdp-price-note{font-family:var(--BF);font-size:12px;color:var(--muted);line-height:1.5;}
+    .pdp-price-sub-sep{color:var(--lines);font-size:11px;}
+    /* pcard dist price */
+    .pcard-price-row{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin-top:auto;padding-top:16px;margin-bottom:4px;}
+    .pcard-price-row .pcard-price{margin-top:0;padding-top:0;margin-bottom:0;}
+    .pcard-price-row .price-divider{align-self:center;min-height:1em;}
+    .pcard-price-row .dist-price-val{font-size:18px;}
+    .pcard-price-row + .dist-note{margin-top:4px;margin-bottom:12px;}
+
+    /* ── MOQ INDICATOR ── */
+    .moq-indicator{font-family:var(--BF);font-size:11px;padding:6px 10px;border-left:2px solid #B45309;background:#FFF7ED;color:#B45309;margin-top:6px;margin-bottom:10px;display:none;}
+    .moq-indicator.unlocked{border-left-color:#065F46;background:#ECFDF5;color:#065F46;}
+
+    /* ── CART TOAST (new spec) ── */
+    .tmg-toast{position:fixed;bottom:24px;right:24px;z-index:3000;background:var(--navy);color:#fff;font-family:var(--HF);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:12px 16px;min-width:260px;max-width:320px;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .3s ease,transform .3s ease;}
+    .tmg-toast.show{opacity:1;transform:translateY(0);pointer-events:auto;}
+    .tmg-toast.unlocked-toast{background:#065F46;}
+
+    /* ── CART DRAWER (new spec) — styles moved to inline block before </body> */
   </style>
 </head>
 <body data-division="aftermarket-radiators">
@@ -445,8 +474,19 @@
         <div class="pdp-price-block">
           <div class="pdp-price-top">
             <div>
-              <span class="pdp-price" id="pdp-price">$340.00</span>
-              <span class="pdp-price-note">Ex GST · Final quote on enquiry.</span>
+              <div class="price-row">
+                <span class="pdp-price" id="pdp-price">$340.00</span>
+                <span class="price-divider"></span>
+                <span class="dist-price" id="pdp-dist-price">
+                  <span class="dist-price-val" id="pdp-dist-val" style="font-size:28px;">$280</span>
+                  <span class="dist-badge">DIST</span>
+                </span>
+              </div>
+              <div class="pdp-price-sub">
+                <span class="dist-note">Distributor price applies to orders of 5+ units.</span>
+                <span class="pdp-price-sub-sep">·</span>
+                <span class="pdp-price-note">Ex GST · Final quote on enquiry.</span>
+              </div>
             </div>
             <div class="stock-badge in" id="stock-badge">
               <i class="ph ph-check-circle"></i> In Stock — US warehouse
@@ -474,13 +514,14 @@
             <input class="qty-input" id="qty-input" type="number" value="1" min="1" />
             <button class="qty-btn" onclick="qtyChange(1)">+</button>
           </div>
-          <button class="btn-cart" onclick="showCartToast()">
+          <button class="btn-cart" id="btn-add-to-cart">
             <i class="ph ph-shopping-cart"></i> Add to Cart
           </button>
         </div>
+        <div class="moq-indicator" id="moq-indicator" style="display:none;"></div>
 
         <!-- BUY NOW (red) -->
-        <button class="btn-buy" onclick="showCartToast()">
+        <button class="btn-buy" id="btn-buy-now">
           <i class="ph ph-shopping-bag"></i> Buy Now
         </button>
 
@@ -580,10 +621,18 @@
             <div class="spec">Air-to-oil standard</div>
             <div class="spec">Wide HP range</div>
           </div>
-          <div class="pcard-price">$1,450</div>
+          <div class="pcard-price-row">
+            <div class="pcard-price">$1,450</div>
+            <span class="price-divider"></span>
+            <span class="dist-price">
+              <span class="dist-price-val" style="font-size:18px;">$1,190</span>
+              <span class="dist-badge">DIST</span>
+            </span>
+          </div>
+          <div class="dist-note">Distributor price applies to orders of 5+ units.</div>
           <div class="cta-grid">
-            <button class="btn-p" onclick="addCart()">Buy Now</button>
-            <div class="cart-sq" onclick="addCart()"><i class="ph ph-shopping-cart"></i></div>
+            <button class="btn-p" onclick="relAddCart('Hydraulic Oil Cooler — Air-to-Oil','TMG-HOC-001',1450,1190,'./assets/products/cad_hydraulic_radiator_2.png')">Buy Now</button>
+            <div class="cart-sq" onclick="relAddCart('Hydraulic Oil Cooler — Air-to-Oil','TMG-HOC-001',1450,1190,'./assets/products/cad_hydraulic_radiator_2.png')"><i class="ph ph-shopping-cart"></i></div>
           </div>
         </div>
       </div>
@@ -604,10 +653,18 @@
             <div class="spec">18 inch core</div>
             <div class="spec">120 PSI rated</div>
           </div>
-          <div class="pcard-price">$849</div>
+          <div class="pcard-price-row">
+            <div class="pcard-price">$849</div>
+            <span class="price-divider"></span>
+            <span class="dist-price">
+              <span class="dist-price-val" style="font-size:18px;">$700</span>
+              <span class="dist-badge">DIST</span>
+            </span>
+          </div>
+          <div class="dist-note">Distributor price applies to orders of 5+ units.</div>
           <div class="cta-grid">
-            <button class="btn-p" onclick="addCart()">Buy Now</button>
-            <div class="cart-sq" onclick="addCart()"><i class="ph ph-shopping-cart"></i></div>
+            <button class="btn-p" onclick="relAddCart('Charge Air Cooler — Aluminium Bar &amp; Plate','TMG-CAC-002',849,700,'./assets/products/cad_genset_radiator_2.png')">Buy Now</button>
+            <div class="cart-sq" onclick="relAddCart('Charge Air Cooler — Aluminium Bar &amp; Plate','TMG-CAC-002',849,700,'./assets/products/cad_genset_radiator_2.png')"><i class="ph ph-shopping-cart"></i></div>
           </div>
         </div>
       </div>
@@ -628,10 +685,18 @@
             <div class="spec">Extreme temp rated</div>
             <div class="spec">Rugged housing</div>
           </div>
-          <div class="pcard-price">$620</div>
+          <div class="pcard-price-row">
+            <div class="pcard-price">$620</div>
+            <span class="price-divider"></span>
+            <span class="dist-price">
+              <span class="dist-price-val" style="font-size:18px;">$510</span>
+              <span class="dist-badge">DIST</span>
+            </span>
+          </div>
+          <div class="dist-note">Distributor price applies to orders of 5+ units.</div>
           <div class="cta-grid">
-            <button class="btn-p" onclick="addCart()">Buy Now</button>
-            <div class="cart-sq" onclick="addCart()"><i class="ph ph-shopping-cart"></i></div>
+            <button class="btn-p" onclick="relAddCart('Engine Oil Cooler — Heavy Duty','TMG-EOC-003',620,510,'./assets/products/cad_oil_radiator_2.png')">Buy Now</button>
+            <div class="cart-sq" onclick="relAddCart('Engine Oil Cooler — Heavy Duty','TMG-EOC-003',620,510,'./assets/products/cad_oil_radiator_2.png')"><i class="ph ph-shopping-cart"></i></div>
           </div>
         </div>
       </div>
@@ -652,10 +717,18 @@
             <div class="spec">OEM platform matched</div>
             <div class="spec">Direct drop-in install</div>
           </div>
-          <div class="pcard-price">From $890</div>
+          <div class="pcard-price-row">
+            <div class="pcard-price">From $890</div>
+            <span class="price-divider"></span>
+            <span class="dist-price">
+              <span class="dist-price-val" style="font-size:18px;">From $730</span>
+              <span class="dist-badge">DIST</span>
+            </span>
+          </div>
+          <div class="dist-note">Distributor price applies to orders of 5+ units.</div>
           <div class="cta-grid">
-            <button class="btn-p" onclick="addCart()">Buy Now</button>
-            <div class="cart-sq" onclick="addCart()"><i class="ph ph-shopping-cart"></i></div>
+            <button class="btn-p" onclick="relAddCart('Truck Radiator TR-X1','TMG-TRX-004',890,730,'./assets/products/cad_truck_radiator_2.png')">Buy Now</button>
+            <div class="cart-sq" onclick="relAddCart('Truck Radiator TR-X1','TMG-TRX-004',890,730,'./assets/products/cad_truck_radiator_2.png')"><i class="ph ph-shopping-cart"></i></div>
           </div>
         </div>
       </div>
@@ -849,16 +922,8 @@
   <button class="lb-arrow lb-next" onclick="lbNav(1)">›</button>
 </div>
 
-<!-- CART TOAST -->
-<div class="cart-toast" id="cart-toast">
-  <button class="toast-cl" onclick="dismissToast()">×</button>
-  <div class="toast-row1"><i class="ph ph-check-circle" style="color:var(--div);font-size:16px;"></i> Added to quote cart</div>
-  <div class="toast-row2">1 item · Aftermarket Radiators</div>
-  <div class="toast-actions">
-    <button class="toast-act view">View Cart</button>
-    <button class="toast-act cont" onclick="dismissToast()">Continue</button>
-  </div>
-</div>
+<!-- TMG TOAST -->
+<div class="tmg-toast" id="tmg-toast"></div>
 
 <!-- ENQUIRY MODAL -->
 <div class="modal-ov" id="pdpEnqModal" onclick="if(event.target.id==='pdpEnqModal')closePdpModal()">
@@ -895,21 +960,9 @@
     'seals-hydraulics':      '#B0580F',
     'innovation-proto':      '#452080'
   };
-  document.addEventListener('DOMContentLoaded', function() {
-    const div = document.body.dataset.division || 'aftermarket-radiators';
-    const hex = divMap[div] || '#222f4b';
-    document.documentElement.style.setProperty('--div', hex);
-  });
 
-  // Cart badge
-  let cartCount = sessionStorage.getItem('cartCount') ? parseInt(sessionStorage.getItem('cartCount')) : 0;
-  const cb = document.getElementById('cart-b');
-  if(cb) cb.textContent = cartCount;
-  function addCart() {
-    cartCount++;
-    if(cb) cb.textContent = cartCount;
-    sessionStorage.setItem('cartCount', cartCount);
-  }
+  // Cart badge stub — real implementation in cart script below
+  function addCart() { if(typeof updateBadge==='function') updateBadge(); }
 
   // Hamburger
   function toggleMenu() {
@@ -917,168 +970,182 @@
     document.getElementById('mobileMenu').classList.toggle('open');
   }
 
-  // Nav scroll-hide
-  window.addEventListener('scroll', function() {
-    var nav = document.querySelector('.nav');
-    var spacer = document.getElementById('nav-spacer');
-    var expoH = document.querySelector('.expo-bar') ? document.querySelector('.expo-bar').offsetHeight : 0;
-    var utilH = document.querySelector('.util') ? document.querySelector('.util').offsetHeight : 0;
-    var topBars = expoH + utilH;
-    if(window.scrollY > topBars) {
-      if(nav.style.position !== 'fixed') {
-        spacer.style.height = nav.offsetHeight + 'px';
-        spacer.style.display = 'block';
-        nav.style.position = 'fixed';
-        nav.style.width = '100%';
-        nav.style.top = '0';
-      }
-    } else {
-      if(nav.style.position === 'fixed') {
-        nav.style.position = 'sticky';
-        nav.style.width = 'auto';
-        spacer.style.display = 'none';
-      }
-    }
-  });
-
-  // Announcement bar rotation
-  const annTexts = [
-    '🔴 EXPO 2026 — Booth 4A · Apr 20–26 · Come find us',
-    '🔴 New: Charge Air Coolers now in stock — Ships in 3–5 business days',
-    '🔴 Free shipping on orders over $500 within the continental US'
-  ];
-  let annIdx = 0;
-  const annEl = document.getElementById('ann-text');
-  if(annEl) {
-    setInterval(function() {
-      annEl.style.opacity = '0';
-      setTimeout(function() {
-        annIdx = (annIdx + 1) % annTexts.length;
-        annEl.innerHTML = annTexts[annIdx];
-        annEl.style.opacity = '1';
-      }, 400);
-    }, 4000);
-  }
-
-  // Thumbnail switcher
-  const thumbImgs = document.querySelectorAll('.thumb');
-  const mainImg = document.getElementById('main-img');
-  function switchThumb(el) {
-    thumbImgs.forEach(t => t.classList.remove('active'));
-    el.classList.add('active');
-    mainImg.src = el.dataset.src;
-  }
-
-  // Lightbox
-  const lbOv = document.getElementById('lb-ov');
-  const lbImg = document.getElementById('lb-img');
-  const thumbSrcs = Array.from(thumbImgs).map(t => t.dataset.src);
-  let lbIdx = 0;
-  function openLightbox() {
-    lbIdx = thumbSrcs.indexOf(mainImg.src);
-    if(lbIdx < 0) lbIdx = 0;
-    lbImg.src = thumbSrcs[lbIdx];
-    lbOv.classList.add('open');
-  }
-  function closeLightbox() { lbOv.classList.remove('open'); }
-  function lbOverlayClick(e) { if(e.target === lbOv) closeLightbox(); }
-  function lbNav(dir) {
-    lbIdx = (lbIdx + dir + thumbSrcs.length) % thumbSrcs.length;
-    lbImg.src = thumbSrcs[lbIdx];
-  }
-  document.addEventListener('keydown', function(e) {
-    if(!lbOv.classList.contains('open')) return;
-    if(e.key === 'Escape') closeLightbox();
-    if(e.key === 'ArrowLeft') lbNav(-1);
-    if(e.key === 'ArrowRight') lbNav(1);
-  });
-
-  // Quantity stepper
+  // Quantity stepper (inline +/- buttons call this)
   function qtyChange(dir) {
-    const inp = document.getElementById('qty-input');
-    let v = parseInt(inp.value) || 1;
+    var inp = document.getElementById('qty-input');
+    if (!inp) return;
+    var v = parseInt(inp.value) || 1;
     v = Math.max(1, v + dir);
     inp.value = v;
   }
-  document.getElementById('qty-input').addEventListener('input', function() {
-    if(this.value < 1 || isNaN(this.value)) this.value = 1;
-  });
 
-  // Variant select
+  // Variant data — referenced by cart script's onVariantChange
   const variantData = {
     std: { price: '$340.00', stock: 'in', stockTxt: 'In Stock — US warehouse', stockIcon: 'ph-check-circle' },
     hd:  { price: '$420.00', stock: 'in', stockTxt: 'In Stock — US warehouse', stockIcon: 'ph-check-circle' }
   };
-  function onVariantChange() {
-    const sel = document.getElementById('variant-sel');
-    const d = variantData[sel.value];
-    if(!d) return;
-    document.getElementById('pdp-price').textContent = d.price;
-    const badge = document.getElementById('stock-badge');
-    badge.className = 'stock-badge ' + d.stock;
-    badge.innerHTML = '<i class="ph ' + d.stockIcon + '"></i> ' + d.stockTxt;
-  }
+  // onVariantChange is defined in the cart simulation script below
 
-  // Description toggle (legacy - kept for compatibility)
+  // Description toggle (legacy)
   function toggleDesc() {}
 
-  // Cart toast
-  let toastTimer;
-  function showCartToast() {
-    addCart();
-    const toast = document.getElementById('cart-toast');
-    toast.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function() { toast.classList.remove('show'); }, 5000);
-  }
-  function dismissToast() {
-    document.getElementById('cart-toast').classList.remove('show');
-    clearTimeout(toastTimer);
-  }
+  // Cart toast stub — real implementation in cart script below
+  function showCartToast() { if(typeof pdpAddToCart==='function') pdpAddToCart(false); }
+  function dismissToast() {}
 
   // Enquiry modal
   function openEnqModal() {
-    const modal = document.getElementById('pdpEnqModal');
+    var modal = document.getElementById('pdpEnqModal');
+    if (!modal) return;
     modal.classList.add('open');
-    const ind = sessionStorage.getItem('activeIndustry');
-    if(ind) {
-      const sel = document.getElementById('modal-industry');
-      if(sel) sel.value = ind;
+    var ind = sessionStorage.getItem('activeIndustry');
+    if (ind) {
+      var sel = document.getElementById('modal-industry');
+      if (sel) sel.value = ind;
     }
   }
   function closePdpModal() {
-    document.getElementById('pdpEnqModal').classList.remove('open');
+    var modal = document.getElementById('pdpEnqModal');
+    if (modal) modal.classList.remove('open');
   }
-  document.addEventListener('keydown', function(e) {
-    if(e.key === 'Escape') closePdpModal();
-  });
 
   // Tab switcher
   function switchTab(id, btn) {
-    document.querySelectorAll('.pdp-tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.pdp-tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.pdp-tab').forEach(function(t){ t.classList.remove('active'); });
+    document.querySelectorAll('.pdp-tab-panel').forEach(function(p){ p.classList.remove('active'); });
     btn.classList.add('active');
     document.getElementById('tab-' + id).classList.add('active');
   }
 
   // Review sort
   function sortReviews(mode, btn) {
-    document.querySelectorAll('.srt-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.srt-btn').forEach(function(b){ b.classList.remove('active'); });
     btn.classList.add('active');
-    const grid = document.getElementById('rev-grid');
-    const cards = Array.from(grid.querySelectorAll('.rev-card'));
-    if(mode === 'high') {
-      cards.sort((a,b) => parseInt(b.dataset.rating) - parseInt(a.dataset.rating));
-      cards.forEach(c => { c.style.display = ''; grid.appendChild(c); });
-    } else if(mode === 'low') {
-      cards.sort((a,b) => parseInt(a.dataset.rating) - parseInt(b.dataset.rating));
-      cards.forEach(c => { c.style.display = ''; grid.appendChild(c); });
-    } else if(mode === 'verified') {
-      cards.forEach(c => { c.style.display = c.dataset.verified === 'true' ? '' : 'none'; });
+    var grid = document.getElementById('rev-grid');
+    var cards = Array.from(grid.querySelectorAll('.rev-card'));
+    if (mode === 'high') {
+      cards.sort(function(a,b){ return parseInt(b.dataset.rating) - parseInt(a.dataset.rating); });
+      cards.forEach(function(c){ c.style.display = ''; grid.appendChild(c); });
+    } else if (mode === 'low') {
+      cards.sort(function(a,b){ return parseInt(a.dataset.rating) - parseInt(b.dataset.rating); });
+      cards.forEach(function(c){ c.style.display = ''; grid.appendChild(c); });
+    } else if (mode === 'verified') {
+      cards.forEach(function(c){ c.style.display = c.dataset.verified === 'true' ? '' : 'none'; });
     } else {
-      cards.forEach(c => { c.style.display = ''; });
+      cards.forEach(function(c){ c.style.display = ''; });
     }
   }
+
+  // Thumbnail switcher
+  function switchThumb(el) {
+    document.querySelectorAll('.thumb').forEach(function(t){ t.classList.remove('active'); });
+    el.classList.add('active');
+    var mainImg = document.getElementById('main-img');
+    if (mainImg) mainImg.src = el.dataset.src;
+  }
+
+  // Lightbox — all DOM access deferred to DOMContentLoaded
+  var _lbIdx = 0;
+  var _thumbSrcs = [];
+  function openLightbox() {
+    var mainImg = document.getElementById('main-img');
+    var lbOv = document.getElementById('lb-ov');
+    var lbImg = document.getElementById('lb-img');
+    if (!lbOv || !lbImg || !mainImg) return;
+    _lbIdx = _thumbSrcs.indexOf(mainImg.src);
+    if (_lbIdx < 0) _lbIdx = 0;
+    lbImg.src = _thumbSrcs[_lbIdx];
+    lbOv.classList.add('open');
+  }
+  function closeLightbox() {
+    var lbOv = document.getElementById('lb-ov');
+    if (lbOv) lbOv.classList.remove('open');
+  }
+  function lbOverlayClick(e) { if (e.target === e.currentTarget) closeLightbox(); }
+  function lbNav(dir) {
+    var lbOv = document.getElementById('lb-ov');
+    var lbImg = document.getElementById('lb-img');
+    if (!lbOv || !lbImg || _thumbSrcs.length === 0) return;
+    _lbIdx = (_lbIdx + dir + _thumbSrcs.length) % _thumbSrcs.length;
+    lbImg.src = _thumbSrcs[_lbIdx];
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Division colour
+    var div = document.body.dataset.division || 'aftermarket-radiators';
+    var hex = divMap[div] || '#222f4b';
+    document.documentElement.style.setProperty('--div', hex);
+
+    // Announcement bar rotation
+    var annTexts = [
+      '🔴 EXPO 2026 — Booth 4A · Apr 20–26 · Come find us',
+      '🔴 New: Charge Air Coolers now in stock — Ships in 3–5 business days',
+      '🔴 Free shipping on orders over $500 within the continental US'
+    ];
+    var annIdx = 0;
+    var annEl = document.getElementById('ann-text');
+    if (annEl) {
+      setInterval(function() {
+        annEl.style.opacity = '0';
+        setTimeout(function() {
+          annIdx = (annIdx + 1) % annTexts.length;
+          annEl.innerHTML = annTexts[annIdx];
+          annEl.style.opacity = '1';
+        }, 400);
+      }, 4000);
+    }
+
+    // Build thumb sources for lightbox
+    var thumbImgs = document.querySelectorAll('.thumb');
+    _thumbSrcs = Array.from(thumbImgs).map(function(t){ return t.dataset.src; });
+
+    // Qty input validation
+    var qtyInp = document.getElementById('qty-input');
+    if (qtyInp) {
+      qtyInp.addEventListener('input', function() {
+        if (this.value < 1 || isNaN(this.value)) this.value = 1;
+      });
+    }
+
+    // Lightbox keyboard nav
+    document.addEventListener('keydown', function(e) {
+      var lbOv = document.getElementById('lb-ov');
+      if (!lbOv || !lbOv.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') lbNav(-1);
+      if (e.key === 'ArrowRight') lbNav(1);
+    });
+
+    // Nav scroll-hide
+    window.addEventListener('scroll', function() {
+      var nav = document.querySelector('.nav');
+      var spacer = document.getElementById('nav-spacer');
+      if (!nav || !spacer) return;
+      var expoH = document.querySelector('.expo-bar') ? document.querySelector('.expo-bar').offsetHeight : 0;
+      var utilH = document.querySelector('.util') ? document.querySelector('.util').offsetHeight : 0;
+      var topBars = expoH + utilH;
+      if (window.scrollY > topBars) {
+        if (nav.style.position !== 'fixed') {
+          spacer.style.height = nav.offsetHeight + 'px';
+          spacer.style.display = 'block';
+          nav.style.position = 'fixed';
+          nav.style.width = '100%';
+          nav.style.top = '0';
+        }
+      } else {
+        if (nav.style.position === 'fixed') {
+          nav.style.position = 'sticky';
+          nav.style.width = 'auto';
+          spacer.style.display = 'none';
+        }
+      }
+    });
+
+    // Escape closes modals
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closePdpModal();
+    });
+  });
 </script>
 <!-- SEARCH OVERLAY -->
 <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
@@ -1155,6 +1222,11 @@
   .drawer-tax-note{font-family:var(--BF);font-size:11px;color:var(--muted);margin-bottom:16px;}
   .drawer-btn-outline{font-family:var(--HF);font-size:12px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--lines);color:var(--navy);background:transparent;padding:14px 20px;width:100%;justify-content:center;display:inline-flex;align-items:center;cursor:pointer;gap:8px;transition:border-color .2s,background .2s;text-decoration:none;margin-top:10px;}
   .drawer-btn-outline:hover{border-color:var(--navy);background:var(--surface);}
+  /* MOQ notice inside drawer item */
+  .di-moq-notice{font-family:var(--HF);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#065F46;margin-bottom:6px;}
+  /* Unit × qty breakdown shown to the right of the line total */
+  .di-price-wrap{display:flex;align-items:baseline;gap:8px;}
+  .di-price-calc{font-family:var(--BF);font-size:11px;color:var(--muted);}
 </style>
 
 <!-- Cart Backdrop -->
@@ -1183,34 +1255,287 @@
     </div>
     <p class="drawer-tax-note">Ex GST · Shipping calculated at checkout.</p>
     <a class="btn-p" href="cart.html" style="width:100%;background:var(--navy);margin-bottom:10px;text-decoration:none;" onmouseover="this.style.background='var(--pitch)'" onmouseout="this.style.background='var(--navy)'">VIEW CART</a>
-    <button class="drawer-btn-outline" onclick="openModal && openModal()">SEND ENQUIRY FOR CART</button>
+    <button class="drawer-btn-outline" onclick="openEnqModal && openEnqModal()">SEND ENQUIRY FOR CART</button>
   </div>
 </div>
 
 <script>
-  // ── CART STATE ──
-  function getCart(){try{return JSON.parse(sessionStorage.getItem('tmgCart'))||[];}catch(e){return[];}}
-  function saveCart(cart){sessionStorage.setItem('tmgCart',JSON.stringify(cart));}
-  function fmtPrice(n){return'$'+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');}
-  function addToQuoteCart(item){var cart=getCart();var existing=cart.find(function(c){return c.id===item.id&&c.variant===item.variant;});if(existing){existing.qty+=(item.qty||1);}else{item.qty=item.qty||1;cart.push(item);}saveCart(cart);refreshCartUI();}
-  function addCart(){var cart=getCart();var total=cart.reduce(function(s,i){return s+i.qty;},0)+1;var cb=document.getElementById('cart-b');if(cb)cb.textContent=total;}
-  function refreshCartUI(){updateCartBadge();refreshDrawerUI();}
-  function updateCartBadge(){var cart=getCart();var total=cart.reduce(function(s,i){return s+i.qty;},0);var cb=document.getElementById('cart-b');if(cb)cb.textContent=total;}
-  function openCartDrawer(){document.getElementById('cart-backdrop').classList.add('open');document.getElementById('cart-drawer').classList.add('open');document.body.style.overflow='hidden';refreshDrawerUI();}
-  function closeCartDrawer(){document.getElementById('cart-backdrop').classList.remove('open');document.getElementById('cart-drawer').classList.remove('open');document.body.style.overflow='';}
-  function toggleDrawerNotes(){var area=document.getElementById('drawer-notes-area');if(area)area.classList.toggle('open');}
-  function refreshDrawerUI(){var cart=getCart();var container=document.getElementById('drawer-items');var countEl=document.getElementById('drawer-count');var totalEl=document.getElementById('drawer-total-amt');if(!container)return;var total=cart.reduce(function(s,i){return s+i.price*i.qty;},0);var itemCount=cart.reduce(function(s,i){return s+i.qty;},0);if(countEl)countEl.textContent=itemCount+(itemCount===1?' item in your cart':' items in your cart');if(totalEl)totalEl.textContent=fmtPrice(total);if(cart.length===0){container.innerHTML='<div class="drawer-empty"><i class="ph ph-shopping-cart" style="font-size:40px;color:var(--lines);"></i><div class="drawer-empty-lbl">Your quote cart is empty</div><a class="btn-p" href="products.html">BROWSE PRODUCTS <i class="ph ph-arrow-right"></i></a></div>';return;}container.innerHTML='';cart.forEach(function(item,idx){var el=document.createElement('div');el.className='drawer-item';el.innerHTML='<img class="di-img" src="'+(item.img||'')+'" alt="'+item.name+'" onerror="this.style.display=\'none\'" /><div class="di-info"><div class="di-div" style="background:'+(item.divColor||'var(--navy)')+';">'+item.division+'</div><div class="di-name">'+item.name+'</div><div class="di-sku">'+item.id+'</div><div class="di-variant">'+item.variant+'</div><div class="di-qty-row"><div class="di-qty-wrap"><button class="di-qty-btn" onclick="drawerQtyChange('+idx+',-1)">−</button><input class="di-qty-input" type="number" value="'+item.qty+'" min="1" onchange="drawerSetQty('+idx+',this.value)" /><button class="di-qty-btn" onclick="drawerQtyChange('+idx+',1)">+</button></div><div class="di-price">'+fmtPrice(item.price*item.qty)+'</div></div></div><button class="di-remove" onclick="drawerRemove('+idx+')"><i class="ph ph-trash"></i></button>';container.appendChild(el);});var notesEl=document.getElementById('drawer-notes');if(notesEl)notesEl.value=sessionStorage.getItem('tmgCartNotes')||'';}
-  function drawerQtyChange(idx,dir){var cart=getCart();if(!cart[idx])return;cart[idx].qty=Math.max(1,cart[idx].qty+dir);saveCart(cart);refreshDrawerUI();updateCartBadge();}
-  function drawerSetQty(idx,val){var cart=getCart();if(!cart[idx])return;cart[idx].qty=Math.max(1,parseInt(val)||1);saveCart(cart);refreshDrawerUI();updateCartBadge();}
-  function drawerRemove(idx){var cart=getCart();cart.splice(idx,1);saveCart(cart);refreshDrawerUI();updateCartBadge();}
-  document.addEventListener('DOMContentLoaded',function(){
-    var cartIcon=document.getElementById('cart-icon');
-    if(cartIcon){cartIcon.removeAttribute('href');cartIcon.style.cursor='pointer';cartIcon.addEventListener('click',openCartDrawer);}
-    var notesEl=document.getElementById('drawer-notes');
-    if(notesEl){notesEl.value=sessionStorage.getItem('tmgCartNotes')||'';notesEl.addEventListener('input',function(){sessionStorage.setItem('tmgCartNotes',this.value);});}
-    updateCartBadge();refreshDrawerUI();
+  // ── CART STATE (in-memory array — simulation only, no localStorage) ──
+  var tmgCart = [];
+  var MOQ = 5;
+
+  function _distPrice(retail) {
+    return Math.round((retail * 0.82) / 10) * 10;
+  }
+
+  function fmtMoney(n) {
+    return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  // ── TOAST ──
+  var _toastTimer = null;
+  function showToast(msg, isUnlocked) {
+    var el = document.getElementById('tmg-toast');
+    if (!el) return;
+    el.textContent = msg;
+    el.className = 'tmg-toast' + (isUnlocked ? ' unlocked-toast' : '');
+    el.classList.add('show');
+    clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(function() { el.classList.remove('show'); }, 2500);
+  }
+
+  // ── CART BADGE ──
+  function updateBadge() {
+    var total = tmgCart.reduce(function(s, i) { return s + i.qty; }, 0);
+    var cb = document.getElementById('cart-b');
+    if (cb) cb.textContent = total;
+  }
+
+  // ── MOQ INDICATOR on PDP qty selector ──
+  function updateMoqIndicator() {
+    var inp = document.getElementById('qty-input');
+    var el = document.getElementById('moq-indicator');
+    if (!inp || !el) return;
+    var qty = parseInt(inp.value) || 1;
+    el.style.display = 'block';
+    if (qty < MOQ) {
+      el.className = 'moq-indicator';
+      el.textContent = 'Add ' + (MOQ - qty) + ' more to unlock distributor pricing';
+    } else {
+      el.className = 'moq-indicator unlocked';
+      el.textContent = 'Distributor pricing applied';
+    }
+  }
+
+  // ── ADD TO CART — PDP main product ──
+  function pdpAddToCart(openDrawer) {
+    var inp = document.getElementById('qty-input');
+    var qty = Math.max(1, parseInt(inp ? inp.value : 1) || 1);
+    var varSel = document.getElementById('variant-sel');
+    var variantLabel = varSel ? varSel.options[varSel.selectedIndex].text : 'Standard';
+    var priceEl = document.getElementById('pdp-price');
+    var retail = parseFloat((priceEl ? priceEl.textContent : '$340.00').replace(/[^0-9.]/g, '')) || 340;
+    var dist = _distPrice(retail);
+    var name = 'Heavy-Duty Aluminium Radiator';
+    var id = 'TMG-RAD-0042';
+    var img = './assets/products/cad_ag_radiator_2.png';
+
+    var existing = tmgCart.find(function(c) { return c.id === id && c.variant === variantLabel; });
+    var prevQty = existing ? existing.qty : 0;
+    if (existing) {
+      existing.qty += qty;
+      existing.retailPrice = retail;
+      existing.distPrice = dist;
+    } else {
+      tmgCart.push({ id: id, name: name, division: 'Aftermarket Radiators', divColor: 'var(--navy)', variant: variantLabel, qty: qty, retailPrice: retail, distPrice: dist, img: img });
+      existing = tmgCart[tmgCart.length - 1];
+    }
+    var newQty = existing.qty;
+
+    updateBadge();
+    showToast(name + ' added to cart', false);
+    if (prevQty < MOQ && newQty >= MOQ) {
+      setTimeout(function() { showToast('Distributor pricing unlocked for ' + name, true); }, 300);
+    }
+
+    refreshDrawerUI();
+    if (openDrawer) openCartDrawer();
+  }
+
+  // ── ADD TO CART — related product cards ──
+  function relAddCart(name, id, retail, dist, img) {
+    var existing = tmgCart.find(function(c) { return c.id === id; });
+    var prevQty = existing ? existing.qty : 0;
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      tmgCart.push({ id: id, name: name, division: 'Aftermarket Radiators', divColor: 'var(--navy)', variant: 'Standard', qty: 1, retailPrice: retail, distPrice: dist, img: img });
+      existing = tmgCart[tmgCart.length - 1];
+    }
+    var newQty = existing.qty;
+    updateBadge();
+    showToast(name + ' added to cart', false);
+    if (prevQty < MOQ && newQty >= MOQ) {
+      setTimeout(function() { showToast('Distributor pricing unlocked for ' + name, true); }, 300);
+    }
+    refreshDrawerUI();
+  }
+
+  // ── DRAWER OPEN / CLOSE ──
+  function openCartDrawer() {
+    refreshDrawerUI();
+    document.getElementById('cart-backdrop').classList.add('open');
+    document.getElementById('cart-drawer').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCartDrawer() {
+    document.getElementById('cart-backdrop').classList.remove('open');
+    document.getElementById('cart-drawer').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  // aliases used elsewhere
+  function cdOpen() { openCartDrawer(); }
+  function cdClose() { closeCartDrawer(); }
+
+  // ── DRAWER NOTES TOGGLE ──
+  function toggleDrawerNotes() {
+    var area = document.getElementById('drawer-notes-area');
+    if (area) area.classList.toggle('open');
+  }
+
+  // ── REFRESH DRAWER UI ──
+  function refreshDrawerUI() {
+    var container = document.getElementById('drawer-items');
+    var countEl = document.getElementById('drawer-count');
+    var totalEl = document.getElementById('drawer-total-amt');
+    if (!container) return;
+
+    var subtotal = 0;
+    var itemCount = tmgCart.reduce(function(s, i) { return s + i.qty; }, 0);
+
+    if (countEl) countEl.textContent = itemCount + (itemCount === 1 ? ' item in your cart' : ' items in your cart');
+
+    if (tmgCart.length === 0) {
+      container.innerHTML =
+        '<div class="drawer-empty">' +
+          '<i class="ph ph-shopping-cart" style="font-size:40px;color:var(--lines);"></i>' +
+          '<div class="drawer-empty-lbl">Your quote cart is empty</div>' +
+          '<a class="btn-p" href="products.html">BROWSE PRODUCTS <i class="ph ph-arrow-right"></i></a>' +
+        '</div>';
+      if (totalEl) totalEl.textContent = '$0.00';
+      return;
+    }
+
+    container.innerHTML = '';
+    tmgCart.forEach(function(item, idx) {
+      var isUnlocked = item.qty >= MOQ;
+      var unitPrice = isUnlocked ? item.distPrice : item.retailPrice;
+      var lineTotal = unitPrice * item.qty;
+      subtotal += lineTotal;
+
+      var moqNotice = isUnlocked
+        ? '<div class="di-moq-notice">Distributor pricing applied (5+ units)</div>'
+        : '';
+
+      var el = document.createElement('div');
+      el.className = 'drawer-item';
+      el.innerHTML =
+        '<img class="di-img" src="' + (item.img || '') + '" alt="' + item.name + '" onerror="this.style.display=\'none\'" />' +
+        '<div class="di-info">' +
+          '<div class="di-div" style="background:' + (item.divColor || 'var(--navy)') + ';">' + item.division + '</div>' +
+          '<div class="di-name">' + item.name + '</div>' +
+          '<div class="di-sku">' + item.id + '</div>' +
+          '<div class="di-variant">' + item.variant + '</div>' +
+          moqNotice +
+          '<div class="di-qty-row">' +
+            '<div class="di-qty-wrap">' +
+              '<button class="di-qty-btn" onclick="drawerQtyChange(' + idx + ',-1)">−</button>' +
+              '<input class="di-qty-input" type="number" value="' + item.qty + '" min="1" onchange="drawerSetQty(' + idx + ',this.value)" />' +
+              '<button class="di-qty-btn" onclick="drawerQtyChange(' + idx + ',1)">+</button>' +
+            '</div>' +
+            '<div class="di-price-wrap">' +
+              '<div class="di-price">' + fmtMoney(lineTotal) + '</div>' +
+              '<span class="di-price-calc">' + fmtMoney(unitPrice) + ' × ' + item.qty + '</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<button class="di-remove" onclick="drawerRemove(' + idx + ')" title="Remove"><i class="ph ph-trash"></i></button>';
+      container.appendChild(el);
+    });
+
+    if (totalEl) totalEl.textContent = fmtMoney(subtotal);
+  }
+
+  // ── DRAWER QTY CONTROLS ──
+  function drawerQtyChange(idx, dir) {
+    if (!tmgCart[idx]) return;
+    var prevQty = tmgCart[idx].qty;
+    var newQty = prevQty + dir;
+    if (newQty < 1) {
+      tmgCart.splice(idx, 1);
+      updateBadge();
+      refreshDrawerUI();
+      return;
+    }
+    tmgCart[idx].qty = newQty;
+    updateBadge();
+    if (prevQty < MOQ && newQty >= MOQ) {
+      showToast('Distributor pricing unlocked for ' + tmgCart[idx].name, true);
+    }
+    refreshDrawerUI();
+  }
+  function drawerSetQty(idx, val) {
+    if (!tmgCart[idx]) return;
+    var prevQty = tmgCart[idx].qty;
+    var newQty = Math.max(1, parseInt(val) || 1);
+    tmgCart[idx].qty = newQty;
+    updateBadge();
+    if (prevQty < MOQ && newQty >= MOQ) {
+      showToast('Distributor pricing unlocked for ' + tmgCart[idx].name, true);
+    }
+    refreshDrawerUI();
+  }
+  function drawerRemove(idx) {
+    tmgCart.splice(idx, 1);
+    updateBadge();
+    refreshDrawerUI();
+  }
+
+  // ── VARIANT CHANGE: update dist price display on PDP ──
+  var variantDistMap = { std: 280, hd: 340 };
+  function onVariantChange() {
+    var sel = document.getElementById('variant-sel');
+    var d = variantData[sel.value];
+    if (!d) return;
+    document.getElementById('pdp-price').textContent = d.price;
+    var badge = document.getElementById('stock-badge');
+    badge.className = 'stock-badge ' + d.stock;
+    badge.innerHTML = '<i class="ph ' + d.stockIcon + '"></i> ' + d.stockTxt;
+    var distVal = variantDistMap[sel.value] || 280;
+    var distEl = document.getElementById('pdp-dist-val');
+    if (distEl) distEl.textContent = '$' + distVal;
+  }
+
+  // ── WIRE UP ──
+  document.addEventListener('DOMContentLoaded', function() {
+    var btnAdd = document.getElementById('btn-add-to-cart');
+    if (btnAdd) btnAdd.addEventListener('click', function() { pdpAddToCart(false); });
+
+    var btnBuy = document.getElementById('btn-buy-now');
+    if (btnBuy) btnBuy.addEventListener('click', function() { pdpAddToCart(true); });
+
+    var qtyInp = document.getElementById('qty-input');
+    if (qtyInp) {
+      qtyInp.addEventListener('input', function() {
+        if (this.value < 1 || isNaN(this.value)) this.value = 1;
+      });
+    }
+
+    var cartIcon = document.getElementById('cart-icon');
+    if (cartIcon) {
+      cartIcon.style.cursor = 'pointer';
+      cartIcon.addEventListener('click', openCartDrawer);
+    }
+
+    var notesEl = document.getElementById('drawer-notes');
+    if (notesEl) notesEl.addEventListener('input', function() {
+      sessionStorage.setItem('tmgCartNotes', this.value);
+    });
+
+    updateBadge();
+    refreshDrawerUI();
   });
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeCartDrawer();}});
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeCartDrawer();
+  });
+
+  // ── LEGACY STUBS ──
+  function showCartToast() { pdpAddToCart(false); }
+  function dismissToast() {}
+  function addCart() { updateBadge(); }
+  function updateCartBadge() { updateBadge(); }
+  function cdRender() { refreshDrawerUI(); }
 </script>
 
 </body>
