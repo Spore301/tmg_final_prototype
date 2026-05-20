@@ -132,26 +132,11 @@
         color: var(--red);
       }
 
-      .ubadge {
-        font-family: var(--HF);
-        font-size: 10px;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        background: var(--red);
-        color: #fff;
-        padding: 4px 12px;
-        display: none;
-      }
-
       @media (min-width: 768px) {
         .expo-bar {
           flex-direction: row;
           justify-content: center;
           text-align: center;
-        }
-
-        .ubadge {
-          display: block;
         }
       }
 
@@ -392,6 +377,9 @@
         transition:
           opacity 0.35s,
           transform 0.35s;
+        font-kerning: normal;
+        text-rendering: optimizeLegibility;
+        margin-left: -4px;
       }
 
       .hero-sub {
@@ -2717,7 +2705,7 @@
             id="ann-text"
             style="transition: opacity 0.4s ease"
           >
-            🔴 EXPO 2026 — Booth 4A · Apr 20–26 · Come find us
+            🔴 New: Charge Air Coolers now in stock — Ships in 3–5 business days
           </div>
         </div>
         <!-- UTILITY -->
@@ -2732,7 +2720,7 @@
               <a class="si" href="#"><i class="ph ph-instagram-logo"></i></a>
               <a class="si" href="#"><i class="ph ph-facebook-logo"></i></a>
             </div>
-            <div class="ubadge">Expo Apr 20–26 · Booth [X]</div>
+
           </div>
         </div>
         <!-- NAV -->
@@ -3694,8 +3682,7 @@
           <div class="contact-form">
             <div class="expo-note">
               <div class="expo-note-t">
-                Visiting Expo Apr 20–26?<br />Meet us at Booth [X] — or fill in
-                the form and we'll follow up before the event.
+                Have a project in mind? Fill out the form and we'll get back to you within 1 business day.
               </div>
             </div>
             <span class="form-lbl">Name &amp; Company</span>
@@ -3767,7 +3754,7 @@
       <!-- FOOTER -->
       <div class="footer">
         <div class="footer-expo">
-          We're at Expo Apr 20–26 · Booth [X] · Come find us
+          Custom thermal solutions built to spec — Request a quote and hear back within 1 business day
         </div>
         <div class="footer-grid">
           <div>
@@ -4209,7 +4196,6 @@
 
       // 1. Announcement Bar
       const annTexts = [
-        "🔴 EXPO 2026 — Booth 4A · Apr 20–26 · Come find us",
         "🔴 New: Charge Air Coolers now in stock — Ships in 3–5 business days",
         "🔴 Free shipping on orders over $500 within the continental US",
       ];
